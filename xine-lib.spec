@@ -5,18 +5,20 @@
 # --without	esd
 # --without	oss
 # --with	dxr3
+# --without	opengl
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.8
-Release:	4
+Version:	0.9.9
+Release:	0.1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am15.patch
+Patch1:		%{name}-configure_vfill.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
@@ -29,6 +31,7 @@ BuildRequires:	automake >= 1.5
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 %{!?_without_esd:BuildRequires:		esound-devel}
+%{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %ifarch %{ix86}
 BuildRequires:  divx4linux-devel
 %endif
@@ -41,6 +44,8 @@ BuildRequires:	libtool >= 1.4.2
 BuildConflicts:	wine-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
+
+%define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -207,16 +212,40 @@ XINE video plugin using XFree MIT shared memory.
 Wtyczka video do XINE z obs³ug± XFree MIT shared memory.
 
 %package syncfb
-Summary:	XINE - Framebuffer support
-Summary(pl):	XINE - obs³uga framebuffera
+Summary:	XINE - SyncFB (Matrox G200/G400) support
+Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description syncfb
-XINE video plugin using framebuffer.
+SyncFB (for Matrox G200/G400 cards) interface for xine.
 
 %description syncfb -l pl
-Wtyczka video do XINE z obs³ug± framebuffera.
+Wtyczka video do XINE obs³uguj±ca interfejs SyncFB (dla kart Matrox G200/G400).
+
+%package fb
+Summary:	XINE - framebuffer support
+Summary(pl):	XINE - obs³uga framebuffera
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description fb
+SyncFB (for Matrox G200/G400 cards) interface for xine.
+
+%description fb -l pl
+Wtyczka video do XINE dla framebuffera.
+
+%package opengl
+Summary:	XINE - OpenGL video output
+Summary(pl):	XINE - wy¶wietlanie OpenGL
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description opengl
+XINE plugin using OpenGL for video output.
+
+%description opengl -l pl
+Wtyczka video do XINE wykorzystuj±ca OpenGL do wy¶wietlania.
 
 %package w32dll
 Summary:	XINE - win32dll decoder support
@@ -256,6 +285,7 @@ plugins para o xine e o xine-ui.
 %prep
 %setup -q
 #%patch0 -p1
+%patch1 -p1
 
 %build
 rm -f missing
@@ -277,7 +307,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf AUTHORS ChangeLog
+gzip -9nf AUTHORS ChangeLog TODO
 
 %find_lang %{name}
 
@@ -298,9 +328,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 
 # input plugins
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
@@ -308,10 +340,10 @@ rm -rf $RPM_BUILD_ROOT
 # demuxer plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_cda.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
-%attr(755,root,root) %{_pluginsdir}/*mpeg_*.so
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
@@ -321,8 +353,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
+
 %if %{!?_without_oss:1}%{?_without_oss:0}
 %files oss
 %defattr(644,root,root,755)
@@ -375,6 +410,16 @@ rm -rf $RPM_BUILD_ROOT
 %files syncfb
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*syncfb.so
+
+%files fb
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/*_fb.so
+
+%if %{!?_without_opengl:1}%{?_without_opengl:0}
+%files opengl
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/*opengl.so
+%endif
 
 %ifarch %{ix86}
 %files w32dll
