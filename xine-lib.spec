@@ -1,4 +1,5 @@
 #
+# TODO: update to rc6 (security fixes - XSA-2004-4 XSA-2004-5)
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
