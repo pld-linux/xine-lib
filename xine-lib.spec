@@ -28,7 +28,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b12
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -64,9 +64,9 @@ BuildRequires:	libdivxdecore-devel
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 Obsoletes:	xine-libs
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
@@ -532,11 +532,11 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %configure \
 	CPPFLAGS=-I/usr/include/xvid \
 	--with-external-dvdnav \
-%{!?_without_aalib:	--with-aalib-prefix=/usr} \
-%{!?_without_alsa:	--enable-alsa} \
-%{?_without_alsa:	--disable-alsa} \
-%{?_with_dxr3:		--enable-dxr3} \
-%{!?_with_dxr3:		--disable-dxr3}
+	%{!?_without_aalib:--with-aalib-prefix=/usr} \
+	%{!?_without_alsa:--enable-alsa} \
+	%{?_without_alsa:--disable-alsa} \
+	%{?_with_dxr3:--enable-dxr3} \
+	%{!?_with_dxr3:--disable-dxr3}
 
 %{__make}
 
