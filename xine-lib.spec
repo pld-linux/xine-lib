@@ -17,21 +17,18 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc8
-%define		_version	1-%{_rc}
-
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
-Release:	0.%{_rc}.2
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	dd571489e361987805100fdd80e0b921
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
+# Source0-md5:	96e5195c366064e7778af44c3e71f43a
 Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
@@ -640,7 +637,7 @@ Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca rozszerzenia XVideo.
 Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 
 %prep
-%setup -q -n %{name}-%{_version}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %ifarch sparc
@@ -654,7 +651,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-CPPFLAGS=-I/usr/include/xvid
 %configure \
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
