@@ -23,7 +23,9 @@ URL:		http://xine.sourceforge.net/
 %{!?_without_aa:BuildRequires:	aalib-devel}
 %{!?_without_aa:BuildRequires:	aalib-progs}
 %{!?_without_esd:BuildRequires:	esound-devel}
+%ifnarch alpha
 %{!?_without_arts:BuildRequires:	arts-devel}
+%endif
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -269,10 +271,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %endif
 
+%ifnarch alpha
 %if %{!?_without_arts:1}
 %files arts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*arts.so
+%endif
 %endif
 
 %if %{!?_without_esd:1}
@@ -301,9 +305,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*xshm.so
 
+%ifnarch %{x86}
 %files w32dll
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*w32dll.so
+%endif
 
 %files devel
 %defattr(644,root,root,755)
