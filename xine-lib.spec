@@ -44,7 +44,7 @@ URL:		http://xine.sourceforge.net/
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	automake >= 1.8.1
+BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
