@@ -301,8 +301,25 @@ aclocal
 %{__autoconf}
 %{__automake}
 autoheader
-#CPPFLAGS="-DFPM_INTEL"
-#export CPPFLAGS
+
+# flag for libmad
+%ifarch %{ix86}
+CPPFLAGS="-DFPM_INTEL"
+%endif
+%ifarch sparc
+CPPFLAGS="-DFPM_SPARC"
+%endif
+%ifarch ppc
+CPPFLAGS="-DFPM_PPC"
+%endif
+%ifarch ia64 alpha
+CPPFLAGS="-DFPM_64BIT"
+%endif
+%ifnarch %{ix86} sparc ppc ia64 alpha
+CPPFLAGS="-DFPM_DEFAULT"
+%endif
+export CPPFLAGS
+
 %configure \
 	--with-aalib-prefix=/usr \
 %{?_with_alsa:	--enable-alsa} \
