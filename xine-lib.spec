@@ -1,8 +1,8 @@
 # Conditional build:
-# --without	aa
+# --with	aalib
 # --without	alsa
 # --without	arts
-# --without gnome
+# --without 	gnome
 # --with	directfb
 # --with	dxr3
 # --without	esd
@@ -37,8 +37,8 @@ Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
-%{!?_without_aa:BuildRequires:		aalib-devel}
-%{!?_without_aa:BuildRequires:		aalib-progs}
+%{?_with_aalib:BuildRequires:		aalib-devel}
+%{?_with_aalib:BuildRequires:		aalib-progs}
 %{!?_without_arts:BuildRequires:	arts-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{!?_without_esd:BuildRequires:		esound-devel}
@@ -443,7 +443,7 @@ Modu³y video oparte na VIDIX dla chipsetow Cyberblade/i1.
 
 %configure \
 CPPFLAGS=-I/usr/include/xvid \
-%{!?_without_aa:	--with-aalib-prefix=/usr} \
+%{?_with_aalib:		--with-aalib-prefix=/usr} \
 %{!?_without_alsa:	--enable-alsa} \
 %{?_without_alsa:	--disable-alsa} \
 %{?_with_dxr3:		--enable-dxr3} \
@@ -587,7 +587,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/*.m4
 %{_pkgconfigdir}/libxine.pc
 
-%if %{?_without_aa:0}%{!?_without_aa:1}
+%if %{?_with_aalib:1}%{!?_with_aalib:0}
 %files aa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*aa.so
