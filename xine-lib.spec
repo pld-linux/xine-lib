@@ -27,7 +27,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b12
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -252,6 +252,7 @@ Summary(pt_BR):	XINE - suporte a esd
 Group:		Libraries
 Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-esd
 
 %description -n xine-output-audio-esd
 XINE audio output plugin with esd support.
