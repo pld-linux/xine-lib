@@ -28,8 +28,6 @@ Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-# taken from automake 1.5
-Source1:	ptrdiff.m4
 Patch0:		%{name}-am_fixes.patch
 Patch1:		%{name}-noopt.patch
 Patch2:		%{name}-automake_as.patch
@@ -294,6 +292,7 @@ Summary:	XINE - OpenGL video output
 Summary(pl):	XINE - wy¶wietlanie OpenGL
 Group:		Libraries
 Requires:	%{name} = %{version}
+Requires:	OpenGL
 
 %description opengl
 XINE plugin using OpenGL for video output.
@@ -341,7 +340,6 @@ plugins para o xine e o xine-ui.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-cat %SOURCE1 >> acinclude.m4
 
 %build
 rm -f missing
