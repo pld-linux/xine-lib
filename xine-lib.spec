@@ -353,7 +353,7 @@ rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-autoheader
+%{__autoheader}
 
 %configure \
 %{!?_without_aa:	--with-aalib-prefix=/usr} \
