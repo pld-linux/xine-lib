@@ -10,8 +10,8 @@ Summary:	A Free Video Player
 Summary(pl):	Odtwarzacz video
 Summary(ko):	공개 동영상 플레이어
 Name:		xine-lib
-Version:	0.5.0
-Release:	2
+Version:	0.5.3
+Release:	1
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -19,6 +19,8 @@ Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
+Patch0:		%{name}-configure.patch
+Patch1:		%{name}-stubs.patch
 URL:		http://xine.sourceforge.net/
 %{!?_without_aa:BuildRequires:	aalib-devel}
 %{!?_without_aa:BuildRequires:	aalib-progs}
@@ -213,9 +215,16 @@ HTML documentation of XINE API and development components.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
-%configure2_13 \
+libtoolize -c -f
+aclocal
+autoconf
+automake -a -c
+autoheader
+%configure \
 	--with-aalib-prefix=/usr
 	
 %{__make}
@@ -225,6 +234,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
+gzip -9nf doc/FAQ doc/README.*
+
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
@@ -233,9 +244,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxine*.so.*.*
+%attr(755,root,root) %{_libdir}/libxine*.so*
 %dir %{_datadir}/xine/skins
+%{_datadir}/xine/skins/*.png
 %dir %{_pluginsdir}
+%doc doc/FAQ.gz
+%doc doc/README.xinerc.gz
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
@@ -249,9 +263,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg.so
 %attr(755,root,root) %{_pluginsdir}/*mpeg_*.so
 # decoder plugins
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_ac3.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpg123.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 # video driver plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
@@ -287,8 +303,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{!?_with_dxr3:0}
 %files dxr3
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/xine/plugins/xineplug_decode_dxr3.so
 %attr(755,root,root) %{_libdir}/xine/plugins/xineplug_vo_out_dxr3.so
+%doc doc/README.dxr3.gz
 %endif
 
 %files xv
@@ -313,7 +331,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/xine/xine-lib-API/*.html
+%doc doc/xine-lib-API/html/*.{html,png,gif,css}
 %attr(755,root,root) %{_bindir}/xine-config
 %attr(755,root,root) %{_includedir}/*
 %attr(755,root,root) %{_libdir}/libxine*.la
