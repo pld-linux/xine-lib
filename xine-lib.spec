@@ -348,7 +348,7 @@ libtoolize --copy --force
 gettextize --copy --force
 aclocal
 %{__autoconf}
-%{__automake} -c -a
+%{__automake}
 autoheader
 
 %configure \
