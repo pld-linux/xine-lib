@@ -526,7 +526,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-
 %configure \
 	CPPFLAGS=-I/usr/include/xvid \
 	--with-external-dvdnav \
@@ -535,7 +534,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?_without_alsa:--disable-alsa} \
 	%{?_with_dxr3:--enable-dxr3} \
 	%{!?_with_dxr3:--disable-dxr3}
-
 %{__make}
 
 %install
