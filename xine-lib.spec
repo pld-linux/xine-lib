@@ -3,7 +3,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_without	arts		# don't build aRts audio output plugin
-%bcond_without	directfb	# don't build DirectFB video output plugin
+#%bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs plugin
@@ -15,7 +15,7 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc3a
+%define		_rc		rc3b
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -24,19 +24,19 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
-Release:	0.%{_rc}.3
+Release:	0.%{_rc}.1
 Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	6dfd0c67b5b694adb283c0f6d8d3ab03
+# Source0-md5:	20d90ab83b52711c1f60060b52571230
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-am18.patch
-Patch3:		%{name}-devfs.patch
+Patch3:		%{name}-kernel.patch
 Patch4:		%{name}-ppc-nokernel.patch
 URL:		http://xine.sourceforge.net/
-%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
+#%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
 %{?with_sdl:BuildRequires:	SDL-devel}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
@@ -327,20 +327,20 @@ Wtyczka wyj¶cia obrazu do XINE z obs³ug± Ascii Art.
 %description -n xine-output-video-aa -l pt_BR
 Plugin de video para o xine, utilizando a aalib.
 
-%package -n xine-output-video-directfb
-Summary:	XINE - accelereted framebuffer support
-Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-lib-directfb
+#%package -n xine-output-video-directfb
+#Summary:	XINE - accelereted framebuffer support
+#Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
+#Group:		Libraries
+#Requires:	%{name} = %{epoch}:%{version}-%{release}
+#Obsoletes:	xine-lib-directfb
 
-%description -n xine-output-video-directfb
-XINE video output plugin for accelereted framebuffer support (with
-DirectFB library).
+#%description -n xine-output-video-directfb
+#XINE video output plugin for accelereted framebuffer support (with
+#DirectFB library).
 
-%description -n xine-output-video-directfb -l pl
-Wtyczka wyj¶cia obrazu do XINE dla akcelerowanego framebuffera (przez
-bibliotekê DirectFB).
+#%description -n xine-output-video-directfb -l pl
+#Wtyczka wyj¶cia obrazu do XINE dla akcelerowanego framebuffera (przez
+#bibliotekê DirectFB).
 
 %package -n xine-output-video-dxr3
 Summary:	XINE - DXR3 support
@@ -354,6 +354,18 @@ XINE video/decoder plugins for DXR3 card support.
 
 %description -n xine-output-video-dxr3 -l pl
 Wtyczka wyj¶cia i dekodera obrazu do XINE z obs³ug± kart DXR3.
+
+%package -n xine-output-video-caca
+Summary:	XINE - Color AsCii Art support
+Summary(pl):	XINE - obs³uga Color AsCii Art
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-caca
+Color AsCii Art output plugin for xine.
+
+%description -n xine-output-video-caca -l pl
+Wtyczka wyj¶cia obrazu do XINE dla kolorowego wyj¶cia AsCii Art.
 
 %package -n xine-output-video-fb
 Summary:	XINE - framebuffer support
@@ -395,20 +407,20 @@ XINE video output plugin using SDL library.
 %description -n xine-output-video-sdl -l pl
 Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê SDL.
 
-%package -n xine-output-video-syncfb
-Summary:	XINE - SyncFB (Matrox G200/G400) support
-Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-lib-syncfb
+#%package -n xine-output-video-syncfb
+#Summary:	XINE - SyncFB (Matrox G200/G400) support
+#Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
+#Group:		Libraries
+#Requires:	%{name} = %{epoch}:%{version}-%{release}
+#Obsoletes:	xine-lib-syncfb
 
-%description -n xine-output-video-syncfb
-XINE video output plugin using SyncFB interface (for Matrox G200/G400
-cards).
+#%description -n xine-output-video-syncfb
+#XINE video output plugin using SyncFB interface (for Matrox G200/G400
+#cards).
 
-%description -n xine-output-video-syncfb -l pl
-Wtyczka wyj¶cia obrazu do XINE obs³uguj±ca interfejs SyncFB (dla kart
-Matrox G200/G400).
+#%description -n xine-output-video-syncfb -l pl
+#Wtyczka wyj¶cia obrazu do XINE obs³uguj±ca interfejs SyncFB (dla kart
+#Matrox G200/G400).
 
 %package -n xine-output-video-vidix
 Summary:	XINE - VIDIX video output plugin
@@ -514,6 +526,18 @@ VIDIX driver for Rage128 chips.
 %description -n xine-output-video-vidix-rage128 -l pl
 Sterownik VIDIX dla uk³adów Rage128.
 
+%package -n xine-output-video-vidix-sis
+Summary:	VIDIX driver for SiS chips
+Summary(pl):	Sterownik VIDIX dla uk³adów SiS
+Group:		Libraries
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-vidix-sis
+VIDIX driver for SiS 300 and 310/325 series chips.
+
+%description -n xine-output-video-vidix-sis -l pl
+Sterownik VIDIX dla uk³adów SiS serii 300 i 310/325.
+
 %package -n xine-output-video-xshm
 Summary:	XINE - XFree XShm support
 Summary(pl):	XINE - obs³uga XFree XShm
@@ -566,7 +590,7 @@ CPPFLAGS=-I/usr/include/xvid
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
 	%{?with_dxr3:--enable-dxr3} \
-	%{!?with_dxr3:--disable-dxr3}
+	%{!?with_dxr3:--disable-dxr3} 
 
 %{__make}
 
@@ -578,7 +602,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
-mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
+#mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
 #Remove useless *.la files
 rm -f $RPM_BUILD_ROOT%{_libdir}/xine/plugins/1.0.0/{,vidix,post}/*.la
@@ -629,10 +653,13 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_eawve.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_film.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_flv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_games.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_iff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_image.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_matroska.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_nsv.so
@@ -654,46 +681,49 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv_frames.so
 
 # decoder plugins
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_bitplane.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_image.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
 
 # Others
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_none.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
 
@@ -777,11 +807,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_aa.so
 %endif
 
-%if %{with directfb}
-%files -n xine-output-video-directfb
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
-%endif
+#%if %{with directfb}
+#%files -n xine-output-video-directfb
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
+#%endif
 
 %if %{with dxr3}
 %files -n xine-output-video-dxr3
@@ -790,6 +820,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3_video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
+
+%files -n xine-output-video-caca
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_caca.so
 
 %files -n xine-output-video-fb
 %defattr(644,root,root,755)
@@ -807,9 +841,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
 %endif
 
-%files -n xine-output-video-syncfb
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
+#%files -n xine-output-video-syncfb
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 
 %ifarch %{ix86}
 %files -n xine-output-video-vidix
@@ -846,6 +880,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-video-vidix-rage128
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
+
+%files -n xine-output-video-vidix-sis
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/sis*.so
 %endif
 
 %files -n xine-output-video-xshm
