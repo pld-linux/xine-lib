@@ -36,6 +36,7 @@ Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-syncfb.patch
 Patch3:		%{name}-nolibs.patch
 Patch4:		%{name}-sparc.patch
+Patch5:		%{name}-speex_includes.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -63,7 +64,7 @@ BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
-BuildRequires:	speex-devel
+BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.20-2
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
@@ -596,6 +597,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %ifarch sparc
 %patch4 -p1
 %endif
+%patch5 -p1
 
 %build
 %{__libtoolize}
