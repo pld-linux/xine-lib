@@ -385,7 +385,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
 %{_datadir}/xine/libxine1/fonts
-#%{_datadir}/xine/skins
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
@@ -395,47 +394,43 @@ rm -rf $RPM_BUILD_ROOT
 
 # input plugins
 #%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pnm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
-# new
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pnm.so
 
 # demuxer plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_aiff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_cda.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_eawve.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_film.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_smjpeg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_snd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_voc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_vqa.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wav.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wc3movie.so
-# new
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_eawve.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
 
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
@@ -447,15 +442,22 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
@@ -464,19 +466,11 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
-# new
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
+
+# 
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
 
 %files devel
@@ -543,15 +537,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*oss.so
 
-#%if %{?_without_sdl:0}%{!?_without_sdl:1}
-#%files sdl
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/*_sdl.so
-#%endif
+%if %{?_without_sdl:0}%{!?_without_sdl:1}
+%files sdl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
+%endif
 
-#%files syncfb
-#%defattr(644,root,root,755)
-#%attr(644,root,root) %{_pluginsdir}/*syncfb.so
+%files syncfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 
 %ifarch %{ix86}
 %files w32dll
