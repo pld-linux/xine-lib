@@ -40,7 +40,7 @@ Patch4:		%{name}-win32-path.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
-%{?with_sdl:BuildRequires:	SDL-devel}
+%{?with_sdl:BuildRequires:	SDL-devel >= 1.1.5}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
@@ -51,10 +51,11 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_opengl:BuildRequires:	glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
+BuildRequires:	libXvMCW-devel
 BuildRequires:	libcaca-devel
 BuildRequires:	libcdio-devel >= 0.64
 BuildRequires:	libdvdnav-devel >= 0.1.9
-%{?with_dxr3:BuildRequires:	libfame-devel}
+%{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
@@ -619,15 +620,16 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{__automake}
 CPPFLAGS=-I/usr/include/xvid
 %configure \
-	--with-external-dvdnav \
-	--with-w32-path=%{_libdir}/codecs \
-	--with-xv-path=/usr/X11R6/%{_lib} \
-	%{?with_aalib:--with-aalib-prefix=/usr} \
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
 	%{?with_dxr3:--enable-dxr3} \
 	%{!?with_dxr3:--disable-dxr3} \
-	%{?with_directfb:--enable-directfb}
+	%{?with_directfb:--enable-directfb} \
+	--enable-ipv6 \
+	%{?with_aalib:--with-aalib-prefix=/usr} \
+	--with-external-dvdnav \
+	--with-w32-path=%{_libdir}/codecs \
+	--with-xv-path=/usr/X11R6/%{_lib}
 
 %{__make}
 
@@ -905,3 +907,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-video-xv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xv.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xvmc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xxmc.so
