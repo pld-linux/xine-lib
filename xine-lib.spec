@@ -35,6 +35,8 @@ BuildRequires:	libtool
 Obsoletes:	xine
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 %define		_pluginsdir	%{_libdir}/xine/plugins
 
 
@@ -230,8 +232,7 @@ HTML documentation of XINE API and development components.
 %build
 aclocal -I m4
 %configure2_13 \
-	--prefix=%{_prefix} \
-	--with-aalib-prefix=/usr
+	--exec-prefix=%{_prefix}
 	
 %{__make}
 
@@ -249,7 +250,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{_datadir}/xine/skins
-%{_mandir}/man3/*.3.*
 
 %attr(755,root,root) %{_libdir}/libxine*.so*
 # input plugins
@@ -317,4 +317,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xine.h
 %{_pluginsdir}/*.la
 %{_libdir}/libxine*.la
+%doc %{_mandir}/man3/*.3.*
 %doc doc/xine/xine-lib-API/*.html
