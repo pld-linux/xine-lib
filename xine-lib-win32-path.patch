@@ -1,0 +1,11 @@
+--- xine-lib-1-rc6a.orig/src/libw32dll/wine/module.c	2004-08-13 03:16:55.000000000 +0200
++++ xine-lib-1-rc6a/src/libw32dll/wine/module.c	2004-10-18 23:20:26.300937920 +0200
+@@ -354,7 +354,7 @@
+ HMODULE WINAPI LoadLibraryExA(LPCSTR libname, HANDLE hfile, DWORD flags)
+ {
+ 	WINE_MODREF *wm = 0;
+-	char* listpath[] = { "", "", "/usr/lib/win32", "/usr/local/lib/win32", 0 };
++	char* listpath[] = { "", "", WIN32_PATH, "/usr/local/lib/win32", 0 };
+ 	char path[512];
+ 	char checked[2000];
+         int i = -1;
