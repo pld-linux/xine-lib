@@ -10,8 +10,8 @@ Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Name:		xine-lib
-Version:	0.9.4
-Release:	2
+Version:	0.9.5
+Release:	1
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -335,28 +335,29 @@ rm -rf $RPM_BUILD_ROOT
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
 # demuxer plugins
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/*mpeg_*.so
 # decoder plugins
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
-
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 %if %{!?_without_oss:1}%{?_without_oss:0}
 %files oss
 %defattr(644,root,root,755)
