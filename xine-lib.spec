@@ -107,7 +107,7 @@ Requires:	%{name} = %{version}
 %description arts
 XINE audio plugin with arts support.
 
-%description -l pl arts
+%description arts -l pl
 Wtyczka audio do XINE z obs³ug± arts.
 
 %package esd
@@ -222,7 +222,7 @@ autoheader
 	--with-aalib-prefix=/usr \
 %{?_with_alsa:	--enable-alsa} \
 %{!?_with_alsa:	--disable-alsa}
-	
+
 %{__make}
 
 %install
