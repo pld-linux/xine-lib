@@ -23,7 +23,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.12
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -31,6 +31,7 @@ Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
 Source1:	ptrdiff.m4
 Patch0:		%{name}-am_fixes.patch
 Patch1:		%{name}-noopt.patch
+Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
@@ -338,6 +339,7 @@ plugins para o xine e o xine-ui.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 cat %SOURCE1 >> acinclude.m4
 
 %build
@@ -346,7 +348,7 @@ libtoolize --copy --force
 gettextize --copy --force
 aclocal
 %{__autoconf}
-%{__automake}
+%{__automake} -c -a
 autoheader
 
 %configure \
@@ -354,7 +356,8 @@ autoheader
 %{!?_without_alsa:	--enable-alsa} \
 %{?_without_alsa:	--disable-alsa} \
 %{!?_without_dxr3:	--enable-dxr3} \
-%{?_without_dxr3:	--disable-dxr3}
+%{?_without_dxr3:	--disable-dxr3} \
+			--disable-vidix
 
 %{__make}
 
@@ -380,9 +383,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
 %{_datadir}/xine/fonts
-%dir %{_datadir}/xine/skins
-%{_datadir}/xine/skins/*.png
-%{_datadir}/xine/skins/*.mpg
+%{_datadir}/xine/skins
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %doc AUTHORS ChangeLog TODO
@@ -401,11 +402,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_cda.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_film.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
@@ -415,9 +419,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 
 %files oss
