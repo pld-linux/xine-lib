@@ -1,15 +1,15 @@
 #
 # Conditional build:
-# --without	aalib
-# --without	alsa
-# --without	arts
-# --without 	gnome
-# --with	directfb	[disabled in sources for now, don't use]
-# --with	dxr3
-# --without	esd
-# --without	opengl
-# --without	sdl
-# --without	xvid
+# _without_aalib	- don't build aalib video output plugin
+# _without_alsa		- don't build ALSA audio output plugin
+# _without_arts		- don't build aRts audio output plugin
+# _without_gnome	- don't build gnome_vfs plugin
+# _with_directfb	- build DirectFB video plugin [disabled in sources for now, don't use]
+# _with_dxr3		- build dxr3 video output and decode plugins
+# _without_esd		- don't build EsounD audio output plugin
+# _without_opengl	- don't build OpenGL video output plugin [useless at the moment]
+# _without_sdl		- don't build SDL video output plugin
+# _without_xvid		- don't build xvid decode plugin [useless at the moment]
 #
 %ifarch alpha
 %define		_without_arts	1
@@ -49,7 +49,7 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
 %{!?_without_gnome:BuildRequires:	gnome-vfs2-devel}
-#BuildRequires:	libdvdnav-devel >= 0.1.8
+BuildRequires:	libdvdnav-devel >= 0.1.9
 BuildRequires:	libmng-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
@@ -145,17 +145,21 @@ XINE - FLAC decoder/demuxer plugin.
 %description -n xine-decode-flac -l pl
 XINE - wtyczka dekodera i demuxera FLAC.
 
-%package -n xine-decode-vorbis
-Summary:	XINE - Ogg/Vorbis decoder plugin
-Summary(pl):	XINE - wtyczka dekodera Ogg/Vorbis
+%package -n xine-decode-ogg
+Summary:	XINE - Ogg/Vorbis and Ogg/Speex decoder plugins
+Summary(pl):	XINE - wtyczki dekoderów Ogg/Vorbis i Ogg/Speex
 Group:		Libraries
 Requires:	%{name} = %{version}
+Obsoletes:	xine-decode-vorbis
+# Ogg/Theora info to be added when plugin is ready
 
-%description -n xine-decode-vorbis
-XINE Ogg/Vorbis decoding plugins: Ogg demuxer and Vorbis decoder.
+%description -n xine-decode-ogg
+XINE Ogg/Vorbis and Ogg/Speex decoding plugins: Ogg demuxer, Vorbis
+and Speex decoders.
 
-%description -n xine-decode-vorbis -l pl
-Wtyczki XINE dekoduj±ce Ogg/Vorbis: demuxer Ogg i dekoder Vorbis.
+%description -n xine-decode-ogg -l pl
+Wtyczki XINE dekoduj±ce Ogg/Vorbis i Ogg/Speex: demuxer Ogg oraz
+dekodery Vorbis i Speex.
 
 %package -n xine-decode-w32dll
 Summary:	XINE - win32dll decoder support
@@ -212,6 +216,18 @@ GNOME VFS input driver for xine.
 
 %description -n xine-input-gnome-vfs -l pl
 Sterownik wej¶cia GNOME VFS dla xine.
+
+%package -n xine-input-v4l
+Summary:	Video4Linux input driver for xine
+Summary(pl):	Sterownik wej¶cia Video4Linux dla xine
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description -n xine-input-v4l
+Video4Linux input driver for xine.
+
+%description -n xine-input-v4l -l pl
+Sterownik wej¶cia Video4Linux dla xine.
 
 %package -n xine-output-audio-alsa
 Summary:	XINE - alsa support
@@ -585,7 +601,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
 
 # demuxer plugins
@@ -661,7 +676,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_speex.so
 
 # Others
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
@@ -681,8 +695,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_flac.so
 
-%files -n xine-decode-vorbis
+%files -n xine-decode-ogg
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_speex.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_theora.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 
@@ -699,15 +715,19 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
 #%endif
 
+%files -n xine-input-dvd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+
 %if 0%{!?_without_gnome:1}
 %files -n xine-input-gnome-vfs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
 %endif
 
-%files -n xine-input-dvd
+%files -n xine-input-v4l
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
 
 %if 0%{!?_without_alsa:1}
 %files -n xine-output-audio-alsa
