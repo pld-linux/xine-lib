@@ -377,8 +377,6 @@ mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
 %find_lang %{name}
 
-rm -f doc/xine-lib-API/{Makefile*,html/Makefile*}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -393,7 +391,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xine/skins
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
-%doc AUTHORS ChangeLog TODO doc/xine-lib-API
+%doc AUTHORS ChangeLog TODO
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
