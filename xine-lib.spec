@@ -30,8 +30,8 @@ Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-#Patch0:	%{name}-am_fixes.patch
-#Patch1:	%{name}-noopt.patch
+Patch0:		%{name}-am17.patch
+Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
@@ -53,7 +53,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
 BuildRequires:	imlib-devel
 BuildRequires:	libvorbis-devel
-BuildRequires:	libtool >= 1.4.2-9
+BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -342,15 +342,15 @@ plugins para o xine e o xine-ui.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
+%patch0 -p1
+%patch1 -p1
 %patch2 -p1
 
 %build
 rm -f missing
 %{__libtoolize}
 %{__gettextize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 autoheader
@@ -370,9 +370,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-mv $RPM_BUILD_ROOT%{_datadir}/aclocal/*.m4 $RPM_BUILD_ROOT%{_aclocaldir}
+	DESTDIR=$RPM_BUILD_ROOT \
+	m4datadir=%{_aclocaldir}
 
 mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
@@ -454,37 +453,37 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*oss.so
 
-%if %{!?_with_directfb:0}%{?_with_directfb:1}
+%if %{?_with_directfb:1}%{!?_with_directfb:0}
 %files directfb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*_directfb.so
 %endif
 
-%if %{!?_without_sdl:1}%{?_without_sdl:0}
+%if %{?_without_sdl:0}%{!?_without_sdl:1}
 %files sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*_sdl.so
 %endif
 
-%if %{!?_without_xvid:1}%{?_without_xvid:0}
+%if %{?_without_xvid:0}%{!?_without_xvid:1}
 %files xvid
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
 %endif
 
-%if %{!?_without_alsa:1}%{?_without_alsa:0}
+%if %{?_without_alsa:0}%{!?_without_alsa:1}
 %files alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*alsa*.so
 %endif
 
-%if %{!?_without_arts:1}%{?_without_arts:0}
+%if %{?_without_arts:0}%{!?_without_arts:1}
 %files arts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*arts.so
 %endif
 
-%if %{!?_without_esd:1}%{?_without_esd:0}
+%if %{?_without_esd:0}%{!?_without_esd:1}
 %files esd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*esd.so
@@ -501,7 +500,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*xv.so
 
-%if %{!?_without_aa:1}%{?_without_aa:0}
+%if %{?_without_aa:0}%{!?_without_aa:1}
 %files aa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*aa.so
@@ -519,7 +518,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*_fb.so
 
-%if %{!?_without_opengl:1}%{?_without_opengl:0}
+%if %{?_without_opengl:0}%{!?_without_opengl:1}
 %files opengl
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*opengl.so

@@ -1,0 +1,11 @@
+--- xine-lib-0.9.13/src/libw32dll/wine/Makefile.am.orig	Mon Mar 25 00:32:02 2002
++++ xine-lib-0.9.13/src/libw32dll/wine/Makefile.am	Sat Oct  5 19:53:36 2002
+@@ -33,7 +33,7 @@
+ 		 wineacm.h     winestring.h resource.h ldt_keeper.h com.h
+ 
+ stubs.lo: stubs.s
+-	$(CC) -c $(srcdir)/stubs.s -o stubs.lo
++	$(LIBTOOL) $(CC) --mode=compile -c $(srcdir)/stubs.s -o stubs.lo
+ 
+ debug:
+ 	@$(MAKE) CFLAGS="$(DEBUG_CFLAGS)"
