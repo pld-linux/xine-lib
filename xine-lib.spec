@@ -21,16 +21,20 @@ Group(pl):	Biblioteki
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-configure.patch
 Patch1:		%{name}-stubs.patch
+Patch2:		%{name}-am15.patch
 URL:		http://xine.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake >= 1.5
 %{!?_without_aa:BuildRequires:	aalib-devel}
 %{!?_without_aa:BuildRequires:	aalib-progs}
-%{!?_without_esd:BuildRequires:	esound-devel}
 %ifnarch alpha
 %{!?_without_arts:BuildRequires:	arts-devel}
 %endif
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
+%{!?_without_esd:BuildRequires:	esound-devel}
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 
@@ -217,6 +221,7 @@ HTML documentation of XINE API and development components.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 rm -f missing
