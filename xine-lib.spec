@@ -1,3 +1,4 @@
+<<<<<<< xine-lib.spec
 # Conditional build:
 # --without	aa
 # --with	alsa	(alsa support is currently broken)
@@ -9,8 +10,9 @@
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
+Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.7
+Version:	0.9.8
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -28,8 +30,9 @@ BuildRequires:	automake >= 1.5
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 %{!?_without_esd:BuildRequires:		esound-devel}
-BuildRequires:	libvorbis-devel
 BuildRequires:	divx4linux-devel
+BuildRequires:	gettext-devel
+BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
@@ -74,9 +77,17 @@ odtwarzanie. Zale¿nie od w³a¶ciwo¶ci strumienia MPEG, odtwarzanie mo¿e
 wymagaæ wiêcej lub mniej mocy procesora, 100% klatek mo¿e byæ widoczne
 na P II 400MHz.
 
+%description -l pt_BR
+O xine é um video player GPL para sistemas unix. Lê arquivos MPEG-2 e
+MPEG-1, além de AVIs MS MPEG4 / OpenDivX.
+
+O xine lê o conteúdo vídeo e áudio e sincroniza-os em tempo-real. As
+necessidades de processador dependem das propriedades de cada arquivo.
+
 %package oss
 Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obs³uga OSS/ALSA
+Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -86,9 +97,13 @@ XINE audio plugins with OSS/ALSA support.
 %description oss -l pl
 Wtyczka audio do XINE z obs³ug± OSS/ALSA.
 
+%description oss -l pt_BR
+Plugin de audio para o xine, com suporte a oss.
+
 %package alsa
 Summary:	XINE - alsa support
 Summary(pl):	XINE - obs³uga alsa
+Summary(pt_BR):	XINE - suporte a alsa
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -98,9 +113,13 @@ XINE audio plugin with alsa support.
 %description alsa -l pl
 Wtyczka audio do XINE z obs³ug± ALSA.
 
+%description alsa -l pt_BR
+Plugin de audio para o xine, com suporte a alsa.
+
 %package arts
 Summary:	XINE - arts support
 Summary(pl):	XINE - obs³uga arts
+Summary(pt_BR):	XINE - suporte a arts
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -113,6 +132,7 @@ Wtyczka audio do XINE z obs³ug± arts.
 %package esd
 Summary:	XINE - esd support
 Summary(pl):	XINE - obs³uga esd
+Summary(pt_BR):	XINE - suporte a esd
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -121,6 +141,9 @@ XINE audio plugin with esd support.
 
 %description esd -l pl
 Wtyczka audio do XINE z obs³ug± esd.
+
+%description esd -l pt_BR
+Plugin de audio para o xine, com suporte a esd.
 
 %package dxr3
 Summary:	XINE - DXR3 support
@@ -137,6 +160,7 @@ Wtyczka odtwarzacza obrazu do XINE z obs³ug± kart DXR3.
 %package xv
 Summary:	XINE - XFree XVideo support
 Summary(pl):	XINE - obs³uga XFree XVideo
+Summary(pt_BR):	XINE - suporte a XFree XVideo
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -146,9 +170,13 @@ XINE video plugin using XFree XVideo extension.
 %description xv -l pl
 Wtyczka video do XINE u¿ywaj±ca rozszerzenia XVideo.
 
+%description xv -l pt_BR
+Plugin de video para o xine, utilizando a extensão XVideo do XFree.
+
 %package aa
 Summary:	XINE - Ascii Art support
 Summary(pl):	XINE - obs³uga Ascii Art
+Summary(pt_BR):	XINE - suporte a aalib
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -157,6 +185,9 @@ XINE video plugin using Ascii Art library.
 
 %description aa -l pl
 Wtyczka video do XINE z obs³ug± Ascii Art.
+
+%description aa -l pt_BR
+Plugin de video para o xine, utilizando a aalib.
 
 %package xshm
 Summary:	XINE - XFree XShm support
@@ -185,6 +216,7 @@ Wtyczka video do XINE z obs³ug± framebuffera.
 %package w32dll
 Summary:	XINE - win32dll decoder support
 Summary(pl):	XINE - obs³uga dekodera win32dll
+Summary(pt_BR):	XINE - suporte a decoder win32dll
 Group:		Libraries
 Requires:	%{name} = %{version}
 Requires:	w32codec
@@ -195,11 +227,16 @@ XINE win32dll decoder support.
 %description w32dll -l pl
 Obs³uga dekodera win32dll do XINE.
 
+%description w32dll -l pt_BR
+Suporte a win32dll para o xine.
+
 %package devel
 Summary:	XINE - development files
 Summary(pl):	Pliki dla programistów XINE
+Summary(pt_BR):	XINE - arquivos de desenvolvimento
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Obsoletes:	xine-devel
 
 %description devel
 HTML documentation of XINE API and development components.
@@ -207,13 +244,18 @@ HTML documentation of XINE API and development components.
 %description devel -l pl
 Pliki dla programistów oraz dokumentacja HTML do API XINE.
 
+%description devel -l pt_BR
+Arquivos include a bibliotecas estáticas necessárias para compilar
+plugins para o xine e o xine-ui.
+
 %prep
 %setup -q
 #%patch0 -p1
 
 %build
 rm -f missing
-libtoolize -c -f
+libtoolize --copy --force
+gettextize --copy --force
 aclocal
 autoconf
 automake -a -c
@@ -232,15 +274,17 @@ rm -rf $RPM_BUILD_ROOT
 
 gzip -9nf AUTHORS ChangeLog
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libxine*.so*
+%attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
 %dir %{_datadir}/xine/skins
 %{_datadir}/xine/skins/*.png
@@ -339,5 +383,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xine-config
 %{_includedir}/*
 %attr(755,root,root) %{_libdir}/libxine*.la
+%attr(755,root,root) %{_libdir}/libxine*.so
 %attr(755,root,root) %{_pluginsdir}/*.la
-%{_mandir}/man3/*
+%{_mandir}/man[13]/*
