@@ -24,7 +24,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.12
-Release:	5
+Release:	6
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -113,6 +113,7 @@ Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obs³uga OSS/ALSA
 Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
+Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
 
 %description oss
@@ -129,6 +130,7 @@ Summary:	XINE - alsa support
 Summary(pl):	XINE - obs³uga alsa
 Summary(pt_BR):	XINE - suporte a alsa
 Group:		Libraries
+Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
 
 %description alsa
@@ -145,6 +147,7 @@ Summary:	XINE - arts support
 Summary(pl):	XINE - obs³uga arts
 Summary(pt_BR):	XINE - suporte a arts
 Group:		Libraries
+Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
 
 %description arts
@@ -158,6 +161,7 @@ Summary:	XINE - esd support
 Summary(pl):	XINE - obs³uga esd
 Summary(pt_BR):	XINE - suporte a esd
 Group:		Libraries
+Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
 
 %description esd
