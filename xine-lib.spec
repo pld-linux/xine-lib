@@ -13,12 +13,13 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.9
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-Patch0:		%{name}-am15.patch
-Patch1:		%{name}-configure_vfill.patch
+Patch0:		%{name}-configure_vfill.patch
+Patch1:		%{name}-am_fixes.patch
+Patch2:		%{name}-ac_fixes.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
@@ -34,14 +35,13 @@ BuildRequires:	automake >= 1.5
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %ifarch %{ix86}
 BuildRequires:  divx4linux-devel
-%endif
-%ifnarch %{ix86}
+BuildRequires:	xvid-devel
+%else
 BuildRequires:	libdivxdecore-devel
 %endif
 BuildRequires:	gettext-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 1.4.2
-BuildConflicts:	wine-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 
@@ -284,8 +284,9 @@ plugins para o xine e o xine-ui.
 
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 rm -f missing
