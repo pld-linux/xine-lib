@@ -7,8 +7,9 @@
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs plugin
-%bcond_with	opengl		# build OpenGL video output plugin [disabled in src at the moment]
+%bcond_without	opengl		# don't build OpenGL video output plugin
 %bcond_without	sdl		# don't build SDL video output plugin
+%bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 #
 %ifnarch %{ix86}
@@ -47,7 +48,7 @@ BuildRequires:	automake >= 1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
-BuildRequires:	glut-devel
+%{?with_opengl:BuildRequires:	glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 BuildRequires:	libcaca-devel
 BuildRequires:	libcdio-devel >= 0.64
@@ -56,6 +57,7 @@ BuildRequires:	libdvdnav-devel >= 0.1.9
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
+%{?with_stk:BuildRequires:	libstk-devel}
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
@@ -408,6 +410,21 @@ XINE video output plugin using SDL library.
 
 %description -n xine-output-video-sdl -l pl
 Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê SDL.
+
+%package -n xine-output-video-stk
+Summary:	XINE - STK video output support
+Summary(pl):	XINE - obs³uga wyj¶cia obrazu STK
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libstk(xine) >= 0.2.0
+Obsoletes:	xine-lib-sdl
+
+%description -n xine-output-video-stk
+XINE video output plugin using libstk library.
+
+%description -n xine-output-video-sdl -l pl
+Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê
+libstk.
 
 %package -n xine-output-video-syncfb
 Summary:	XINE - SyncFB (Matrox G200/G400) support
@@ -795,7 +812,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_fb.so
 
 %if %{with opengl}
-%files opengl
+%files -n xine-output-video-opengl
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
 %endif
@@ -804,6 +821,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-video-sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
+%endif
+
+%if %{with stk}
+%files -n xine-output-video-stk
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_stk.so
 %endif
 
 %files -n xine-output-video-syncfb
