@@ -1,0 +1,16 @@
+--- xine-lib-1-rc3a/src/xine-utils/ppcasm_string.S.orig	2003-07-13 19:29:04.000000000 +0000
++++ xine-lib-1-rc3a/src/xine-utils/ppcasm_string.S	2004-01-10 11:36:00.000000000 +0000
+@@ -18,13 +18,9 @@
+ 
+ #warning Be forewarned - using PowerPC assembly
+ 
+-#define __KERNEL__
+ #define __ASSEMBLY__
+ 
+ #include "ppc_asm.tmpl"
+-#include <linux/config.h>
+-#include <asm/processor.h>
+-#include <asm/cache.h>
+ #include <asm/errno.h>
+ 
+ #define COPY_16_BYTES		\
