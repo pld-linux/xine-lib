@@ -1,0 +1,30 @@
+diff -urN xine-lib-0.5.3/configure.in xine-lib-0.5.3.new/configure.in
+--- xine-lib-0.5.3/configure.in	Wed Sep  5 02:40:38 2001
++++ xine-lib-0.5.3.new/configure.in	Wed Sep 12 19:19:54 2001
+@@ -374,7 +374,7 @@
+     ;;
+   *)
+     dnl Set the appropriate architecture define
+-    case "$host_alias" in
++    case "$host" in
+     i?86-* | k?-* | athlon-*) dnl catch i386,i486,i586,i686,k6,k7
+ 
+         dnl Check for gcc cpu optimization support
+@@ -401,7 +401,7 @@
+         enable_ffmmx="yes"
+ 
+ 	if test x"$sarchopt" != "xno"; then
+-	    [case "$host_alias" in
++	    [case "$host" in
+ 		    i386-*) # *BSD return this even on a P III #-))
+                       GLOBAL_CFLAGS="$GLOBAL_CFLAGS $sarchopt=i386"
+                       DEBUG_CFLAGS="$DEBUG_CFLAGS $sarchopt=i386"
+@@ -467,7 +467,7 @@
+         ;;
+ 
+     sparc*-*-linux-*)
+-        case $host_alias in
++        case $host in
+         sparc-*)
+             cpu_cflags="-mcpu=supersparc -mtune=supersparc"
+             ;;
