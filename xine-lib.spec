@@ -535,7 +535,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/xine-lib-API/html/*.{html,png,gif,css}
 %attr(755,root,root) %{_bindir}/xine-config
 %{_includedir}/*
-%attr(755,root,root) %{_libdir}/libxine*.la
+%{_libdir}/libxine*.la
 %attr(755,root,root) %{_libdir}/libxine*.so
 %attr(755,root,root) %{_pluginsdir}/*.la
 %{_mandir}/man[13]/*
