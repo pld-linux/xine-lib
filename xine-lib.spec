@@ -15,7 +15,7 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc4
+%define		_rc		rc4a
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -29,7 +29,7 @@ Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	0ab4da35964044369768c90f931ce2c2
+# Source0-md5:	2890e4359b31eb1b276ef3cf9aa97cc8
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-syncfb.patch
