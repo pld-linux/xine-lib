@@ -54,6 +54,7 @@ BuildRequires:	libcdio-devel >= 0.64
 BuildRequires:	libdvdnav-devel >= 0.1.9
 %{?with_dxr3:BuildRequires:	libfame-devel}
 BuildRequires:	libmng-devel
+BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
