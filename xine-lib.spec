@@ -10,7 +10,7 @@ Summary:	A Free Video Player
 Summary(pl):	Odtwarzacz video
 Summary(ko):	공개 동영상 플레이어
 Name:		xine-lib
-Version:	0.9.0
+Version:	0.9.1
 Release:	1
 License:	GPL
 Group:		Libraries
