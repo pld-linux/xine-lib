@@ -49,11 +49,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 BuildRequires:	speex-devel
-%ifarch %{ix86}
 %{!?_without_xvid:BuildRequires:	xvid-devel}
-%else
-BuildRequires:	libdivxdecore-devel
-%endif
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
@@ -783,7 +779,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 
-%ifnarch ppc
+%ifarch %{ix86}
 %files -n xine-output-video-vidix
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
@@ -793,7 +789,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/cyberblade*.so
 
-# Please dont package vidix-genfb. genfb is just a sample driver.
+# Please don't package vidix-genfb. genfb is just a sample driver.
 
 %files -n xine-output-video-vidix-mach64
 %defattr(644,root,root,755)
