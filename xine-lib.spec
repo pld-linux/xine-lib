@@ -1,5 +1,5 @@
 # Conditional build:
-# --with	aalib
+# --without	aalib
 # --without	alsa
 # --without	arts
 # --without 	gnome
@@ -35,11 +35,13 @@ Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake >= 1.5
+%{!?_without_aalib:BuildRequires:		aalib-devel}
+%{!?_without_aalib:BuildRequires:		aalib-progs}
 %{?_with_directfb:BuildRequires:	DirectFB-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
-%{?_with_aalib:BuildRequires:		aalib-devel}
-%{?_with_aalib:BuildRequires:		aalib-progs}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{!?_without_arts:BuildRequires:	arts-devel}
 BuildRequires:	autoconf
@@ -453,7 +455,7 @@ Modu³y video oparte na VIDIX dla uk³adów Cyberblade/i1.
 
 %configure \
 CPPFLAGS=-I/usr/include/xvid \
-%{?_with_aalib:		--with-aalib-prefix=/usr} \
+%{!?_without_aalib:		--with-aalib-prefix=/usr} \
 %{!?_without_alsa:	--enable-alsa} \
 %{?_without_alsa:	--disable-alsa} \
 %{?_with_dxr3:		--enable-dxr3} \
@@ -596,7 +598,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/*.m4
 %{_pkgconfigdir}/libxine.pc
 
-%if %{?_with_aalib:1}%{!?_with_aalib:0}
+%if %{?_without_aalib:0}%{!?_without_aalib:1}
 %files aa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*aa.so
