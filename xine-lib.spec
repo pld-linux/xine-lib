@@ -635,7 +635,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/xine/plugins/1.0.0/{,vidix,post}/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files -f xine-lib.lang
