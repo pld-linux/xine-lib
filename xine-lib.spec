@@ -466,5 +466,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xine-config
 %{_includedir}/*
 %attr(755,root,root) %{_libdir}/libxine*.la
+%attr(755,root,root) %{_libdir}/libxine*.so
 %attr(755,root,root) %{_pluginsdir}/*.la
 %{_mandir}/man[13]/*
