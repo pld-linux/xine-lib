@@ -1,3 +1,4 @@
+#
 # Conditional build:
 # --without	aalib
 # --without	alsa
@@ -9,7 +10,7 @@
 # --without	opengl
 # --without	sdl
 # --without	xvid
-
+#
 %ifarch alpha
 %define		_without_arts	1
 %define		_without_xvid	1
@@ -39,8 +40,7 @@ URL:		http://xine.sourceforge.net/
 %{?_with_directfb:BuildRequires:	DirectFB-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
-%{!?_without_aalib:BuildRequires:	aalib-devel}
-%{!?_without_aalib:BuildRequires:	aalib-progs}
+%{!?_without_aalib:BuildRequires:	aalib-devel >= 1.3}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{!?_without_arts:BuildRequires:	arts-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
