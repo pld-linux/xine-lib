@@ -30,7 +30,7 @@ Version:	1.0b8
 Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
