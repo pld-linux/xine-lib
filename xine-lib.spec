@@ -24,7 +24,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.12
-Release:	4
+Release:	5
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -37,7 +37,7 @@ BuildRequires:	automake >= 1.5
 %{!?_without_aa:BuildRequires:		aalib-devel}
 %{!?_without_aa:BuildRequires:		aalib-progs}
 %{!?_without_arts:BuildRequires:	arts-devel}
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{!?_without_esd:BuildRequires:		esound-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
@@ -368,6 +368,8 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_datadir}/aclocal/*.m4 $RPM_BUILD_ROOT%{_aclocaldir}
+
+mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
 %find_lang %{name}
 
