@@ -246,7 +246,7 @@ Summary(pl):	XINE - obs³uga alsa
 Summary(pt_BR):	XINE - suporte a alsa
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	xine-plugin-audio
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-alsa
 
 %description -n xine-output-audio-alsa
@@ -264,7 +264,7 @@ Summary(pl):	XINE - obs³uga arts
 Summary(pt_BR):	XINE - suporte a arts
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	xine-plugin-audio
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-arts
 
 %description -n xine-output-audio-arts
@@ -278,7 +278,7 @@ Summary:	XINE - esd support
 Summary(pl):	XINE - obs³uga esd
 Summary(pt_BR):	XINE - suporte a esd
 Group:		Libraries
-Provides:	xine-plugin-audio
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-esd
 
@@ -297,7 +297,7 @@ Summary(pl):	XINE - obs³uga OSS/ALSA
 Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	xine-plugin-audio
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-oss
 
 %description -n xine-output-audio-oss
