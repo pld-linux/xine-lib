@@ -7,17 +7,20 @@
 # --with	dxr3
 
 Summary:	A Free Video Player
-Summary(pl):	Odtwarzacz video
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
+Summary(pl):	Odtwarzacz video
 Name:		xine-lib
 Version:	0.9.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am15.patch
 URL:		http://xine.sourceforge.net/
@@ -66,6 +69,16 @@ xine ´Â GPL¶óÀÌ¼±½º¸¦ µû¸£´Â UNIX¿ë °ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾îÀÔ´Ï´Ù. ÀÌ
 ÇÃ·¹ÀÌ¾î´Â mpeg-2 ¿Í mpeg 1 ½ºÆ®¸²À» Áö¿øÇÏ¸ç, ÇöÀç´Â Áö¿øÇÏÁö ¾ÊÁö¸¸
 ³ªÁß¿¡´Â mpeg-4 ¿Í ´Ù¸¥ Çü½ÄÀÇ µ¿¿µ»óµµ Áö¿øÇÒ ¿¹Á¤ÀÔ´Ï´Ù.
 
+%description -l pl
+xine jest wolnodostêpnym odtwarzaczem video dla systemów uniksowych.
+Obs³uguje strumienie MPEG-2 i MPEG-1 (d¼wiêk oraz obraz), mo¿e byæ
+dodana obs³uga MPEG-4 i innych formatów.
+
+xine odczytuje obraz i d¼wiêk z filmów MPEG-2 i synchronizuje ich
+odtwarzanie. Zale¿nie od w³a¶ciwo¶ci strumienia MPEG, odtwarzanie mo¿e
+wymagaæ wiêcej lub mniej mocy procesora, 100% klatek mo¿e byæ widoczne
+na P II 400MHz.
+
 %package oss
 Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obs³uga OSS/ALSA
@@ -74,13 +87,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description oss
-Audio plugins with OSS/ALSA support.
+XINE audio plugins with OSS/ALSA support.
 
-%description -l pl oss
-Plugin audio z obs³ug± OSS/ALSA.
+%description oss -l pl
+Wtyczka audio do XINE z obs³ug± OSS/ALSA.
 
 %package alsa
 Summary:	XINE - alsa support
@@ -90,13 +106,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description alsa
-audio plugin with alsa support.
+XINE audio plugin with alsa support.
 
-%description -l pl alsa
-Plugin audio z obs³ug± ALSA.
+%description alsa -l pl
+Wtyczka audio do XINE z obs³ug± ALSA.
 
 %package arts
 Summary:	XINE - arts support
@@ -106,13 +125,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description arts
-audio plugin with arts support.
+XINE audio plugin with arts support.
 
 %description -l pl arts
-Plugin audio z obs³ug± arts.
+Wtyczka audio do XINE z obs³ug± arts.
 
 %package esd
 Summary:	XINE - esd support
@@ -122,25 +144,35 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description esd
-audio plugin with esd support.
+XINE audio plugin with esd support.
 
-%description -l pl esd
-plugin d¼wiêkowy z obs³ug± esd.
+%description esd -l pl
+Wtyczka audio do XINE z obs³ug± esd.
 
 %package dxr3
 Summary:	XINE - DXR3 support
+Summary(pl):	XINE - obs³uga DXR3
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description dxr3
-video/decoder plugins for DXR3 card support.
+XINE video/decoder plugins for DXR3 card support.
+
+%description dxr3 -l pl
+Wtyczka odtwarzacza obrazu do XINE z obs³ug± kart DXR3.
 
 %package xv
 Summary:	XINE - XFree XVideo support
@@ -150,10 +182,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description xv
-video plugin using XFree XVideo extension.
+XINE video plugin using XFree XVideo extension.
+
+%description xv -l pl
+Wtyczka video do XINE u¿ywaj±ca rozszerzenia XVideo.
 
 %package aa
 Summary:	XINE - Ascii Art support
@@ -163,13 +201,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description aa
-Video plugin using Ascii Art library.
- 
-%description -l pl aa
-Plugin video z obs³ug± Ascii Art.
+XINE video plugin using Ascii Art library.
+
+%description aa -l pl
+Wtyczka video do XINE z obs³ug± Ascii Art.
 
 %package xshm
 Summary:	XINE - XFree XShm support
@@ -179,13 +220,16 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} >= %{version}
 
 %description xshm
-Video plugin using XFree MIT shared memory
- 
-%description -l pl xshm
-Plugin video z obs³ug± XFree MIT shared memory
+XINE video plugin using XFree MIT shared memory.
+
+%description xshm -l pl
+Wtyczka video do XINE z obs³ug± XFree MIT shared memory.
 
 %package syncfb
 Summary:	XINE - Framebuffer support
@@ -195,41 +239,55 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description syncfb
-video plugin using framebuffer
+XINE video plugin using framebuffer.
 
-%description -l pl syncfb
-Plugi video z obs³ug± framebuffera
+%description syncfb -l pl
+Wtyczka video do XINE z obs³ug± framebuffera.
 
 %package w32dll
-Summary:	XINE - win32dll decoder support.
-Summary(pl):	XINE - obs³uga dekodera win32dll.
+Summary:	XINE - win32dll decoder support
+Summary(pl):	XINE - obs³uga dekodera win32dll
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 Requires:	w32codec
 
 %description w32dll
-win32dll decoder support.
+XINE win32dll decoder support.
 
-%description -l pl w32dll
-Obs³uga dekodera win32dll.
+%description w32dll -l pl
+Obs³uga dekodera win32dll do XINE.
 
 %package devel
 Summary:	XINE - development files
+Summary(pl):	Pliki dla programistów XINE
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
-Requires:	%{name} >= %{version}
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description devel
 HTML documentation of XINE API and development components.
+
+%description devel -l pl
+Pliki dla programistów oraz dokumentacja HTML do API XINE.
 
 %prep
 %setup -q
@@ -256,17 +314,19 @@ rm -rf $RPM_BUILD_ROOT
 
 gzip -9nf doc/FAQ doc/README.*
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxine*.so*
+%dir %{_datadir}/xine
 %dir %{_datadir}/xine/skins
 %{_datadir}/xine/skins/*.png
+%dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %doc doc/FAQ.gz
 %doc doc/README.xinerc.gz
