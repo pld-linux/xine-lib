@@ -1,0 +1,5 @@
+- start prepare 0.9.8,
+- merge translations from Conectiva,
+- use %%find_lang macro for collect .mo in %files.
+
+Based on spec from tar ball.
