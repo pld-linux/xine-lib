@@ -10,7 +10,7 @@ Summary:	A Free Video Player
 Summary(pl):	Odtwarzacz video
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Name:		xine-lib
-Version:	0.5.3
+Version:	0.9.0
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -19,21 +19,20 @@ Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-Patch0:		%{name}-configure.patch
-Patch1:		%{name}-stubs.patch
-Patch2:		%{name}-am15.patch
+Patch0:		%{name}-stubs.patch
+Patch1:		%{name}-am15.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
-%{!?_without_aa:BuildRequires:	aalib-devel}
-%{!?_without_aa:BuildRequires:	aalib-progs}
+%{!?_without_aa:BuildRequires:		aalib-devel}
+%{!?_without_aa:BuildRequires:		aalib-progs}
 %ifnarch alpha
 %{!?_without_arts:BuildRequires:	arts-devel}
 %endif
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
-%{!?_without_esd:BuildRequires:	esound-devel}
+%{!?_without_esd:BuildRequires:		esound-devel}
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
@@ -76,7 +75,7 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= 0.5.0
+Requires:	xine-lib >= %{version}
 
 %description oss
 Audio plugins with OSS/ALSA support.
@@ -157,9 +156,6 @@ Requires:	%{name} >= %{version}
 %description xv
 video plugin using XFree XVideo extension.
 
-%description -l pl xv
-Plugin video z obs³ug± XFree XVideo.
-
 %package aa
 Summary:	XINE - Ascii Art support
 Summary(pl):	XINE - obs³uga Ascii Art
@@ -184,10 +180,29 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= 0.5.0
+Requires:	xine-lib >= %{version}
 
 %description xshm
-video plugin using XFree XShm extension.
+Video plugin using XFree MIT shared memory
+ 
+%description -l pl xshm
+Plugin video z obs³ug± XFree MIT shared memory
+
+%package syncfb
+Summary:	XINE - Framebuffer support
+Summary(pl):	XINE - obs³uga framebuffera
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= %{version}
+
+%description syncfb
+video plugin using framebuffer
+
+%description -l pl syncfb
+Plugi video z obs³ug± framebuffera
 
 %package w32dll
 Summary:	XINE - win32dll decoder support.
@@ -221,7 +236,6 @@ HTML documentation of XINE API and development components.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 rm -f missing
@@ -266,18 +280,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
 # demuxer plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg.so
 %attr(755,root,root) %{_pluginsdir}/*mpeg_*.so
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
-# video driver plugins
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
 
 %if %{!?_without_oss:1}
 %files oss
@@ -328,6 +342,10 @@ rm -rf $RPM_BUILD_ROOT
 %files xshm
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*xshm.so
+
+%files syncfb
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/*syncfb.so
 
 %ifarch %{x86}
 %files w32dll
