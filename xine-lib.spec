@@ -49,6 +49,7 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
+BuildRequires:	libcaca-devel
 BuildRequires:	libcdio-devel >= 0.64
 BuildRequires:	libdvdnav-devel >= 0.1.9
 %{?with_dxr3:BuildRequires:	libfame-devel}
