@@ -32,12 +32,11 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 # Source0-md5:	703c3e68d60524598d4d9e527fe38286
 Patch0:		%{name}-am17.patch
-#Patch1:		%{name}-automake_as.patch
+Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-syncfb.patch
 #Patch3:		%{name}-kernel.patch
 Patch4:		%{name}-nolibs.patch
-#Patch5:		%{name}-amd64.patch
-Patch6:		%{name}-sparc.patch
+Patch5:		%{name}-sparc.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -572,33 +571,32 @@ XINE video output plugin using XFree MIT shared memory.
 %description -n xine-output-video-xshm -l pl
 Wtyczka wyj¶cia obrazu do XINE z obs³ug± XFree MIT shared memory.
 
-#%package -n xine-output-video-xv
-#Summary:	XINE - XFree XVideo support
-#Summary(pl):	XINE - obs³uga XFree XVideo
-#Summary(pt_BR):	XINE - suporte a XFree XVideo
-#Group:		Libraries
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
-#Obsoletes:	xine-lib-xv
+%package -n xine-output-video-xv
+Summary:	XINE - XFree XVideo support
+Summary(pl):	XINE - obs³uga XFree XVideo
+Summary(pt_BR):	XINE - suporte a XFree XVideo
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-lib-xv
 
-#%description -n xine-output-video-xv
-#XINE video output plugin using XFree XVideo extension.
+%description -n xine-output-video-xv
+XINE video output plugin using XFree XVideo extension.
 
-#%description -n xine-output-video-xv -l pl
-#Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca rozszerzenia XVideo.
+%description -n xine-output-video-xv -l pl
+Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca rozszerzenia XVideo.
 
-#%description -n xine-output-video-xv -l pt_BR
-#Plugin de video para o xine, utilizando a extensão XVideo do XFree.
+%description -n xine-output-video-xv -l pt_BR
+Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 
 %prep
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
-#%patch1 -p1
+%patch1 -p1
 %patch2 -p1
 #%patch3 -p1
 %patch4 -p1
-#%patch5 -p1
 %ifarch sparc
-%patch6 -p1
+%patch5 -p1
 %endif
 
 %build
@@ -884,6 +882,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
 
-#%files -n xine-output-video-xv
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xv.so
+%files -n xine-output-video-xv
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xv.so
