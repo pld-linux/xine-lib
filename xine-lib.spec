@@ -2,6 +2,7 @@
 # --without	aa
 # --without	alsa
 # --without	arts
+# --without gnome
 # --with	directfb
 # --with	dxr3
 # --without	esd
@@ -434,9 +435,8 @@ Modu³y video oparte na VIDIX dla chipsetow Cyberblade/i1.
 %patch2 -p1
 
 %build
-#rm -f missing
-#%%{__libtoolize}
-#%%{__gettextize}
+%{__libtoolize}
+%{__gettextize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
@@ -461,7 +461,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
-%find_lang libxine1
+%find_lang xine-lib
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -469,7 +469,7 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files -f libxine1.lang
+%files -f xine-lib.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
@@ -489,7 +489,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
+%{!?_without_gnome:%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so}
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
