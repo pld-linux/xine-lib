@@ -11,7 +11,7 @@ Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Name:		xine-lib
 Version:	0.9.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -420,7 +420,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc doc/xine-lib-API/html/*.{html,png,gif,css}
 %attr(755,root,root) %{_bindir}/xine-config
-%attr(755,root,root) %{_includedir}/*
+%{_includedir}/*
 %attr(755,root,root) %{_libdir}/libxine*.la
 %attr(755,root,root) %{_pluginsdir}/*.la
 %{_mandir}/man3/*
