@@ -26,7 +26,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -54,6 +54,7 @@ BuildRequires:	glut-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
+BuildRequires:	flac-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
@@ -337,6 +338,95 @@ Pliki dla programist闚 oraz dokumentacja HTML do API XINE.
 Arquivos include a bibliotecas est嫢icas necess嫫ias para compilar
 plugins para o xine e o xine-ui.
 
+%package        vidix-rage128
+Summary:        VIDIX based video driver for Rage128 chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Rage128
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description    vidix-rage128
+VIDIX based video driver for Rage128 chips.
+
+%description    vidix-rage128 -l pl
+Modu造 video oparte na VIDIX dla chipsetow Rage128.
+
+%package        vidix-radeon
+Summary:        VIDIX based video driver for Radeon chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Radeon
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description    vidix-radeon
+VIDIX based video driver for Radeon chips.
+
+%description    vidix-radeon -l pl
+VIDIX based video driver for Radeon chips.
+
+%description    vidix-radeon -l pl
+Modu造 video oparte na VIDIX dla chipsetow Radeon.
+
+%package        vidix-nvidia
+Summary:        VIDIX based video driver for Riva and Riva-derived chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description    vidix-nvidia
+VIDIX based video driver for Riva and Riva-derived chips, ex. riva tnt, geforce 2.
+
+%description    vidix-nvidia -l pl
+Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych.
+
+%package        vidix-permedia
+Summary:        VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description    vidix-permedia
+VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips.
+
+%description    vidix-permedia -l pl
+Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia.
+
+%package        vidix-matrox
+Summary:        VIDIX based video driver for Matrox Mga chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Matrox Mga
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description    vidix-matrox
+VIDIX based video driver for Matrox Mga chips.
+
+%description    vidix-matrox -l pl
+Modu造 video oparte na VIDIX dla chipsetow Matrox Mga.
+
+%package        vidix-mach64
+Summary:        VIDIX based video driver for Mach64 and 3Drage chips
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-mach64
+VIDIX based video driver for Mach64 and 3Drage chips.
+
+%description    vidix-mach64 -l pl
+Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage.
+
+
+%package        vidix-cyberblade
+Summary:        VIDIX based video driver for Cyberblade/i1chips.
+Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Cyberblade/i1
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-cyberblade
+VIDIX based video driver for Cyberblade/i1 chips.
+
+%description    vidix-cyberblade -l pl
+Modu造 video oparte na VIDIX dla chipsetow Cyberblade/i1.
+
+
 %prep
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
@@ -347,9 +437,9 @@ plugins para o xine e o xine-ui.
 #rm -f missing
 #%%{__libtoolize}
 #%%{__gettextize}
-#%%{__aclocal} -I m4
-#%%{__autoconf}
-#%%{__automake}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
 
 %configure \
 CPPFLAGS=-I/usr/include/xvid \
@@ -389,7 +479,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
 %attr(755,root,root) %{_pluginsdir}/post/*.so
-%dir %{_pluginsdir}/vidix 
+#%%dir %{_pluginsdir}/vidix 
 %attr(755,root,root) %{_pluginsdir}/vidix/*.so
 %{_docdir}/xine
 
@@ -571,6 +661,41 @@ rm -rf $RPM_BUILD_ROOT
 %files xv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*xv.so
+
+%ifnarch ppc
+
+%files vidix-rage128
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
+
+%files vidix-radeon
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/radeon*.so
+
+#%%files vidix-nvidia
+#%%defattr(644,root,root,755)
+#%%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
+
+%files vidix-cyberblade
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/cyberblade*.so
+
+
+%files vidix-permedia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/pm*.so
+
+%files vidix-mach64
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/mach64*.so
+
+%files vidix-matrox
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/mga*.so
+
+# Please dont package vidix-genfb. genfb is just a sample driver.
+
+%endif
 
 #%if %{?_without_xvid:0}%{!?_without_xvid:1}
 #%files xvid
