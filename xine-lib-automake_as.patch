@@ -1,9 +1,8 @@
-diff -durN xine-lib-0.9.12.orig/configure.in xine-lib-0.9.12/configure.in
---- xine-lib-0.9.12.orig/configure.in	Sun Jun 23 14:52:10 2002
-+++ xine-lib-0.9.12/configure.in	Sun Jun 23 15:02:48 2002
-@@ -97,6 +97,10 @@
- dnl
+--- xine-lib/configure.in.orig	Sun Sep  1 06:24:35 2002
++++ xine-lib/configure.in	Sat Oct 12 13:22:21 2002
+@@ -100,6 +100,10 @@
  AC_ISC_POSIX
+ CFLAGS="$saved_CFLAGS"
  AC_PROG_CC
 +CCAS=$CC
 +CCASFLAGS=$CCFLAGS
@@ -12,3 +11,23 @@ diff -durN xine-lib-0.9.12.orig/configure.in xine-lib-0.9.12/configure.in
  AC_STDC_HEADERS
  AC_PROG_MAKE_SET
  AC_PROG_INSTALL
+@@ -276,7 +280,6 @@
+ dnl Check for OpenGL & [GLut | GLU]
+ dnl
+ AC_CHECK_LIB(GL, glBegin,
+-	[AC_CHECK_HEADER(GL/GL.h,
+              [ ac_have_opengl="yes"
+                OPENGL_LIBS="-lGL" 
+ 	       AC_CHECK_LIB(glut, glutInit, dnl check for glut
+@@ -294,9 +297,8 @@
+                                            [$X_LIBS $X_PRE_LIBS $OPENGL_LIBS -lGLU -lm $X_EXTRA_LIBS])], 
+ 	                    [$X_LIBS $X_PRE_LIBS -lglut $X_EXTRA_LIBS])
+              ],
+-	[])],
+-   [],
+-   [$X_LIBS $X_PRE_LIBS -lGL $X_EXTRA_LIBS])
++	     [],
++             [$X_LIBS $X_PRE_LIBS -lGL $X_EXTRA_LIBS])
+ AC_SUBST(OPENGL_LIBS)
+ AC_SUBST(GLUT_LIBS)
+ AC_SUBST(GLU_LIBS)
