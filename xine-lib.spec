@@ -19,15 +19,15 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta4
+%define		_version	1-beta6
 
 Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b4
-Release:	3
+Version:	1.0b6
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -50,7 +50,7 @@ BuildRequires:	automake >= 1.5
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
-%{!?_without_gnome:BuildRequires:	gnome-vfs-devel}
+%{!?_without_gnome:BuildRequires:	gnome-vfs2-devel}
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
