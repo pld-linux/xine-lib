@@ -584,7 +584,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xine
 %dir %{_libdir}/xine/plugins
 %dir %{_pluginsdir}
-%dir %{_pluginsdir}/post 
+%dir %{_pluginsdir}/post
 %attr(755,root,root) %{_pluginsdir}/post/*.so
 %{_docdir}/xine
 
