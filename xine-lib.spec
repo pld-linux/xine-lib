@@ -564,6 +564,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/xine/libxine1
 %{_datadir}/xine/libxine1/fonts
 %dir %{_libdir}/xine
+%dir %{_libdir}/xine/plugins
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
 %attr(755,root,root) %{_pluginsdir}/post/*.so
@@ -742,7 +743,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xine-output-video-fb
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_fb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_fb.so
 
 #%if 0%{?_without_opengl:0}
 #%files opengl
