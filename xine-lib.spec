@@ -20,18 +20,18 @@
 %define		_without_xvid	1
 %endif
 
-%define		_snapshot	20021008
+%define		_version	1-beta0
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.13.%{_snapshot}
-Release:	1
+Version:	1.0b0
+Release:	0.01
 License:	GPL
 Group:		Libraries
-Source0:	%{name}-cvs.tar.bz2
+Source0:	%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
@@ -62,7 +62,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 Obsoletes:	xine-libs
 
-%define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
+#efine 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -343,7 +343,7 @@ Arquivos include a bibliotecas estáticas necessárias para compilar
 plugins para o xine e o xine-ui.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
