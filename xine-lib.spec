@@ -26,7 +26,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -337,6 +337,78 @@ Pliki dla programist闚 oraz dokumentacja HTML do API XINE.
 Arquivos include a bibliotecas est嫢icas necess嫫ias para compilar
 plugins para o xine e o xine-ui.
 
+%package	vidix-rage128
+Summary:	VIDIX based video driver for Rage128 chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow Rage128
+Group:		Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-rage128
+VIDIX based video driver for Rage128 chips.
+
+%description 	vidix-rage128 -l pl
+Modu造 video oparte na VIDIX dla chipsetow Rage128.
+
+%package        vidix-radeon
+Summary:	VIDIX based video driver for Radeon chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow Radeon
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-radeon
+VIDIX based video driver for Radeon chips.
+
+%description 	vidix-radeon -l pl
+Modu造 video oparte na VIDIX dla chipsetow Radeon.
+
+%package        vidix-nvidia
+Summary:	VIDIX based video driver for Riva and Riva-derived chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-nvidia
+VIDIX based video driver for Riva and Riva-derived chips, ex. riva tnt, geforce 2.
+
+%description  	vidix-nvidia -l pl
+Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych.
+
+%package        vidix-permedia
+Summary:	VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-permedia
+VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips.
+
+%description 	vidix-permedia -l pl
+Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia.
+
+%package        vidix-matrox
+Summary:	VIDIX based video driver for Matrox Mga chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow Matrox Mga
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description	vidix-matrox
+VIDIX based video driver for Matrox Mga chips.
+
+%description 	vidix-matrox -l pl
+Modu造 video oparte na VIDIX dla chipsetow Matrox Mga.
+
+%package        vidix-mach64
+Summary:	VIDIX based video driver for Mach64 and 3Drage chips
+Summary(pl):	Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage
+Group:          Libraries
+Requires:       %{name} = %{version}
+
+%description
+VIDIX based video driver for Mach64 and 3Drage chips.
+
+%description	vidix-mach64 -l pl
+Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage/
+
 %prep
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
@@ -344,12 +416,12 @@ plugins para o xine e o xine-ui.
 %patch2 -p1
 
 %build
-#rm -f missing
+rm -f missing
 #%%{__libtoolize}
 #%%{__gettextize}
-#%%{__aclocal} -I m4
-#%%{__autoconf}
-#%%{__automake}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
 
 %configure \
 CPPFLAGS=-I/usr/include/xvid \
@@ -383,15 +455,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
-%dir %{_datadir}/xine
+#dir %{_datadir}/xine
 %{_datadir}/xine/libxine1/fonts
-#%{_datadir}/xine/skins
-%dir %{_libdir}/xine
-%dir %{_pluginsdir}
-%dir %{_pluginsdir}/post 
-%attr(755,root,root) %{_pluginsdir}/post/*.so
-%dir %{_pluginsdir}/vidix 
-%attr(755,root,root) %{_pluginsdir}/vidix/*.so
+#{_datadir}/xine/skins
+#dir %{_libdir}/xine
+#dir %{_pluginsdir}
+#dir %{_pluginsdir}/post 
+#attr(755,root,root) %{_pluginsdir}/post/*.so
+#dir %{_pluginsdir}/vidix 
+#attr(755,root,root) %{_pluginsdir}/vidix/*.so
 
 # input plugins
 #%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
@@ -475,9 +547,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
+#attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
+#attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
+
+%ifnarch ppc
+# vidix vo plugin
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
+%endif
+
+# new plugins
+%attr(755,root,root) %{_pluginsdir}/post/xineplug_post_*.so
+
 
 %files devel
 %defattr(644,root,root,755)
@@ -533,25 +613,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*_fb.so
 
-#%if %{?_without_opengl:0}%{!?_without_opengl:1}
-#%files opengl
-#%defattr(644,root,root,755)
-#%attr(644,root,root) %{_pluginsdir}/*opengl.so
-#%endif
+#if %{?_without_opengl:0}%{!?_without_opengl:1}
+#files opengl
+#defattr(644,root,root,755)
+#attr(644,root,root) %{_pluginsdir}/*opengl.so
+#endif
 
 %files oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*oss.so
 
-#%if %{?_without_sdl:0}%{!?_without_sdl:1}
-#%files sdl
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/*_sdl.so
-#%endif
+%if %{?_without_sdl:0}%{!?_without_sdl:1}
+%files sdl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/*_sdl.so
+%endif
 
-#%files syncfb
-#%defattr(644,root,root,755)
-#%attr(644,root,root) %{_pluginsdir}/*syncfb.so
+%files syncfb
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/*syncfb.so
 
 %ifarch %{ix86}
 %files w32dll
@@ -566,6 +646,36 @@ rm -rf $RPM_BUILD_ROOT
 %files xv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*xv.so
+
+%ifnarch ppc
+
+%files vidix-rage128
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
+
+%files vidix-radeon
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/radeon*.so
+
+%files vidix-nvidia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
+
+%files vidix-permedia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/pm3*.so
+
+%files vidix-mach64
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/mach64*.so
+
+%files vidix-matrox
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/mga*.so
+
+# Please dont package vidix-genfb. genfb is just a sample driver.
+
+%endif
 
 #%if %{?_without_xvid:0}%{!?_without_xvid:1}
 #%files xvid
