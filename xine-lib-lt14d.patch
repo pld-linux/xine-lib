@@ -5,11 +5,11 @@
  
  stubs.lo: stubs.s
 -	$(CC) -c $(srcdir)/stubs.s -o stubs.lo
-+	$(LIBTOOL) $(CC) --mode=compile -c $(srcdir)/stubs.s -o stubs.lo
++	$(LIBTOOL) --mode=compile $(CC) -c $(srcdir)/stubs.s -o stubs.lo
  
  wrapper.lo: wrapper.S
 -	$(CC) -c $(srcdir)/wrapper.S -o wrapper.lo
-+	$(LIBTOOL) $(CC) --mode=compile -c $(srcdir)/wrapper.S -o wrapper.lo
++	$(LIBTOOL) --mode=compile $(CC) -c $(srcdir)/wrapper.S -o wrapper.lo
  
  debug:
  	@$(MAKE) CFLAGS="$(DEBUG_CFLAGS)"
