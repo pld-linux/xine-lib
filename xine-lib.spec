@@ -42,6 +42,11 @@ BuildRequires:	libdivxdecore-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 1.4.2
+BuildRequires:	zlib-devel
+BuildRequires:	SDL-devel
+BuildRequires:	pkgconfig
+BuildRequires:	imlib-devel
+BuildRequires:	glut-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 
@@ -296,6 +301,8 @@ aclocal
 autoconf
 automake -a -c -f
 autoheader
+#CPPFLAGS="-DFPM_INTEL"
+#export CPPFLAGS
 %configure \
 	--with-aalib-prefix=/usr \
 %{?_with_alsa:	--enable-alsa} \
