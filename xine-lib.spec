@@ -9,8 +9,6 @@
 # --without	sdl
 # --without	xvid
 
-%define		_without_alsa	1
-
 %ifarch alpha
 %define		_without_arts	1
 %define		_without_xvid	1
@@ -26,7 +24,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.13
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -49,9 +47,8 @@ BuildRequires:	automake >= 1.5
 %else
 BuildRequires:	libdivxdecore-devel
 %endif
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-autopoint
 BuildRequires:	glut-devel
-BuildRequires:	imlib-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
@@ -349,7 +346,12 @@ plugins para o xine e o xine-ui.
 %build
 rm -f missing
 %{__libtoolize}
-%{__gettextize}
+#Gettext hack
+sed -e 's/AM_GNU_GETTEXT\(.*\)/AM_GNU_GETTEXT\1\
+	AM_GNU_GETTEXT_VERSION(0.10.40)/' \
+	configure.in > configure.in.new
+mv configure.in.new configure.in
+autopoint --force
 %{__aclocal}
 %{__autoconf}
 %{__automake}
