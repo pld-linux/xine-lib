@@ -224,7 +224,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/xine-config
 %dir %{_datadir}/xine/skins
 %{_mandir}/man3/*.3.*
 
@@ -286,6 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/xine-config
 %{_includedir}/xine/*.h
 %{_includedir}/xine.h
 %{_pluginsdir}/*.la
