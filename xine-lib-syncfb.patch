@@ -1,0 +1,46 @@
+--- xine-lib-1-rc3c/configure.ac.orig	2004-04-11 16:38:07.000000000 +0200
++++ xine-lib-1-rc3c/configure.ac	2004-04-11 18:33:05.103846840 +0200
+@@ -407,21 +407,6 @@
+ AM_CONDITIONAL(HAVE_OPENGL, [ test x$ac_have_opengl = "xyes" -a x$ac_have_glut="xyes" -o x$ac_have_opengl = "xyes" -a x$ac_have_glu="xyes" ] )
+ 
+ 
+-dnl ---------------------------------------------
+-dnl Check for platform which supports syncfb
+-dnl ---------------------------------------------
+-
+-case "$host_or_hostalias" in
+-  *linux* )
+-    have_syncfb="yes"
+-    ;;
+-  *)
+-    have_syncfb="no"
+-    ;;
+-esac
+-AM_CONDITIONAL(HAVE_SYNCFB, test x"$have_syncfb" = "xyes")
+-
+-
+ dnl ----------------------------------------------
+ dnl Check for usable video-for-linux (v4l) support
+ dnl ----------------------------------------------
+@@ -494,6 +479,21 @@
+ AM_CONDITIONAL(PPC_ARCH, test x$ppc_arch = "xyes")
+ 
+ 
++dnl ---------------------------------------------
++dnl Check for platform which supports syncfb
++dnl ---------------------------------------------
++
++case "$host_or_hostalias" in
++  *linux* )
++    have_syncfb="yes"
++    ;;
++  *)
++    have_syncfb="no"
++    ;;
++esac
++AM_CONDITIONAL(HAVE_SYNCFB, test x"$have_syncfb" = "xyes")
++
++
+ AC_ARG_WITH(xv-path, AC_HELP_STRING([--with-xv-path=path], [where libXv is installed]),
+             xv_path="$withval", xv_path="/usr/X11R6/$XINE_LIBNAME")
+ 
