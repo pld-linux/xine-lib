@@ -12,7 +12,7 @@ Summary(pl):	Odtwarzacz video
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Name:		xine-lib
 Version:	0.5.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -29,13 +29,12 @@ BuildRequires:	libtool
 %{!?_without_esd:BuildRequires: esound-devel}
 %{!?_without_arts:BuildRequires: arts-devel}
 %ifarch %{ix86}
-%{!?_without_alsa:BuildRequires: alsa-lib-devel}
+%{!?_without_alsa05:BuildRequires: alsa-lib-devel}
+%{?_with_alsa09:BuildRequires: alsa-lib-devel}
 %endif
 Obsoletes:	xine
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_pluginsdir	%{_libdir}/xine/plugins
 
 
@@ -66,87 +65,87 @@ xine ´Â GPL¶óÀÌ¼±½º¸¦ µû¸£´Â UNIX¿ë °ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾îÀÔ´Ï´Ù. ÀÌ
 ³ªÁß¿¡´Â mpeg-4 ¿Í ´Ù¸¥ Çü½ÄÀÇ µ¿¿µ»óµµ Áö¿øÇÒ ¿¹Á¤ÀÔ´Ï´Ù.
 
 
-%{!?_without_oss:%package oss}
-%{!?_without_oss:Summary:	XINE - OSS support.}
-%{!?_without_oss:Summary(pl):	XINE - obs³uga OSS.}
-%{!?_without_oss:Group:		Libraries}
-%{!?_without_oss:Group(de):	Libraries}
-%{!?_without_oss:Group(es):	Bibliotecas}
-%{!?_without_oss:Group(fr):	Librairies}
-%{!?_without_oss:Group(pl):	Biblioteki}
-%{!?_without_oss:Requires:	xine-lib >= 0.5.0}
+%package oss
+Summary:	XINE - OSS support.
+Summary(pl):	XINE - obs³uga OSS.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0
 
-%{!?_without_oss:%description oss}
-%{!?_without_oss:audio plugin with OSS support.}
+%description oss
+audio plugin with OSS support.
 
-%{!?_without_oss:%description -l pl oss}
-%{!?_without_oss:Plugin audio z obs³ug± OSS}
+%description -l pl oss
+Plugin audio z obs³ug± OSS
 
 %ifarch %{ix86}
-%{!?_without_alsa05:%package alsa05}
-%{!?_without_alsa05:Summary:	XINE - alsa 0.5.x support.}
-%{!?_without_alsa05:Summary(pl):	XINE - obs³uga alsa 0.5.x.}
-%{!?_without_alsa05:Group:		Libraries}
-%{!?_without_alsa05:Group(de):	Libraries}
-%{!?_without_alsa05:Group(es):	Bibliotecas}
-%{!?_without_alsa05:Group(fr):	Librairies}
-%{!?_without_alsa05:Group(pl):	Biblioteki}
-%{!?_without_alsa05:Requires:	xine-lib >= 0.5.0}
+%package alsa05
+Summary:	XINE - alsa 0.5.x support.
+Summary(pl):	XINE - obs³uga alsa 0.5.x.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0
 
-%{!?_without_alsa05:%description alsa05}
-%{!?_without_alsa05:audio plugin with alsa 0.5.x support.}
+%description alsa05
+audio plugin with alsa 0.5.x support.
 
-%{!?_without_alsa05:%description -l pl alsa05}
-%{!?_without_alsa05:Plugin audio z obs³ug± Alsa 0.5.x .}
+%description -l pl alsa05
+Plugin audio z obs³ug± Alsa 0.5.x .
 
-%{?_with_alsa09:%package alsa09}
-%{?_with_alsa09:Summary:	XINE - alsa >= 0.9.x support.}
-%{?_with_alsa09:Group:		Libraries}
-%{?_with_alsa09:Requires:	xine-lib >= 0.5.0}
+%package alsa09
+Summary:	XINE - alsa >= 0.9.x support.
+Group:		Libraries
+Requires:	xine-lib >= 0.5.0
 
-%{?_with_alsa09:%description alsa09}
-%{?_with_alsa09:audio plugin with alsa >= 0.9.x support.}
+%description alsa09
+audio plugin with alsa >= 0.9.x support.
 %endif
 
-%{!?_without_arts:%package arts}
-%{!?_without_arts:Summary:	XINE - arts support.}
-%{!?_without_arts:Summary(pl):	XINE - obs³uga arts.}
-%{!?_without_arts:Group:		Libraries}
-%{!?_without_arts:Group(de):	Libraries}
-%{!?_without_arts:Group(es):	Bibliotecas}
-%{!?_without_arts:Group(fr):	Librairies}
-%{!?_without_arts:Group(pl):	Biblioteki}
-%{!?_without_arts:Requires:	xine-lib >= 0.5.0}
+%package arts
+Summary:	XINE - arts support.
+Summary(pl):	XINE - obs³uga arts.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0
 
-%{!?_without_arts:%description arts}
-%{!?_without_arts:audio plugin with arts support.}
+%description arts
+audio plugin with arts support.
 
-%{!?_without_arts:%description -l pl arts}
-%{!?_without_arts:Plugin audio z obs³ug± arts.}
+%description -l pl arts
+Plugin audio z obs³ug± arts.
 
-%{!?_without_esd:%package esd}
-%{!?_without_esd:Summary:	XINE - esd support.}
-%{!?_without_esd:Summary(pl):	XINE - obs³uga esd.}
-%{!?_without_esd:Group:		Libraries}
-%{!?_without_esd:Group(de):	Libraries}
-%{!?_without_esd:Group(es):	Bibliotecas}
-%{!?_without_esd:Group(fr):	Librairies}
-%{!?_without_esd:Group(pl):	Biblioteki}
-%{!?_without_esd:Requires:	xine-lib >= 0.5.0, libesd}
+%package esd
+Summary:	XINE - esd support.
+Summary(pl):	XINE - obs³uga esd.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0, libesd
 
-%{!?_without_esd:%description esd}
-%{!?_without_esd:audio plugin with esd support.}
+%description esd
+audio plugin with esd support.
 
-%{!?_without_esd:%description -l pl esd}
-%{!?_without_esd:plugin d¼wiêkowy z obs³ug± esd.}
+%description -l pl esd
+plugin d¼wiêkowy z obs³ug± esd.
 
-%{?_with_dxr3:%package dxr3}
-%{?_with_dxr3:Summary:	XINE - DXR3 support.}
-%{?_with_dxr3:Group:		Libraries}
-%{?_with_dxr3:Requires:	xine-lib >= 0.5.0}
+%package dxr3
+Summary:	XINE - DXR3 support.
+Group:		Libraries
+Requires:	xine-lib >= 0.5.0
 
-%{?_with_dxr3:%description dxr3}
-%{?_with_dxr3:video/decoder plugins for DXR3 card support.}
+%description dxr3
+video/decoder plugins for DXR3 card support.
 
 %package xv
 Summary:	XINE - XFree XVideo support.
@@ -164,21 +163,37 @@ video plugin using XFree XVideo extension.
 %description -l pl xv
 Plugin video z obs³ug± XFree XVideo.
 
-%{!?_without_aa:%package aa}
-%{!?_without_aa:Summary:	XINE - Ascii Art support.}
-%{!?_without_aa:Summary(pl):	XINE - obs³uga Ascii Art.}
-%{!?_without_aa:Group:		Libraries}
-%{!?_without_aa:Group(de):	Libraries}
-%{!?_without_aa:Group(es):	Bibliotecas}
-%{!?_without_aa:Group(fr):	Librairies}
-%{!?_without_aa:Group(pl):	Biblioteki}
-%{!?_without_aa:Requires:	xine-lib >= 0.5.0, libaa}
+%package xshm
+Summary:	XINE - XFree XShm support.
+Summary(pl):	XINE - obs³uga XFree XShm.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0
 
-%{!?_without_aa:%description aa}
-%{!?_without_aa:video plugin using Ascii Art library.}
+%description xshm
+video plugin using XFree XShm extension.
 
-%{!?_without_aa:%description -l pl aa}
-%{!?_without_aa:Plugin video z obs³ug± Ascii Art.}
+%description -l pl xshm
+Plugin video z obs³ug± XFree XShm.
+
+%package aa
+Summary:	XINE - Ascii Art support.
+Summary(pl):	XINE - obs³uga Ascii Art.
+Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Requires:	xine-lib >= 0.5.0, libaa
+
+%description aa
+video plugin using Ascii Art library.
+
+%description -l pl aa
+Plugin video z obs³ug± Ascii Art.
 
 %package w32dll
 Summary:	XINE - win32dll decoder support.
@@ -255,7 +270,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 # video driver plugins
 %attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
-%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
 
 %{!?_without_oss:%files oss}
 %{!?_without_oss:%defattr(644,root,root,755)}
@@ -283,6 +297,10 @@ rm -rf $RPM_BUILD_ROOT
 %files xv
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*xv.so
+
+%files xshm
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/*xshm.so
 
 %{!?_without_aa:%files aa}
 %{!?_without_aa:%defattr(644,root,root,755)}
