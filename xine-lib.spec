@@ -490,8 +490,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
-%ifnarch ppc
 %attr(755,root,root) %{_pluginsdir}/post/*.so
+%ifnarch ppc
 #%%dir %{_pluginsdir}/vidix 
 %attr(755,root,root) %{_pluginsdir}/vidix/*.so
 %endif
