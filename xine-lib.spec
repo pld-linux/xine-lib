@@ -219,6 +219,7 @@ HTML documentation of XINE API and development components.
 %patch1 -p1
 
 %build
+rm -f missing
 libtoolize -c -f
 aclocal
 autoconf
