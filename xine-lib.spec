@@ -20,19 +20,21 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-rc0a
+%define		_rc		rc1
+%define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0rc0a
-Release:	1
+Version:	1.0
+Release:	0.%{_rc}.1
+Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	923015bd49902cd43cd8f191f0720e4c
+# Source0-md5:	6e4c65fa2a3677f9f761772703dd9477
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
@@ -120,7 +122,7 @@ Summary:	XINE - development files
 Summary(pl):	Pliki dla programistów XINE
 Summary(pt_BR):	XINE - arquivos de desenvolvimento
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-devel
 
 %description devel
@@ -137,7 +139,7 @@ plugins para o xine e o xine-ui.
 Summary:	XINE - FLAC decoder plugin
 Summary(pl):	XINE - wtyczka dekodera FLAC
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n xine-decode-flac
 XINE - FLAC decoder/demuxer plugin.
@@ -149,7 +151,7 @@ XINE - wtyczka dekodera i demuxera FLAC.
 Summary:	XINE - Ogg/Vorbis and Ogg/Speex decoder plugins
 Summary(pl):	XINE - wtyczki dekoderów Ogg/Vorbis i Ogg/Speex
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-decode-vorbis
 # Ogg/Theora info to be added when plugin is ready
 
@@ -166,7 +168,7 @@ Summary:	XINE - win32dll decoder support
 Summary(pl):	XINE - obs³uga dekodera win32dll
 Summary(pt_BR):	XINE - suporte a decoder win32dll
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	w32codec
 Obsoletes:	xine-lib-w32dll
 
@@ -183,7 +185,7 @@ Suporte a win32dll para o xine.
 Summary:	XINE - xvid DIVX decoding support
 Summary(pl):	XINE - obs³uga dekodera DIVX xvid
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-xvid
 
 %description -n xine-decode-xvid
@@ -196,7 +198,7 @@ Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekê xvid.
 Summary:	XINE input plugin for DVD
 Summary(pl):	Wtyczka wej¶ciowa XINE dla DVD
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n xine-input-dvd
 XINE input plugin for DVD.
@@ -208,7 +210,7 @@ Wtyczka wej¶ciowa XINE dla DVD.
 Summary:	GNOME VFS input driver for xine
 Summary(pl):	Sterownik wej¶cia GNOME VFS dla xine
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-input-gnome-vfs
 
 %description -n xine-input-gnome-vfs
@@ -221,7 +223,7 @@ Sterownik wej¶cia GNOME VFS dla xine.
 Summary:	Video4Linux input driver for xine
 Summary(pl):	Sterownik wej¶cia Video4Linux dla xine
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n xine-input-v4l
 Video4Linux input driver for xine.
@@ -234,7 +236,7 @@ Summary:	XINE - alsa support
 Summary(pl):	XINE - obs³uga alsa
 Summary(pt_BR):	XINE - suporte a alsa
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	xine-plugin-audio
 Obsoletes:	xine-lib-alsa
 
@@ -252,7 +254,7 @@ Summary:	XINE - arts support
 Summary(pl):	XINE - obs³uga arts
 Summary(pt_BR):	XINE - suporte a arts
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	xine-plugin-audio
 Obsoletes:	xine-lib-arts
 
@@ -268,7 +270,7 @@ Summary(pl):	XINE - obs³uga esd
 Summary(pt_BR):	XINE - suporte a esd
 Group:		Libraries
 Provides:	xine-plugin-audio
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-esd
 
 %description -n xine-output-audio-esd
@@ -285,7 +287,7 @@ Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obs³uga OSS/ALSA
 Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	xine-plugin-audio
 Obsoletes:	xine-lib-oss
 
@@ -303,7 +305,7 @@ Summary:	XINE - Ascii Art support
 Summary(pl):	XINE - obs³uga Ascii Art
 Summary(pt_BR):	XINE - suporte a aalib
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-aa
 
 %description -n xine-output-video-aa
@@ -319,7 +321,7 @@ Plugin de video para o xine, utilizando a aalib.
 Summary:	XINE - accelereted framebuffer support
 Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-directfb
 
 %description -n xine-output-video-directfb
@@ -334,7 +336,7 @@ bibliotekê DirectFB).
 Summary:	XINE - DXR3 support
 Summary(pl):	XINE - obs³uga DXR3
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-dxr3
 
 %description -n xine-output-video-dxr3
@@ -347,7 +349,7 @@ Wtyczka wyj¶cia i dekodera obrazu do XINE z obs³ug± kart DXR3.
 Summary:	XINE - framebuffer support
 Summary(pl):	XINE - obs³uga framebuffera
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-fb
 
 %description -n xine-output-video-fb
@@ -360,7 +362,7 @@ Wtyczka wyj¶cia obrazu do XINE dla linuksowego framebuffera.
 Summary:	XINE - OpenGL video output
 Summary(pl):	XINE - wy¶wietlanie przez OpenGL
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
 Obsoletes:	xine-lib-opengl
 
@@ -374,7 +376,7 @@ Wtyczka wyj¶cia obrazu do XINE wykorzystuj±ca OpenGL do wy¶wietlania.
 Summary:	XINE - SDL output support
 Summary(pl):	XINE - obs³uga wyj¶cia SDL
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-sdl
 
 %description -n xine-output-video-sdl
@@ -387,7 +389,7 @@ Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê SDL.
 Summary:	XINE - SyncFB (Matrox G200/G400) support
 Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-syncfb
 
 %description -n xine-output-video-syncfb
@@ -402,7 +404,7 @@ Matrox G200/G400).
 Summary:	XINE - VIDIX video output plugin
 Summary(pl):	XINE - wtyczka wyj¶cia obrazu VIDIX
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n xine-output-video-vidix
 XINE video output plugin using VIDIX.
@@ -414,7 +416,7 @@ Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca VIDIX.
 Summary:	VIDIX driver for Cyberblade/i1 chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Cyberblade/i1
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-cyberblade
 
 %description -n xine-output-video-vidix-cyberblade
@@ -427,7 +429,7 @@ Sterownik VIDIX dla uk³adów Cyberblade/i1.
 Summary:	VIDIX driver for Mach64 and 3Drage chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-mach64
 
 %description -n xine-output-video-vidix-mach64
@@ -440,7 +442,7 @@ Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage.
 Summary:	VIDIX drivers for Matrox Mga chips
 Summary(pl):	Sterowniki VIDIX dla uk³adów Matrox Mga
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-matrox
 
 %description -n xine-output-video-vidix-matrox
@@ -453,7 +455,7 @@ Sterowniki VIDIX dla uk³adów Matrox Mga.
 Summary:	VIDIX driver for Riva and Riva-derived chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Riva oraz pochodnych
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-nvidia
 
 %description -n xine-output-video-vidix-nvidia
@@ -467,7 +469,7 @@ Sterownik VIDIX dla uk³adów Riva oraz pochodnych.
 Summary:	VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips
 Summary(pl):	Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-permedia
 
 %description -n xine-output-video-vidix-permedia
@@ -480,7 +482,7 @@ Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia.
 Summary:	VIDIX driver for Radeon chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Radeon
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-radeon
 
 %description -n xine-output-video-vidix-radeon
@@ -493,7 +495,7 @@ Sterownik VIDIX dla uk³adów Radeon.
 Summary:	VIDIX driver for Rage128 chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Rage128
 Group:		Libraries
-Requires:	xine-output-video-vidix = %{version}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-vidix-rage128
 
 %description -n xine-output-video-vidix-rage128
@@ -506,7 +508,7 @@ Sterownik VIDIX dla uk³adów Rage128.
 Summary:	XINE - XFree XShm support
 Summary(pl):	XINE - obs³uga XFree XShm
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-xshm
 
 %description -n xine-output-video-xshm
@@ -520,7 +522,7 @@ Summary:	XINE - XFree XVideo support
 Summary(pl):	XINE - obs³uga XFree XVideo
 Summary(pt_BR):	XINE - suporte a XFree XVideo
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-xv
 
 %description -n xine-output-video-xv
