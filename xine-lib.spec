@@ -12,7 +12,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.8
-Release:	2
+Release:	4
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -29,7 +29,12 @@ BuildRequires:	automake >= 1.5
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 %{!?_without_esd:BuildRequires:		esound-devel}
-BuildRequires:	divx4linux-devel
+%ifarch %{ix86}
+BuildRequires:  divx4linux-devel
+%endif
+%ifnarch %{ix86}
+BuildRequires:	libdivxdecore
+%endif
 BuildRequires:	gettext-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 1.4.2
