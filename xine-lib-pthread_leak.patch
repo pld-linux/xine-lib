@@ -1,0 +1,65 @@
+diff -urN xine-lib-1.0.old/src/xine-engine/demux.c xine-lib-1.0/src/xine-engine/demux.c
+--- xine-lib-1.0.old/src/xine-engine/demux.c	2004-12-19 21:24:31.000000000 +0100
++++ xine-lib-1.0/src/xine-engine/demux.c	2005-03-09 00:23:42.748241544 +0100
+@@ -315,7 +315,6 @@
+   pthread_mutex_unlock (&stream->counter_lock);
+   
+   _x_handle_stream_end(stream, non_user);
+-  stream->demux_thread = 0;
+   return NULL;
+ }
+ 
+@@ -330,6 +329,8 @@
+   stream->demux_action_pending = 0;
+   
+   if( !stream->demux_thread_running ) {
++
++    _x_assert(stream->demux_thread == 0);
+     
+     stream->demux_thread_running = 1;
+     if ((err = pthread_create (&stream->demux_thread,
+@@ -362,8 +363,10 @@
+ 
+   lprintf ("joining thread %ld\n", stream->demux_thread );
+   
+-  if( stream->demux_thread )
++  if( stream->demux_thread ) {
+     pthread_join (stream->demux_thread, &p);
++    stream->demux_thread = 0;
++  }
+   
+   /*
+    * Wake up xine_play if it's waiting for a frame
+diff -urN xine-lib-1.0.old/src/xine-engine/xine.c xine-lib-1.0/src/xine-engine/xine.c
+--- xine-lib-1.0.old/src/xine-engine/xine.c	2004-12-20 22:22:21.000000000 +0100
++++ xine-lib-1.0/src/xine-engine/xine.c	2005-03-09 00:27:07.623095832 +0100
+@@ -276,8 +276,7 @@
+   if (stream->status == XINE_STATUS_STOP) {
+     _x_demux_control_end(stream, 0);
+     lprintf ("ignored\n");
+-    return;
+-  }
++  } else {
+ 
+   /* make sure we're not in "paused" state */
+   set_speed_internal (stream, XINE_FINE_SPEED_NORMAL);
+@@ -285,16 +284,16 @@
+   /* Don't change status if we're quitting */
+   if (stream->status != XINE_STATUS_QUIT)
+     stream->status = XINE_STATUS_STOP;
++  }
+ 
+   /*
+    * stop demux
+    */
++  if (stream->demux_plugin && stream->demux_thread) {
+   lprintf ("stopping demux\n");
+-  if (stream->demux_plugin) {
+     _x_demux_stop_thread( stream );
+-    lprintf ("stop thread done\n");
+-  }
+   lprintf ("demux stopped\n");
++  }
+   lprintf ("done\n");
+ }
+ 
