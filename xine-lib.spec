@@ -1,6 +1,6 @@
 # Conditional build:
 # --without	aa
-# --with	alsa
+# --with	alsa	(alsa support is currently broken)
 # --without	arts
 # --without	esd
 # --without	oss
@@ -11,7 +11,7 @@ Summary(pl):	Odtwarzacz video
 Summary(ko):	공개 동영상 플레이어
 Name:		xine-lib
 Version:	0.9.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -19,8 +19,7 @@ Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-Patch0:		%{name}-stubs.patch
-Patch1:		%{name}-am15.patch
+Patch0:		%{name}-am15.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
@@ -33,7 +32,7 @@ BuildRequires:	automake >= 1.5
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 %{!?_without_esd:BuildRequires:		esound-devel}
-BuildRequires:	libtool
+BuildRequires:	libtool >= 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 
@@ -235,7 +234,6 @@ HTML documentation of XINE API and development components.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 rm -f missing
@@ -245,7 +243,9 @@ autoconf
 automake -a -c
 autoheader
 %configure \
-	--with-aalib-prefix=/usr
+	--with-aalib-prefix=/usr \
+%{?_with_alsa:	--enable-alsa} \
+%{!?_with_alsa:	--disable-alsa}
 	
 %{__make}
 
@@ -299,7 +299,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/*oss.so
 %endif
 
-%if %{!?_without_alsa:1}
+%if %{?_with_alsa:1}
 %ifnarch sparc sparc64
 %files alsa
 %defattr(644,root,root,755)
@@ -321,7 +321,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/*esd.so
 %endif
 
-%if %{!?_with_dxr3:0}
+%if %{?_with_dxr3:1}
 %files dxr3
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/xine/plugins/xineplug_decode_dxr3.so
