@@ -14,13 +14,6 @@ Version:	0.9.7
 Release:	1
 License:	GPL
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am15.patch
 URL:		http://xine.sourceforge.net/
@@ -85,13 +78,6 @@ na P II 400MHz.
 Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obsЁuga OSS/ALSA
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description oss
@@ -104,13 +90,6 @@ Wtyczka audio do XINE z obsЁug╠ OSS/ALSA.
 Summary:	XINE - alsa support
 Summary(pl):	XINE - obsЁuga alsa
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description alsa
@@ -123,13 +102,6 @@ Wtyczka audio do XINE z obsЁug╠ ALSA.
 Summary:	XINE - arts support
 Summary(pl):	XINE - obsЁuga arts
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description arts
@@ -142,13 +114,6 @@ Wtyczka audio do XINE z obsЁug╠ arts.
 Summary:	XINE - esd support
 Summary(pl):	XINE - obsЁuga esd
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description esd
@@ -161,13 +126,6 @@ Wtyczka audio do XINE z obsЁug╠ esd.
 Summary:	XINE - DXR3 support
 Summary(pl):	XINE - obsЁuga DXR3
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description dxr3
@@ -180,13 +138,6 @@ Wtyczka odtwarzacza obrazu do XINE z obsЁug╠ kart DXR3.
 Summary:	XINE - XFree XVideo support
 Summary(pl):	XINE - obsЁuga XFree XVideo
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description xv
@@ -199,13 +150,6 @@ Wtyczka video do XINE u©ywaj╠ca rozszerzenia XVideo.
 Summary:	XINE - Ascii Art support
 Summary(pl):	XINE - obsЁuga Ascii Art
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description aa
@@ -218,13 +162,6 @@ Wtyczka video do XINE z obsЁug╠ Ascii Art.
 Summary:	XINE - XFree XShm support
 Summary(pl):	XINE - obsЁuga XFree XShm
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} >= %{version}
 
 %description xshm
@@ -237,13 +174,6 @@ Wtyczka video do XINE z obsЁug╠ XFree MIT shared memory.
 Summary:	XINE - Framebuffer support
 Summary(pl):	XINE - obsЁuga framebuffera
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description syncfb
@@ -256,13 +186,6 @@ Wtyczka video do XINE z obsЁug╠ framebuffera.
 Summary:	XINE - win32dll decoder support
 Summary(pl):	XINE - obsЁuga dekodera win32dll
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name} = %{version}
 Requires:	w32codec
 
@@ -276,13 +199,6 @@ ObsЁuga dekodera win32dll do XINE.
 Summary:	XINE - development files
 Summary(pl):	Pliki dla programistСw XINE
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
