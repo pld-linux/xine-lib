@@ -1,0 +1,48 @@
+diff -urN aa/xine-lib-1-rc5/m4/speex.m4 xine-lib-1-rc5/m4/speex.m4
+--- aa/xine-lib-1-rc5/m4/speex.m4	2004-03-05 17:34:32.000000000 +0100
++++ xine-lib-1-rc5/m4/speex.m4	2004-07-26 21:03:06.848405984 +0200
+@@ -37,7 +37,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <speex.h>
++#include <speex/speex.h>
+ 
+ int main ()
+ {
+diff -urN aa/xine-lib-1-rc5/src/demuxers/demux_ogg.c xine-lib-1-rc5/src/demuxers/demux_ogg.c
+--- aa/xine-lib-1-rc5/src/demuxers/demux_ogg.c	2004-06-13 23:28:54.000000000 +0200
++++ xine-lib-1-rc5/src/demuxers/demux_ogg.c	2004-07-26 21:03:45.364550640 +0200
+@@ -43,10 +43,10 @@
+ #include <vorbis/codec.h>
+ 
+ #ifdef HAVE_SPEEX
+-#include <speex.h>
+-#include <speex_header.h>
+-#include <speex_stereo.h>
+-#include <speex_callbacks.h>
++#include <speex/speex.h>
++#include <speex/speex_header.h>
++#include <speex/speex_stereo.h>
++#include <speex/speex_callbacks.h>
+ #endif
+ 
+ #ifdef HAVE_THEORA
+diff -urN aa/xine-lib-1-rc5/src/libspeex/xine_decoder.c xine-lib-1-rc5/src/libspeex/xine_decoder.c
+--- aa/xine-lib-1-rc5/src/libspeex/xine_decoder.c	2004-01-12 18:35:17.000000000 +0100
++++ xine-lib-1-rc5/src/libspeex/xine_decoder.c	2004-07-26 21:04:01.721064072 +0200
+@@ -40,10 +40,10 @@
+ #include "buffer.h"
+ 
+ #include <ogg/ogg.h>
+-#include <speex.h>
+-#include <speex_header.h>
+-#include <speex_callbacks.h>
+-#include <speex_stereo.h>
++#include <speex/speex.h>
++#include <speex/speex_header.h>
++#include <speex/speex_callbacks.h>
++#include <speex/speex_stereo.h>
+ 
+ #define MAX_FRAME_SIZE 2000
+ 
