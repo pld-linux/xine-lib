@@ -11,6 +11,7 @@
 
 %ifarch alpha
 %define		_without_arts	1
+%define		_without_xvid	1
 %endif
 %ifarch sparc sparc64
 %define		_without_alsa	1
@@ -23,7 +24,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.12
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
