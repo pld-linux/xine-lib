@@ -1,0 +1,26 @@
+--- xine-lib-0.9.9/src/libw32dll/Makefile.am~	Thu May  2 20:19:09 2002
++++ xine-lib-0.9.9/src/libw32dll/Makefile.am	Thu May  2 20:19:09 2002
+@@ -1,6 +1,6 @@
+ CFLAGS = @CFLAGS@ -I$(srcdir)/wine
+ 
+-DEBUG_CFLAGS = @DEBUG_CFLAGS@ -I$(srcdir)/wine
++INCLUDES = -I$(srcdir)/wine
+ 
+ SUBDIRS = wine DirectShow
+ 
+@@ -26,15 +26,6 @@
+ 
+ noinst_HEADERS = w32codec.h libwin32.h
+ 
+-debug:
+-	@list='$(SUBDIRS)'; for subdir in $$list; do \
+-	  (cd $$subdir && $(MAKE) $@) || exit;\
+-	done;
+-	@$(MAKE) CFLAGS="$(DEBUG_CFLAGS)"
+-
+-install-debug: debug
+-	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+-
+ mostlyclean-generic:
+ 	-rm -f *~ \#* .*~ .\#*
+ 
