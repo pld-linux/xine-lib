@@ -11,15 +11,6 @@
 # _without_sdl		- don't build SDL video output plugin
 # _without_xvid		- don't build xvid decode plugin [useless at the moment]
 #
-%ifarch alpha
-%define		_without_arts	1
-%define		_without_xvid	1
-%endif
-%ifarch sparc sparc64
-%define		_without_alsa	1
-%define		_without_xvid	1
-%endif
-
 %define		_rc		rc1
 %define		_version	1-%{_rc}
 
