@@ -1,4 +1,3 @@
-<<<<<<< xine-lib.spec
 # Conditional build:
 # --without	aa
 # --with	alsa	(alsa support is currently broken)
