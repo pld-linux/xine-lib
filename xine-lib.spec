@@ -1,3 +1,6 @@
+# TODO:
+# - SECURITY: http://securitytracker.com/alerts/2004/Sep/1011337.html
+#
 # Conditional build:
 # --without	aa
 # --without	alsa
