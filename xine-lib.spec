@@ -448,7 +448,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
 %endif
 
-%if %{?_with_alsa:1}%{!?_with_alsa:0}
+%if %{!?_without_alsa:1}%{?_without_alsa:0}
 %files alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*alsa*.so
