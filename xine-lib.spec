@@ -60,7 +60,7 @@ BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel
-BuildRequires:	vcdimager-cdio-devel >= 0.7.19
+BuildRequires:	vcdimager-devel >= 0.7.19
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
