@@ -9,8 +9,6 @@
 # --without	sdl
 # --without	xvid
 
-%define		_without_alsa	1
-
 %ifarch alpha
 %define		_without_arts	1
 %define		_without_xvid	1
@@ -20,18 +18,18 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta0
+%define		_version	1-beta2
 
 Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b0
+Version:	1.0b2
 Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	%{name}-%{_version}.tar.gz
+Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
@@ -53,7 +51,6 @@ BuildRequires:	libdivxdecore-devel
 %endif
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
-BuildRequires:	imlib-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
@@ -64,8 +61,6 @@ Obsoletes:	xine-libs
 
 %define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_pluginsdir	%{_libdir}/xine/plugins/1.0.0
 
 %description
@@ -349,12 +344,12 @@ plugins para o xine e o xine-ui.
 %patch2 -p1
 
 %build
-rm -f missing
-%{__libtoolize}
-%{__gettextize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__automake}
+#rm -f missing
+#%%{__libtoolize}
+#%%{__gettextize}
+#%%{__aclocal} -I m4
+#%%{__autoconf}
+#%%{__automake}
 
 %configure \
 CPPFLAGS=-I/usr/include/xvid \
@@ -376,7 +371,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
-%find_lang %{name}
+%find_lang libxine1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -384,7 +379,7 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files -f %{name}.lang
+%files -f libxine1.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
@@ -401,6 +396,9 @@ rm -rf $RPM_BUILD_ROOT
 # input plugins
 #%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
@@ -434,6 +432,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
 
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
@@ -469,8 +471,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
-
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
 
 %files devel
@@ -484,6 +490,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pluginsdir}/vidix/*.la
 %{_mandir}/man[13]/*
 %{_aclocaldir}/*.m4
+%{_pkgconfigdir}/libxine.pc
 
 %if %{?_without_aa:0}%{!?_without_aa:1}
 %files aa
