@@ -55,6 +55,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
+BuildRequires:	speex-devel
 %ifarch %{ix86}
 %{!?_without_xvid:BuildRequires:	xvid-devel}
 %else
