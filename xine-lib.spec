@@ -1,5 +1,4 @@
 #
-# TODO: update to rc6 (security fixes - XSA-2004-4 XSA-2004-5)
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
@@ -17,7 +16,7 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc5
+%define		_rc		rc6a
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -26,18 +25,17 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
-Release:	0.%{_rc}.2
+Release:	0.%{_rc}.1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	703c3e68d60524598d4d9e527fe38286
+# Source0-md5:	32b231beb9b2194606a18ed7bcf2bcb3
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-syncfb.patch
 Patch3:		%{name}-nolibs.patch
 Patch4:		%{name}-sparc.patch
-Patch5:		%{name}-speex_includes.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -598,7 +596,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %ifarch sparc
 %patch4 -p1
 %endif
-%patch5 -p1
 
 %build
 %{__libtoolize}
@@ -706,6 +703,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucmml.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 
