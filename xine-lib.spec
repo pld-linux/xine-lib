@@ -45,7 +45,6 @@ BuildRequires:	automake >= 1.5
 %{!?_without_sdl:BuildRequires:		SDL-devel}
 %{?_with_directfb:BuildRequires:	DirectFB-devel}
 %ifarch %{ix86}
-BuildRequires:  divx4linux-devel
 %{!?_without_xvid:BuildRequires:	xvid-devel}
 %else
 BuildRequires:	libdivxdecore-devel
