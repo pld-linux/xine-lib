@@ -1,12 +1,12 @@
 #
 # Conditional build:
+# _with_dxr3		- build dxr3 video output and decode plugins
 # _without_aalib	- don't build aalib video output plugin
 # _without_alsa		- don't build ALSA audio output plugin
 # _without_arts		- don't build aRts audio output plugin
-# _without_gnome	- don't build gnome_vfs plugin
-# _with_directfb	- build DirectFB video plugin [disabled in sources for now, don't use]
-# _with_dxr3		- build dxr3 video output and decode plugins
+# _without_directfb	- don't build DirectFB video output plugin
 # _without_esd		- don't build EsounD audio output plugin
+# _without_gnome	- don't build gnome_vfs plugin
 # _without_opengl	- don't build OpenGL video output plugin [useless at the moment]
 # _without_sdl		- don't build SDL video output plugin
 # _without_xvid		- don't build xvid decode plugin [useless at the moment]
@@ -38,7 +38,7 @@ Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
-%{?_with_directfb:BuildRequires:	DirectFB-devel}
+%{!?_without_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
 %{!?_without_aalib:BuildRequires:	aalib-devel >= 1.3}
@@ -759,7 +759,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_aa.so
 %endif
 
-%if 0%{?_with_directfb:1}
+%if 0%{!?_without_directfb:1}
 %files -n xine-output-video-directfb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
