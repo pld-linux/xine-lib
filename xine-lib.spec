@@ -599,7 +599,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxine*.so
 %{_pluginsdir}/*.la
 %{_pluginsdir}/post/*.la
+%ifnarch ppc
 %{_pluginsdir}/vidix/*.la
+%endif
 %{_mandir}/man[13]/*
 %{_aclocaldir}/*.m4
 %{_pkgconfigdir}/libxine.pc
