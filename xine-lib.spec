@@ -305,7 +305,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*xshm.so
 
-%ifnarch %{x86}
+%ifarch %{x86}
 %files w32dll
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*w32dll.so
