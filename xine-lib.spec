@@ -27,7 +27,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b12
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -550,6 +550,9 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
+#Remove useless *.la files
+rm -f $RPM_BUILD_ROOT%{_libdir}/xine/plugins/1.0.0/{,vidix,post}/*.la
+
 %find_lang xine-lib
 
 %clean
@@ -620,6 +623,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv_frames.so
 
 # decoder plugins
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
@@ -651,6 +655,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spuogm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
