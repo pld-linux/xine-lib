@@ -17,7 +17,7 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc7
+%define		_rc		rc8
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -31,12 +31,11 @@ Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	b3eaa0dd44fdbb8e3915399895c8414a
-Patch0:		%{name}-automake_as.patch
-Patch1:		%{name}-syncfb.patch
-Patch2:		%{name}-nolibs.patch
-Patch3:		%{name}-sparc.patch
-Patch4:		%{name}-win32-path.patch
+# Source0-md5:	dd571489e361987805100fdd80e0b921
+Patch0:		%{name}-syncfb.patch
+Patch1:		%{name}-nolibs.patch
+Patch2:		%{name}-sparc.patch
+Patch3:		%{name}-win32-path.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -65,6 +64,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
+BuildRequires:	polypaudio-devel >= 0.6
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.20-2
@@ -328,6 +328,23 @@ Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS/ALSA.
 
 %description -n xine-output-audio-oss -l pt_BR
 Plugin de audio para o xine, com suporte a oss.
+
+%package -n xine-output-audio-polypaudio
+Summary:	XINE - polypaudio support
+Summary(pl):	XINE - obs³uga polypaudio
+Summary(pt_BR):	XINE - suporte a polypaudio
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-audio-polypaudio
+XINE audio output plugins with polypaudio support.
+
+%description -n xine-output-audio-polypaudio -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± polypaudio.
+
+%description -n xine-output-audio-polypaudio -l pt_BR
+Plugin de audio para o xine, com suporte a polypaudio.
 
 %package -n xine-output-video-aa
 Summary:	XINE - Ascii Art support
@@ -626,11 +643,10 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %ifarch sparc
-%patch3 -p1
+%patch2 -p1
 %endif
-%patch4 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -646,6 +662,7 @@ CPPFLAGS=-I/usr/include/xvid
 	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
 	--enable-ipv6 \
+	--enable-shared-xv \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
 	--with-w32-path=%{_libdir}/codecs \
@@ -741,6 +758,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucmml.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spudvb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 
@@ -828,6 +846,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-audio-oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
+
+%files -n xine-output-audio-polypaudio
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_polypaudio.so
 
 %if %{with aalib}
 %files -n xine-output-video-aa
