@@ -61,6 +61,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	libdivxdecore-devel
 %endif
 BuildRequires:	zlib-devel
+# libtool problem (up to 1.4e)
+BuildConflicts:	xine-lib-devel < 1.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 Obsoletes:	xine-libs
