@@ -1,0 +1,5 @@
+- xine-lib-0.5.0  (this and xine-ui is replacement of xine)
+- spec rewriten from package temptate - previos was useless because of many
+  changes.
+
+Based on spec from tar ball.
