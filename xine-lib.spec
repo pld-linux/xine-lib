@@ -20,22 +20,21 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta12
+%define		_version	1-rc0a
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b12
-Release:	4
+Version:	1.0rc0a
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5: db00ce938944b2f3b334e7c27352eadf
+# Source0-md5:	923015bd49902cd43cd8f191f0720e4c
 Patch0:		%{name}-am17.patch
-Patch1:		%{name}-lt14d.patch
-Patch2:		%{name}-automake_as.patch
+Patch1:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
 %{?_with_directfb:BuildRequires:	DirectFB-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
@@ -397,7 +396,7 @@ Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca VIDIX.
 %package -n xine-output-video-vidix-cyberblade
 Summary:	VIDIX driver for Cyberblade/i1 chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Cyberblade/i1
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-cyberblade
 
@@ -408,9 +407,9 @@ VIDIX driver for Cyberblade/i1 chips.
 Sterownik VIDIX dla uk³adów Cyberblade/i1.
 
 %package -n xine-output-video-vidix-mach64
-Summary:        VIDIX driver for Mach64 and 3Drage chips
+Summary:	VIDIX driver for Mach64 and 3Drage chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-mach64
 
@@ -421,9 +420,9 @@ VIDIX driver for Mach64 and 3Drage chips.
 Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage.
 
 %package -n xine-output-video-vidix-matrox
-Summary:        VIDIX drivers for Matrox Mga chips
+Summary:	VIDIX drivers for Matrox Mga chips
 Summary(pl):	Sterowniki VIDIX dla uk³adów Matrox Mga
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-matrox
 
@@ -436,7 +435,7 @@ Sterowniki VIDIX dla uk³adów Matrox Mga.
 %package -n xine-output-video-vidix-nvidia
 Summary:	VIDIX driver for Riva and Riva-derived chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Riva oraz pochodnych
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-nvidia
 
@@ -448,9 +447,9 @@ VIDIX driver for Riva and Riva-derived chips, e.g. Riva TNT, GeForce
 Sterownik VIDIX dla uk³adów Riva oraz pochodnych.
 
 %package -n xine-output-video-vidix-permedia
-Summary:        VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips
+Summary:	VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips
 Summary(pl):	Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-permedia
 
@@ -461,9 +460,9 @@ VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips.
 Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia.
 
 %package -n xine-output-video-vidix-radeon
-Summary:        VIDIX driver for Radeon chips
-Summary(pl):    Sterownik VIDIX dla uk³adów Radeon
-Group:          Libraries
+Summary:	VIDIX driver for Radeon chips
+Summary(pl):	Sterownik VIDIX dla uk³adów Radeon
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-radeon
 
@@ -474,9 +473,9 @@ VIDIX driver for Radeon chips.
 Sterownik VIDIX dla uk³adów Radeon.
 
 %package -n xine-output-video-vidix-rage128
-Summary:        VIDIX driver for Rage128 chips
+Summary:	VIDIX driver for Rage128 chips
 Summary(pl):	Sterownik VIDIX dla uk³adów Rage128
-Group:          Libraries
+Group:		Libraries
 Requires:	xine-output-video-vidix = %{version}
 Obsoletes:	xine-lib-vidix-rage128
 
@@ -520,7 +519,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -621,6 +619,8 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wc3movie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv_frames.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_nsv.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_slave.so
 
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
@@ -661,9 +661,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_speex.so
 
 # Others
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_none.so
 
 %files devel
 %defattr(644,root,root,755)
