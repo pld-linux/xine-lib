@@ -27,7 +27,7 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0b4
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
@@ -490,9 +490,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
+%ifnarch ppc
 %attr(755,root,root) %{_pluginsdir}/post/*.so
 #%%dir %{_pluginsdir}/vidix 
 %attr(755,root,root) %{_pluginsdir}/vidix/*.so
+%endif
 %{_docdir}/xine
 
 # input plugins
@@ -562,7 +564,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
+%ifnarch ppc
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
+%endif
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
@@ -583,7 +587,9 @@ rm -rf $RPM_BUILD_ROOT
 # Others
 %attr(755,root,root) %{_pluginsdir}/xineplug_flac.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
+%ifnarch ppc
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
+%endif
 
 %files devel
 %defattr(644,root,root,755)
