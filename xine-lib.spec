@@ -18,16 +18,18 @@
 %define		_without_xvid	1
 %endif
 
+%define		_version	1-beta2
+
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.13
-Release:	2
+Version:	1.0b2
+Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
+Source0:	http://prdownloads.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
@@ -47,7 +49,7 @@ BuildRequires:	automake >= 1.5
 %else
 BuildRequires:	libdivxdecore-devel
 %endif
-BuildRequires:	gettext-autopoint
+BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
@@ -59,9 +61,7 @@ Obsoletes:	xine-libs
 
 %define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
-%define		_pluginsdir	%{_libdir}/xine/plugins
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.0
 
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
@@ -338,32 +338,26 @@ Arquivos include a bibliotecas estáticas necessárias para compilar
 plugins para o xine e o xine-ui.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
 %build
-rm -f missing
-%{__libtoolize}
-#Gettext hack
-sed -e 's/AM_GNU_GETTEXT\(.*\)/AM_GNU_GETTEXT\1\
-	AM_GNU_GETTEXT_VERSION(0.10.40)/' \
-	configure.in > configure.in.new
-mv configure.in.new configure.in
-autopoint --force
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-%{__autoheader}
+#rm -f missing
+#%%{__libtoolize}
+#%%{__gettextize}
+#%%{__aclocal} -I m4
+#%%{__autoconf}
+#%%{__automake}
 
 %configure \
+CPPFLAGS=-I/usr/include/xvid \
 %{!?_without_aa:	--with-aalib-prefix=/usr} \
 %{!?_without_alsa:	--enable-alsa} \
 %{?_without_alsa:	--disable-alsa} \
-%{!?_without_dxr3:	--enable-dxr3} \
-%{?_without_dxr3:	--disable-dxr3} \
-			--disable-vidix
+%{?_with_dxr3:		--enable-dxr3} \
+%{!?_with_dxr3:		--disable-dxr3}
 
 %{__make}
 
@@ -377,7 +371,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
-%find_lang %{name}
+%find_lang libxine1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -385,90 +379,123 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files -f %{name}.lang
+%files -f libxine1.lang
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
-%{_datadir}/xine/fonts
-%{_datadir}/xine/skins
+%{_datadir}/xine/libxine1/fonts
+#%{_datadir}/xine/skins
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
-%doc AUTHORS ChangeLog TODO
+%dir %{_pluginsdir}/post 
+%attr(755,root,root) %{_pluginsdir}/post/*.so
+%dir %{_pluginsdir}/vidix 
+%attr(755,root,root) %{_pluginsdir}/vidix/*.so
 
 # input plugins
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
+# new
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pnm.so
 
 # demuxer plugins
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_aiff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_film.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
-
-# new
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_smjpeg.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_snd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_voc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_vqa.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wav.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wc3movie.so
+# new
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_eawve.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
 
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
-
-# new
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
+# new
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
 
-%files oss
+%files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*oss.so
+%attr(755,root,root) %{_bindir}/xine-config
+%{_includedir}/*
+%{_libdir}/libxine*.la
+%attr(755,root,root) %{_libdir}/libxine*.so
+%{_pluginsdir}/*.la
+%{_pluginsdir}/post/*.la
+%{_pluginsdir}/vidix/*.la
+%{_mandir}/man[13]/*
+%{_aclocaldir}/*.m4
+%{_pkgconfigdir}/libxine.pc
 
-%if %{?_with_directfb:1}%{!?_with_directfb:0}
-%files directfb
+%if %{?_without_aa:0}%{!?_without_aa:1}
+%files aa
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*_directfb.so
-%endif
-
-%if %{?_without_sdl:0}%{!?_without_sdl:1}
-%files sdl
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*_sdl.so
-%endif
-
-%if %{?_without_xvid:0}%{!?_without_xvid:1}
-%files xvid
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
+%attr(755,root,root) %{_pluginsdir}/*aa.so
 %endif
 
 %if %{?_without_alsa:0}%{!?_without_alsa:1}
@@ -483,10 +510,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/*arts.so
 %endif
 
-%if %{?_without_esd:0}%{!?_without_esd:1}
-%files esd
+%if %{?_with_directfb:1}%{!?_with_directfb:0}
+%files directfb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*esd.so
+%attr(755,root,root) %{_pluginsdir}/*_directfb.so
 %endif
 
 %if %{?_with_dxr3:1}%{!?_with_dxr3:0}
@@ -496,33 +523,35 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
 
-%files xv
+%if %{?_without_esd:0}%{!?_without_esd:1}
+%files esd
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*xv.so
-
-%if %{?_without_aa:0}%{!?_without_aa:1}
-%files aa
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*aa.so
+%attr(755,root,root) %{_pluginsdir}/*esd.so
 %endif
-
-%files xshm
-%defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/*xshm.so
-
-%files syncfb
-%defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/*syncfb.so
 
 %files fb
 %defattr(644,root,root,755)
 %attr(644,root,root) %{_pluginsdir}/*_fb.so
 
-%if %{?_without_opengl:0}%{!?_without_opengl:1}
-%files opengl
+#%if %{?_without_opengl:0}%{!?_without_opengl:1}
+#%files opengl
+#%defattr(644,root,root,755)
+#%attr(644,root,root) %{_pluginsdir}/*opengl.so
+#%endif
+
+%files oss
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/*opengl.so
-%endif
+%attr(755,root,root) %{_pluginsdir}/*oss.so
+
+#%if %{?_without_sdl:0}%{!?_without_sdl:1}
+#%files sdl
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/*_sdl.so
+#%endif
+
+#%files syncfb
+#%defattr(644,root,root,755)
+#%attr(644,root,root) %{_pluginsdir}/*syncfb.so
 
 %ifarch %{ix86}
 %files w32dll
@@ -530,13 +559,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/*w32dll.so
 %endif
 
-%files devel
+%files xshm
 %defattr(644,root,root,755)
-%doc doc/xine-lib-API/html/*.{html,png,gif,css}
-%attr(755,root,root) %{_bindir}/xine-config
-%{_includedir}/*
-%{_libdir}/libxine*.la
-%attr(755,root,root) %{_libdir}/libxine*.so
-%{_pluginsdir}/*.la
-%{_mandir}/man[13]/*
-%{_aclocaldir}/*.m4
+%attr(644,root,root) %{_pluginsdir}/*xshm.so
+
+%files xv
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/*xv.so
+
+#%if %{?_without_xvid:0}%{!?_without_xvid:1}
+#%files xvid
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
+#%endif
