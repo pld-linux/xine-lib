@@ -10,8 +10,8 @@ Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Name:		xine-lib
-Version:	0.9.1
-Release:	3
+Version:	0.9.2
+Release:	1
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -35,6 +35,8 @@ BuildRequires:	automake >= 1.5
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 %{!?_without_esd:BuildRequires:		esound-devel}
+BuildRequires:	libvorbis-devel
+BuildRequires:	divx4linux-devel
 BuildRequires:	libtool >= 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
@@ -291,7 +293,7 @@ Pliki dla programistów oraz dokumentacja HTML do API XINE.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 rm -f missing
@@ -312,7 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf doc/FAQ doc/README.*
+gzip -9nf AUTHORS ChangeLog
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -328,8 +330,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xine/skins/*.png
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
-%doc doc/FAQ.gz
-%doc doc/README.xinerc.gz
+%doc *.gz
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
@@ -342,6 +343,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/*mpeg_*.so
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
@@ -352,14 +355,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
 
-%if %{!?_without_oss:1}
+%if %{!?_without_oss:1}%{?_without_oss:0}
 %files oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*oss.so
 %endif
 
-%if %{?_with_alsa:1}
+%if %{?_with_alsa:1}%{!?_with_alsa:0}
 %ifnarch sparc sparc64
 %files alsa
 %defattr(644,root,root,755)
@@ -368,32 +372,31 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %ifnarch alpha
-%if %{!?_without_arts:1}
+%if %{!?_without_arts:1}%{?_without_arts:0}
 %files arts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*arts.so
 %endif
 %endif
 
-%if %{!?_without_esd:1}
+%if %{!?_without_esd:1}%{?_without_esd:0}
 %files esd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*esd.so
 %endif
 
-%if %{?_with_dxr3:1}
+%if %{?_with_dxr3:1}%{!?_with_dxr3:0}
 %files dxr3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/xine/plugins/xineplug_decode_dxr3.so
-%attr(755,root,root) %{_libdir}/xine/plugins/xineplug_vo_out_dxr3.so
-%doc doc/README.dxr3.gz
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
 
 %files xv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*xv.so
 
-%if %{!?_without_aa:1}
+%if %{!?_without_aa:1}%{?_without_aa:0}
 %files aa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*aa.so
