@@ -3,7 +3,7 @@
 # --without	alsa
 # --without	arts
 # --without 	gnome
-# --with	directfb
+# --with	directfb	[disabled in sources for now, don't use]
 # --with	dxr3
 # --without	esd
 # --without	opengl
@@ -35,27 +35,28 @@ Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake >= 1.5
-%{?_with_aalib:BuildRequires:		aalib-devel}
-%{?_with_aalib:BuildRequires:		aalib-progs}
-%{!?_without_arts:BuildRequires:	arts-devel}
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
-%{!?_without_esd:BuildRequires:		esound-devel}
+%{?_with_directfb:BuildRequires:	DirectFB-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
-%{?_with_directfb:BuildRequires:	DirectFB-devel}
+%{?_with_aalib:BuildRequires:		aalib-devel}
+%{?_with_aalib:BuildRequires:		aalib-progs}
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
+%{!?_without_arts:BuildRequires:	arts-devel}
+BuildRequires:	autoconf
+BuildRequires:	automake >= 1.5
+%{!?_without_esd:BuildRequires:		esound-devel}
+BuildRequires:	flac-devel
+BuildRequires:	gettext-devel
+BuildRequires:	glut-devel
+%{!?_without_gnome:BuildRequires:	gnome-vfs-devel}
+BuildRequires:	libvorbis-devel
+BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	pkgconfig
 %ifarch %{ix86}
 %{!?_without_xvid:BuildRequires:	xvid-devel}
 %else
 BuildRequires:	libdivxdecore-devel
 %endif
-BuildRequires:	gettext-devel
-BuildRequires:	glut-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	libtool >= 0:1.4.2-9
-BuildRequires:	pkgconfig
-BuildRequires:	flac-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
@@ -339,94 +340,103 @@ Pliki dla programist闚 oraz dokumentacja HTML do API XINE.
 Arquivos include a bibliotecas est嫢icas necess嫫ias para compilar
 plugins para o xine e o xine-ui.
 
-%package        vidix-rage128
+%package input-gnome-vfs
+Summary:	GNOME VFS input driver for xine
+Summary(pl):	Sterownik wej軼ia GNOME VFS dla xine
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description input-gnome-vfs
+GNOME VFS input driver for xine.
+
+%description input-gnome-vfs -l pl
+Sterownik wej軼ia GNOME VFS dla xine.
+
+%package vidix-rage128
 Summary:        VIDIX based video driver for Rage128 chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Rage128
+Summary(pl):	Modu造 video oparte na VIDIX dla uk豉d闚 Rage128
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description    vidix-rage128
+%description vidix-rage128
 VIDIX based video driver for Rage128 chips.
 
-%description    vidix-rage128 -l pl
-Modu造 video oparte na VIDIX dla chipsetow Rage128.
+%description vidix-rage128 -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Rage128.
 
-%package        vidix-radeon
+%package vidix-radeon
 Summary:        VIDIX based video driver for Radeon chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Radeon
+Summary(pl):    Modu造 video oparte na VIDIX dla uk豉d闚 Radeon
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description    vidix-radeon
+%description vidix-radeon
 VIDIX based video driver for Radeon chips.
 
-%description    vidix-radeon -l pl
-VIDIX based video driver for Radeon chips.
+%description vidix-radeon -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Radeon.
 
-%description    vidix-radeon -l pl
-Modu造 video oparte na VIDIX dla chipsetow Radeon.
-
-%package        vidix-nvidia
-Summary:        VIDIX based video driver for Riva and Riva-derived chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych
+%package vidix-nvidia
+Summary:	VIDIX based video driver for Riva and Riva-derived chips
+Summary(pl):	Modu造 video oparte na VIDIX dla uk豉d闚 Riva oraz pochodnych
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description    vidix-nvidia
-VIDIX based video driver for Riva and Riva-derived chips, ex. riva tnt, geforce 2.
+%description vidix-nvidia
+VIDIX based video driver for Riva and Riva-derived chips, e.g. Riva
+TNT, GeForce 2.
 
-%description    vidix-nvidia -l pl
-Modu造 video oparte na VIDIX dla chipsetow Riva oraz pochodnych.
+%description vidix-nvidia -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Riva oraz pochodnych.
 
 %package        vidix-permedia
 Summary:        VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia
+Summary(pl):	Modu造 video oparte na VIDIX dla uk豉d闚 3Dlabs GLINT R3 oraz Permedia
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description    vidix-permedia
+%description vidix-permedia
 VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips.
 
-%description    vidix-permedia -l pl
-Modu造 video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia.
+%description vidix-permedia -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 3Dlabs GLINT R3 oraz
+Permedia.
 
-%package        vidix-matrox
+%package vidix-matrox
 Summary:        VIDIX based video driver for Matrox Mga chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Matrox Mga
+Summary(pl):	Modu造 video oparte na VIDIX dla uk豉d闚 Matrox Mga
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description    vidix-matrox
+%description vidix-matrox
 VIDIX based video driver for Matrox Mga chips.
 
-%description    vidix-matrox -l pl
-Modu造 video oparte na VIDIX dla chipsetow Matrox Mga.
+%description vidix-matrox -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Matrox Mga.
 
-%package        vidix-mach64
+%package vidix-mach64
 Summary:        VIDIX based video driver for Mach64 and 3Drage chips
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage
+Summary(pl):	Modu造 video oparte na VIDIX dla uk豉d闚 Mach64 oraz 3DRage
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description	vidix-mach64
+%description vidix-mach64
 VIDIX based video driver for Mach64 and 3Drage chips.
 
-%description    vidix-mach64 -l pl
-Modu造 video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage.
+%description vidix-mach64 -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Mach64 oraz 3DRage.
 
-
-%package        vidix-cyberblade
-Summary:        VIDIX based video driver for Cyberblade/i1chips.
-Summary(pl):    Modu造 video oparte na VIDIX dla chipsetow Cyberblade/i1
+%package vidix-cyberblade
+Summary:        VIDIX based video driver for Cyberblade/i1chips
+Summary(pl):    Modu造 video oparte na VIDIX dla uk豉d闚 Cyberblade/i1
 Group:          Libraries
 Requires:       %{name} = %{version}
 
-%description	vidix-cyberblade
+%description vidix-cyberblade
 VIDIX based video driver for Cyberblade/i1 chips.
 
-%description    vidix-cyberblade -l pl
-Modu造 video oparte na VIDIX dla chipsetow Cyberblade/i1.
-
+%description vidix-cyberblade -l pl
+Modu造 video oparte na VIDIX dla uk豉d闚 Cyberblade/i1.
 
 %prep
 %setup -q -n %{name}-%{_version}
@@ -489,7 +499,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
-%{!?_without_gnome:%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so}
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
@@ -661,6 +670,12 @@ rm -rf $RPM_BUILD_ROOT
 %files xv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*xv.so
+
+%if 0%{!?_without_gnome:1}
+%files input-gnome-vfs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
+%endif
 
 %ifnarch ppc
 
