@@ -22,8 +22,8 @@ Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.10
-Release:	3
+Version:	0.9.11a
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
