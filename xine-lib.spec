@@ -189,7 +189,7 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Requires:	xine-lib >= 0.5.0, libaa
+Requires:	xine-lib >= 0.5.0
 
 %description aa
 video plugin using Ascii Art library.
