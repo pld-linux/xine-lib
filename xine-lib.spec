@@ -26,7 +26,7 @@ Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
 Release:	0.%{_rc}.1
-Epoch:		1
+Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
