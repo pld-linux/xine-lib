@@ -19,14 +19,14 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta6
+%define		_version	1-beta7
 
 Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b6
+Version:	1.0b7
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -507,6 +507,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_pnm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pvr.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
