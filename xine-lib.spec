@@ -33,7 +33,7 @@ BuildRequires:	automake >= 1.5
 BuildRequires:  divx4linux-devel
 %endif
 %ifnarch %{ix86}
-BuildRequires:	libdivxdecore
+BuildRequires:	libdivxdecore-devel
 %endif
 BuildRequires:	gettext-devel
 BuildRequires:	libvorbis-devel
