@@ -23,13 +23,13 @@ Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.12
-Release:	6
+Version:	0.9.13
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-Patch0:		%{name}-am_fixes.patch
-Patch1:		%{name}-noopt.patch
+#Patch0:	%{name}-am_fixes.patch
+#Patch1:	%{name}-noopt.patch
 Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
@@ -341,8 +341,8 @@ plugins para o xine e o xine-ui.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 %patch2 -p1
 
 %build
@@ -391,7 +391,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xine/skins
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
-%doc AUTHORS ChangeLog TODO
+%doc AUTHORS ChangeLog TODO $RPM_BUILD_ROOT%{_datadir}/doc/xine/*
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
@@ -403,6 +403,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
+
 # demuxer plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
@@ -412,6 +413,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
+
+# new
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_smjpeg.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wav.so
+
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
@@ -431,6 +439,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
+
+# new
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 
 %files oss
 %defattr(644,root,root,755)
