@@ -62,7 +62,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 Obsoletes:	xine-libs
 
-#efine 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
+%define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
