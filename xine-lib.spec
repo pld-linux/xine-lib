@@ -3,7 +3,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_without	arts		# don't build aRts audio output plugin
-#%bcond_without	directfb	# don't build DirectFB video output plugin
+%bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs plugin
@@ -20,7 +20,7 @@
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
-Summary(pl):	Odtwarzacz video
+Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
@@ -32,18 +32,18 @@ Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 # Source0-md5:	7c51d35b92dc77cd1effc59394ff89de
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
-Patch2:		%{name}-am18.patch
+Patch2:		%{name}-syncfb.patch
 Patch3:		%{name}-kernel.patch
 Patch4:		%{name}-ppc-nokernel.patch
 URL:		http://xine.sourceforge.net/
-#%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
+%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
 %{?with_sdl:BuildRequires:	SDL-devel}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	automake >= 1.5
+BuildRequires:	automake >= 1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
@@ -101,7 +101,7 @@ xine ´Â GPL¶óÀÌ¼±½º¸¦ µû¸£´Â UNIX¿ë °ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾îÀÔ´Ï´Ù. ÀÌ
 ³ªÁß¿¡´Â mpeg-4 ¿Í ´Ù¸¥ Çü½ÄÀÇ µ¿¿µ»óµµ Áö¿øÇÒ ¿¹Á¤ÀÔ´Ï´Ù.
 
 %description -l pl
-xine jest wolnodostêpnym odtwarzaczem video dla systemów uniksowych.
+xine jest wolnodostêpnym odtwarzaczem filmów dla systemów uniksowych.
 Obs³uguje strumienie MPEG-2 i MPEG-1 (d¼wiêk oraz obraz), mo¿e byæ
 dodana obs³uga MPEG-4 i innych formatów.
 
@@ -328,20 +328,20 @@ Wtyczka wyj¶cia obrazu do XINE z obs³ug± Ascii Art.
 %description -n xine-output-video-aa -l pt_BR
 Plugin de video para o xine, utilizando a aalib.
 
-#%package -n xine-output-video-directfb
-#Summary:	XINE - accelereted framebuffer support
-#Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
-#Group:		Libraries
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
-#Obsoletes:	xine-lib-directfb
+%package -n xine-output-video-directfb
+Summary:	XINE - accelereted framebuffer support
+Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-lib-directfb
 
-#%description -n xine-output-video-directfb
-#XINE video output plugin for accelereted framebuffer support (with
-#DirectFB library).
+%description -n xine-output-video-directfb
+XINE video output plugin for accelereted framebuffer support (with
+DirectFB library).
 
-#%description -n xine-output-video-directfb -l pl
-#Wtyczka wyj¶cia obrazu do XINE dla akcelerowanego framebuffera (przez
-#bibliotekê DirectFB).
+%description -n xine-output-video-directfb -l pl
+Wtyczka wyj¶cia obrazu do XINE dla akcelerowanego framebuffera (przez
+bibliotekê DirectFB).
 
 %package -n xine-output-video-dxr3
 Summary:	XINE - DXR3 support
@@ -408,20 +408,20 @@ XINE video output plugin using SDL library.
 %description -n xine-output-video-sdl -l pl
 Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê SDL.
 
-#%package -n xine-output-video-syncfb
-#Summary:	XINE - SyncFB (Matrox G200/G400) support
-#Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
-#Group:		Libraries
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
-#Obsoletes:	xine-lib-syncfb
+%package -n xine-output-video-syncfb
+Summary:	XINE - SyncFB (Matrox G200/G400) support
+Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-lib-syncfb
 
-#%description -n xine-output-video-syncfb
-#XINE video output plugin using SyncFB interface (for Matrox G200/G400
-#cards).
+%description -n xine-output-video-syncfb
+XINE video output plugin using SyncFB interface (for Matrox G200/G400
+cards).
 
-#%description -n xine-output-video-syncfb -l pl
-#Wtyczka wyj¶cia obrazu do XINE obs³uguj±ca interfejs SyncFB (dla kart
-#Matrox G200/G400).
+%description -n xine-output-video-syncfb -l pl
+Wtyczka wyj¶cia obrazu do XINE obs³uguj±ca interfejs SyncFB (dla kart
+Matrox G200/G400).
 
 %package -n xine-output-video-vidix
 Summary:	XINE - VIDIX video output plugin
@@ -591,7 +591,8 @@ CPPFLAGS=-I/usr/include/xvid
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
 	%{?with_dxr3:--enable-dxr3} \
-	%{!?with_dxr3:--disable-dxr3} 
+	%{!?with_dxr3:--disable-dxr3} \
+	%{?with_directfb:--enable-directfb}
 
 %{__make}
 
@@ -605,7 +606,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 #mv $RPM_BUILD_ROOT%{_datadir}/locale/pl_PL $RPM_BUILD_ROOT%{_datadir}/locale/pl
 
-#Remove useless *.la files
+# remove useless *.la files
 rm -f $RPM_BUILD_ROOT%{_libdir}/xine/plugins/1.0.0/{,vidix,post}/*.la
 
 %find_lang xine-lib
@@ -808,11 +809,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_aa.so
 %endif
 
-#%if %{with directfb}
-#%files -n xine-output-video-directfb
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
-#%endif
+%if %{with directfb}
+%files -n xine-output-video-directfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
+%endif
 
 %if %{with dxr3}
 %files -n xine-output-video-dxr3
@@ -842,9 +843,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
 %endif
 
-#%files -n xine-output-video-syncfb
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
+%files -n xine-output-video-syncfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 
 %ifarch %{ix86}
 %files -n xine-output-video-vidix
