@@ -6,8 +6,9 @@
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	esd		# don't build EsounD audio output plugin
-%bcond_without	gnome		# don't build gnome_vfs plugin
+%bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
+%bcond_without	samba		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
@@ -16,7 +17,7 @@
 %undefine	with_dxr3
 %endif
 
-%define		_rc		rc6a
+%define		_rc		rc7
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -25,18 +26,17 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0
-Release:	0.%{_rc}.5
+Release:	0.%{_rc}.1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	32b231beb9b2194606a18ed7bcf2bcb3
-Patch0:		%{name}-am17.patch
-Patch1:		%{name}-automake_as.patch
-Patch2:		%{name}-syncfb.patch
-Patch3:		%{name}-nolibs.patch
-Patch4:		%{name}-sparc.patch
-Patch5:		%{name}-win32-path.patch
+# Source0-md5:	b3eaa0dd44fdbb8e3915399895c8414a
+Patch0:		%{name}-automake_as.patch
+Patch1:		%{name}-syncfb.patch
+Patch2:		%{name}-nolibs.patch
+Patch3:		%{name}-sparc.patch
+Patch4:		%{name}-win32-path.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -58,6 +58,7 @@ BuildRequires:	libdvdnav-devel >= 0.1.9
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
+%{?with_samba:BuildRequires:	libsmbclient-devel}
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
@@ -221,6 +222,18 @@ GNOME VFS input driver for xine.
 
 %description -n xine-input-gnome-vfs -l pl
 Sterownik wej¶cia GNOME VFS dla xine.
+
+%package -n xine-input-smb
+Summary:	SMB input driver for xine
+Summary(pl):	Sterownik wej¶cia SMB dla xine
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-smb
+SMB input driver for xine.
+
+%description -n xine-input-smb -l pl
+Sterownik wej¶cia SMB dla xine.
 
 %package -n xine-input-v4l
 Summary:	Video4Linux input driver for xine
@@ -593,11 +606,10 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %ifarch sparc
-%patch4 -p1
+%patch3 -p1
 %endif
-%patch5 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -757,6 +769,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-input-gnome-vfs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
+%endif
+
+%if %{with samba}
+%files -n xine-input-smb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_smb.so
 %endif
 
 %files -n xine-input-v4l
