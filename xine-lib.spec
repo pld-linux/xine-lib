@@ -57,7 +57,7 @@ BuildRequires:	libdvdnav-devel >= 0.1.9
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
-%{?with_stk:BuildRequires:	libstk-devel}
+%{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
