@@ -57,6 +57,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
+Obsoletes:	xine-libs
 
 %define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
 
