@@ -1,0 +1,11 @@
+diff -durN xine-lib-0.9.9.orig/configure.in xine-lib-0.9.9/configure.in
+--- xine-lib-0.9.9.orig/configure.in	Sun Apr 28 17:33:47 2002
++++ xine-lib-0.9.9/configure.in	Thu May  2 18:07:38 2002
+@@ -946,7 +946,6 @@
+ src/libspudec/Makefile
+ src/libsputext/Makefile
+ src/libspucc/Makefile
+-src/libvfill/Makefile
+ src/libvorbis/Makefile
+ src/libxvid/Makefile
+ src/libdivx4/Makefile
