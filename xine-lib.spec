@@ -9,6 +9,8 @@
 # --without	sdl
 # --without	xvid
 
+%define		_without_alsa	1
+
 %ifarch alpha
 %define		_without_arts	1
 %define		_without_xvid	1
