@@ -1,0 +1,11 @@
+diff -urN xine-lib-1-rc3c.orig/include/xine.h.in xine-lib-1-rc3c/include/xine.h.in
+--- xine-lib-1-rc3c.orig/include/xine.h.in	2004-04-18 19:38:50.996016864 +0200
++++ xine-lib-1-rc3c/include/xine.h.in	2004-04-18 19:39:27.038537568 +0200
+@@ -1646,6 +1646,7 @@
+ #define XINE_MSG_ENCRYPTED_SOURCE	9  /* none               */
+ #define XINE_MSG_SECURITY		10 /* (security message) */
+ #define XINE_MSG_AUDIO_OUT_UNAVAILABLE	11 /* none               */
++#define XINE_MSG_PERMISSION_ERROR       12 /* (file name or mrl) */
+ 
+ /* opaque xine_event_queue_t */
+ typedef struct xine_event_queue_s xine_event_queue_t;
