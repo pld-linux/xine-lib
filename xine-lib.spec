@@ -35,22 +35,23 @@ Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
 URL:		http://xine.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake >= 1.5
-%{!?_without_aalib:BuildRequires:		aalib-devel}
-%{!?_without_aalib:BuildRequires:		aalib-progs}
 %{?_with_directfb:BuildRequires:	DirectFB-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
 %{!?_without_sdl:BuildRequires:		SDL-devel}
+%{!?_without_aalib:BuildRequires:	aalib-devel}
+%{!?_without_aalib:BuildRequires:	aalib-progs}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
-%{!?_without_arts:BuildRequires:	arts-devel}
-BuildRequires:	autoconf
+%{!?_without_arts:BuildRequires:	arts-devel >= 0.9.5}
+BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.5
-%{!?_without_esd:BuildRequires:		esound-devel}
+%{!?_without_esd:BuildRequires:		esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
 %{!?_without_gnome:BuildRequires:	gnome-vfs2-devel}
+#BuildRequires:	libdvdnav-devel >= 0.1.8
+BuildRequires:	libmng-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
@@ -111,219 +112,6 @@ MPEG-1, além de AVIs MS MPEG4 / OpenDivX.
 O xine lê o conteúdo vídeo e áudio e sincroniza-os em tempo-real. As
 necessidades de processador dependem das propriedades de cada arquivo.
 
-%package oss
-Summary:	XINE - OSS/ALSA support
-Summary(pl):	XINE - obs³uga OSS/ALSA
-Summary(pt_BR):	XINE - suporte a oss
-Group:		Libraries
-Provides:	xine-plugin-audio
-Requires:	%{name} = %{version}
-
-%description oss
-XINE audio plugins with OSS/ALSA support.
-
-%description oss -l pl
-Wtyczka audio do XINE z obs³ug± OSS/ALSA.
-
-%description oss -l pt_BR
-Plugin de audio para o xine, com suporte a oss.
-
-%package alsa
-Summary:	XINE - alsa support
-Summary(pl):	XINE - obs³uga alsa
-Summary(pt_BR):	XINE - suporte a alsa
-Group:		Libraries
-Provides:	xine-plugin-audio
-Requires:	%{name} = %{version}
-
-%description alsa
-XINE audio plugin with alsa support.
-
-%description alsa -l pl
-Wtyczka audio do XINE z obs³ug± ALSA.
-
-%description alsa -l pt_BR
-Plugin de audio para o xine, com suporte a alsa.
-
-%package arts
-Summary:	XINE - arts support
-Summary(pl):	XINE - obs³uga arts
-Summary(pt_BR):	XINE - suporte a arts
-Group:		Libraries
-Provides:	xine-plugin-audio
-Requires:	%{name} = %{version}
-
-%description arts
-XINE audio plugin with arts support.
-
-%description arts -l pl
-Wtyczka audio do XINE z obs³ug± arts.
-
-%package esd
-Summary:	XINE - esd support
-Summary(pl):	XINE - obs³uga esd
-Summary(pt_BR):	XINE - suporte a esd
-Group:		Libraries
-Provides:	xine-plugin-audio
-Requires:	%{name} = %{version}
-
-%description esd
-XINE audio plugin with esd support.
-
-%description esd -l pl
-Wtyczka audio do XINE z obs³ug± esd.
-
-%description esd -l pt_BR
-Plugin de audio para o xine, com suporte a esd.
-
-%package dxr3
-Summary:	XINE - DXR3 support
-Summary(pl):	XINE - obs³uga DXR3
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description dxr3
-XINE video/decoder plugins for DXR3 card support.
-
-%description dxr3 -l pl
-Wtyczka odtwarzacza obrazu do XINE z obs³ug± kart DXR3.
-
-%package xvid
-Summary:	XINE - xvid DIVX decoding support
-Summary(pl):	XINE - obs³uga dekodera DIVX xvid
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description xvid
-XINE decoder plugin for DIVX decoding with xvid library.
-
-%description xvid -l pl
-Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekê xvid.
-
-%package xv
-Summary:	XINE - XFree XVideo support
-Summary(pl):	XINE - obs³uga XFree XVideo
-Summary(pt_BR):	XINE - suporte a XFree XVideo
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description xv
-XINE video plugin using XFree XVideo extension.
-
-%description xv -l pl
-Wtyczka video do XINE u¿ywaj±ca rozszerzenia XVideo.
-
-%description xv -l pt_BR
-Plugin de video para o xine, utilizando a extensão XVideo do XFree.
-
-%package aa
-Summary:	XINE - Ascii Art support
-Summary(pl):	XINE - obs³uga Ascii Art
-Summary(pt_BR):	XINE - suporte a aalib
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description aa
-XINE video plugin using Ascii Art library.
-
-%description aa -l pl
-Wtyczka video do XINE z obs³ug± Ascii Art.
-
-%description aa -l pt_BR
-Plugin de video para o xine, utilizando a aalib.
-
-%package xshm
-Summary:	XINE - XFree XShm support
-Summary(pl):	XINE - obs³uga XFree XShm
-Group:		Libraries
-Requires:	%{name} >= %{version}
-
-%description xshm
-XINE video plugin using XFree MIT shared memory.
-
-%description xshm -l pl
-Wtyczka video do XINE z obs³ug± XFree MIT shared memory.
-
-%package syncfb
-Summary:	XINE - SyncFB (Matrox G200/G400) support
-Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description syncfb
-SyncFB (for Matrox G200/G400 cards) interface for xine.
-
-%description syncfb -l pl
-Wtyczka video do XINE obs³uguj±ca interfejs SyncFB (dla kart Matrox G200/G400).
-
-%package fb
-Summary:	XINE - framebuffer support
-Summary(pl):	XINE - obs³uga framebuffera
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description fb
-SyncFB (for Matrox G200/G400 cards) interface for xine.
-
-%description fb -l pl
-Wtyczka video do XINE dla framebuffera.
-
-%package directfb
-Summary:	XINE - accelereted framebuffer support
-Summary(pl):	XINE - obs³uga akelereowanego framebuffera
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description directfb
-XINE plugin for accelereted framebuffer support (with DirectFB
-library).
-
-%description directfb -l pl
-Wtyczka video do XINE dla akcelerowanego framebuffera (przez
-bibliotekê DirectFB).
-
-%package sdl
-Summary:	XINE - SDL output support
-Summary(pl):	XINE - obs³uga wyj¶cia SDL
-Group:		Libraries
-Requires:	%{name} = %{version}
-
-%description sdl
-XINE plugin for output with SDL library.
-
-%description sdl -l pl
-Wtyczka video do XINE dla wy¶wieltania poprzez bibliotekê SDL.
-
-%package opengl
-Summary:	XINE - OpenGL video output
-Summary(pl):	XINE - wy¶wietlanie OpenGL
-Group:		Libraries
-Requires:	%{name} = %{version}
-Requires:	OpenGL
-
-%description opengl
-XINE plugin using OpenGL for video output.
-
-%description opengl -l pl
-Wtyczka video do XINE wykorzystuj±ca OpenGL do wy¶wietlania.
-
-%package w32dll
-Summary:	XINE - win32dll decoder support
-Summary(pl):	XINE - obs³uga dekodera win32dll
-Summary(pt_BR):	XINE - suporte a decoder win32dll
-Group:		Libraries
-Requires:	%{name} = %{version}
-Requires:	w32codec
-
-%description w32dll
-XINE win32dll decoder support.
-
-%description w32dll -l pl
-Obs³uga dekodera win32dll do XINE.
-
-%description w32dll -l pt_BR
-Suporte a win32dll para o xine.
-
 %package devel
 Summary:	XINE - development files
 Summary(pl):	Pliki dla programistów XINE
@@ -342,103 +130,387 @@ Pliki dla programistów oraz dokumentacja HTML do API XINE.
 Arquivos include a bibliotecas estáticas necessárias para compilar
 plugins para o xine e o xine-ui.
 
-%package input-gnome-vfs
+%package -n xine-decode-flac
+Summary:	XINE - FLAC decoder plugin
+Summary(pl):	XINE - wtyczka dekodera FLAC
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description -n xine-decode-flac
+XINE - FLAC decoder/demuxer plugin.
+
+%description -n xine-decode-flac -l pl
+XINE - wtyczka dekodera i demuxera FLAC.
+
+%package -n xine-decode-vorbis
+Summary:	XINE - Ogg/Vorbis decoder plugin
+Summary(pl):	XINE - wtyczka dekodera Ogg/Vorbis
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description -n xine-decode-vorbis
+XINE Ogg/Vorbis decoding plugins: Ogg demuxer and Vorbis decoder.
+
+%description -n xine-decode-vorbis -l pl
+Wtyczki XINE dekoduj±ce Ogg/Vorbis: demuxer Ogg i dekoder Vorbis.
+
+%package -n xine-decode-w32dll
+Summary:	XINE - win32dll decoder support
+Summary(pl):	XINE - obs³uga dekodera win32dll
+Summary(pt_BR):	XINE - suporte a decoder win32dll
+Group:		Libraries
+Requires:	%{name} = %{version}
+Requires:	w32codec
+Obsoletes:	xine-lib-w32dll
+
+%description -n xine-decode-w32dll
+XINE win32dll decoder support.
+
+%description -n xine-decode-w32dll -l pl
+Obs³uga dekodera win32dll do XINE.
+
+%description -n xine-decode-w32dll -l pt_BR
+Suporte a win32dll para o xine.
+
+%package -n xine-decode-xvid
+Summary:	XINE - xvid DIVX decoding support
+Summary(pl):	XINE - obs³uga dekodera DIVX xvid
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-xvid
+
+%description -n xine-decode-xvid
+XINE decoder plugin for DIVX decoding with xvid library.
+
+%description -n xine-decode-xvid -l pl
+Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekê xvid.
+
+%package -n xine-input-dvd
+Summary:	XINE input plugin for DVD
+Summary(pl):	Wtyczka wej¶ciowa XINE dla DVD
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description -n xine-input-dvd
+XINE input plugin for DVD.
+
+%description -n xine-input-dvd -l pl
+Wtyczka wej¶ciowa XINE dla DVD.
+
+%package -n xine-input-gnome-vfs
 Summary:	GNOME VFS input driver for xine
 Summary(pl):	Sterownik wej¶cia GNOME VFS dla xine
 Group:		Libraries
 Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-input-gnome-vfs
 
-%description input-gnome-vfs
+%description -n xine-input-gnome-vfs
 GNOME VFS input driver for xine.
 
-%description input-gnome-vfs -l pl
+%description -n xine-input-gnome-vfs -l pl
 Sterownik wej¶cia GNOME VFS dla xine.
 
-%package vidix-rage128
-Summary:        VIDIX based video driver for Rage128 chips
-Summary(pl):	Modu³y video oparte na VIDIX dla uk³adów Rage128
+%package -n xine-output-audio-alsa
+Summary:	XINE - alsa support
+Summary(pl):	XINE - obs³uga alsa
+Summary(pt_BR):	XINE - suporte a alsa
+Group:		Libraries
+Requires:	%{name} = %{version}
+Provides:	xine-plugin-audio
+Obsoletes:	xine-lib-alsa
+
+%description -n xine-output-audio-alsa
+XINE audio output plugin with alsa support.
+
+%description -n xine-output-audio-alsa -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± ALSA.
+
+%description -n xine-output-audio-alsa -l pt_BR
+Plugin de audio para o xine, com suporte a alsa.
+
+%package -n xine-output-audio-arts
+Summary:	XINE - arts support
+Summary(pl):	XINE - obs³uga arts
+Summary(pt_BR):	XINE - suporte a arts
+Group:		Libraries
+Requires:	%{name} = %{version}
+Provides:	xine-plugin-audio
+Obsoletes:	xine-lib-arts
+
+%description -n xine-output-audio-arts
+XINE audio output plugin with arts support.
+
+%description -n xine-output-audio-arts -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± arts.
+
+%package -n xine-output-audio-esd
+Summary:	XINE - esd support
+Summary(pl):	XINE - obs³uga esd
+Summary(pt_BR):	XINE - suporte a esd
+Group:		Libraries
+Provides:	xine-plugin-audio
+Requires:	%{name} = %{version}
+
+%description -n xine-output-audio-esd
+XINE audio output plugin with esd support.
+
+%description -n xine-output-audio-esd -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± esd.
+
+%description -n xine-output-audio-esd -l pt_BR
+Plugin de audio para o xine, com suporte a esd.
+
+%package -n xine-output-audio-oss
+Summary:	XINE - OSS/ALSA support
+Summary(pl):	XINE - obs³uga OSS/ALSA
+Summary(pt_BR):	XINE - suporte a oss
+Group:		Libraries
+Requires:	%{name} = %{version}
+Provides:	xine-plugin-audio
+Obsoletes:	xine-lib-oss
+
+%description -n xine-output-audio-oss
+XINE audio output plugins with OSS/ALSA support.
+
+%description -n xine-output-audio-oss -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS/ALSA.
+
+%description -n xine-output-audio-oss -l pt_BR
+Plugin de audio para o xine, com suporte a oss.
+
+%package -n xine-output-video-aa
+Summary:	XINE - Ascii Art support
+Summary(pl):	XINE - obs³uga Ascii Art
+Summary(pt_BR):	XINE - suporte a aalib
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-aa
+
+%description -n xine-output-video-aa
+XINE video output plugin using Ascii Art library.
+
+%description -n xine-output-video-aa -l pl
+Wtyczka wyj¶cia obrazu do XINE z obs³ug± Ascii Art.
+
+%description -n xine-output-video-aa -l pt_BR
+Plugin de video para o xine, utilizando a aalib.
+
+%package -n xine-output-video-directfb
+Summary:	XINE - accelereted framebuffer support
+Summary(pl):	XINE - obs³uga akcelerowanego framebuffera
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-directfb
+
+%description -n xine-output-video-directfb
+XINE video output plugin for accelereted framebuffer support (with
+DirectFB library).
+
+%description -n xine-output-video-directfb -l pl
+Wtyczka wyj¶cia obrazu do XINE dla akcelerowanego framebuffera (przez
+bibliotekê DirectFB).
+
+%package -n xine-output-video-dxr3
+Summary:	XINE - DXR3 support
+Summary(pl):	XINE - obs³uga DXR3
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-dxr3
+
+%description -n xine-output-video-dxr3
+XINE video/decoder plugins for DXR3 card support.
+
+%description -n xine-output-video-dxr3 -l pl
+Wtyczka wyj¶cia i dekodera obrazu do XINE z obs³ug± kart DXR3.
+
+%package -n xine-output-video-fb
+Summary:	XINE - framebuffer support
+Summary(pl):	XINE - obs³uga framebuffera
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-fb
+
+%description -n xine-output-video-fb
+XINE video output plugin using Linux framebuffer.
+
+%description -n xine-output-video-fb -l pl
+Wtyczka wyj¶cia obrazu do XINE dla linuksowego framebuffera.
+
+%package -n xine-output-video-opengl
+Summary:	XINE - OpenGL video output
+Summary(pl):	XINE - wy¶wietlanie przez OpenGL
+Group:		Libraries
+Requires:	%{name} = %{version}
+Requires:	OpenGL
+Obsoletes:	xine-lib-opengl
+
+%description -n xine-output-video-opengl
+XINE video output plugin using OpenGL.
+
+%description -n xine-output-video-opengl -l pl
+Wtyczka wyj¶cia obrazu do XINE wykorzystuj±ca OpenGL do wy¶wietlania.
+
+%package -n xine-output-video-sdl
+Summary:	XINE - SDL output support
+Summary(pl):	XINE - obs³uga wyj¶cia SDL
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-sdl
+
+%description -n xine-output-video-sdl
+XINE video output plugin using SDL library.
+
+%description -n xine-output-video-sdl -l pl
+Wtyczka wyj¶cia obrazu do XINE wy¶wietlaj±ca poprzez bibliotekê SDL.
+
+%package -n xine-output-video-syncfb
+Summary:	XINE - SyncFB (Matrox G200/G400) support
+Summary(pl):	XINE - obs³uga SyncFB (Matrox G200/G400)
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-syncfb
+
+%description -n xine-output-video-syncfb
+XINE video output plugin using SyncFB interface (for Matrox G200/G400
+cards).
+
+%description -n xine-output-video-syncfb -l pl
+Wtyczka wyj¶cia obrazu do XINE obs³uguj±ca interfejs SyncFB (dla kart
+Matrox G200/G400).
+
+%package -n xine-output-video-vidix
+Summary:	XINE - VIDIX video output plugin
+Summary(pl):	XINE - wtyczka wyj¶cia obrazu VIDIX
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description -n xine-output-video-vidix
+XINE video output plugin using VIDIX.
+
+%description -n xine-output-video-vidix -l pl
+Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca VIDIX.
+
+%package -n xine-output-video-vidix-cyberblade
+Summary:	VIDIX driver for Cyberblade/i1 chips
+Summary(pl):	Sterownik VIDIX dla uk³adów Cyberblade/i1
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-cyberblade
 
-%description vidix-rage128
-VIDIX based video driver for Rage128 chips.
+%description -n xine-output-video-vidix-cyberblade
+VIDIX driver for Cyberblade/i1 chips.
 
-%description vidix-rage128 -l pl
-Modu³y video oparte na VIDIX dla uk³adów Rage128.
+%description -n xine-output-video-vidix-cyberblade -l pl
+Sterownik VIDIX dla uk³adów Cyberblade/i1.
 
-%package vidix-radeon
-Summary:        VIDIX based video driver for Radeon chips
-Summary(pl):    Modu³y video oparte na VIDIX dla uk³adów Radeon
+%package -n xine-output-video-vidix-mach64
+Summary:        VIDIX driver for Mach64 and 3Drage chips
+Summary(pl):	Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-mach64
 
-%description vidix-radeon
-VIDIX based video driver for Radeon chips.
+%description -n xine-output-video-vidix-mach64
+VIDIX driver for Mach64 and 3Drage chips.
 
-%description vidix-radeon -l pl
-Modu³y video oparte na VIDIX dla uk³adów Radeon.
+%description -n xine-output-video-vidix-mach64 -l pl
+Sterownik VIDIX dla uk³adów Mach64 oraz 3DRage.
 
-%package vidix-nvidia
-Summary:	VIDIX based video driver for Riva and Riva-derived chips
-Summary(pl):	Modu³y video oparte na VIDIX dla uk³adów Riva oraz pochodnych
+%package -n xine-output-video-vidix-matrox
+Summary:        VIDIX drivers for Matrox Mga chips
+Summary(pl):	Sterowniki VIDIX dla uk³adów Matrox Mga
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-matrox
 
-%description vidix-nvidia
-VIDIX based video driver for Riva and Riva-derived chips, e.g. Riva
-TNT, GeForce 2.
+%description -n xine-output-video-vidix-matrox
+VIDIX drivers for Matrox Mga chips.
 
-%description vidix-nvidia -l pl
-Modu³y video oparte na VIDIX dla uk³adów Riva oraz pochodnych.
+%description -n xine-output-video-vidix-matrox -l pl
+Sterowniki VIDIX dla uk³adów Matrox Mga.
 
-%package        vidix-permedia
-Summary:        VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips
-Summary(pl):	Modu³y video oparte na VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia
+%package -n xine-output-video-vidix-nvidia
+Summary:	VIDIX driver for Riva and Riva-derived chips
+Summary(pl):	Sterownik VIDIX dla uk³adów Riva oraz pochodnych
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-nvidia
 
-%description vidix-permedia
-VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips.
+%description -n xine-output-video-vidix-nvidia
+VIDIX driver for Riva and Riva-derived chips, e.g. Riva TNT, GeForce
+2.
 
-%description vidix-permedia -l pl
-Modu³y video oparte na VIDIX dla uk³adów 3Dlabs GLINT R3 oraz
-Permedia.
+%description -n xine-output-video-vidix-nvidia -l pl
+Sterownik VIDIX dla uk³adów Riva oraz pochodnych.
 
-%package vidix-matrox
-Summary:        VIDIX based video driver for Matrox Mga chips
-Summary(pl):	Modu³y video oparte na VIDIX dla uk³adów Matrox Mga
+%package -n xine-output-video-vidix-permedia
+Summary:        VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips
+Summary(pl):	Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-permedia
 
-%description vidix-matrox
-VIDIX based video driver for Matrox Mga chips.
+%description -n xine-output-video-vidix-permedia
+VIDIX drivers for 3Dlabs GLINT R3 and Permedia chips.
 
-%description vidix-matrox -l pl
-Modu³y video oparte na VIDIX dla uk³adów Matrox Mga.
+%description -n xine-output-video-vidix-permedia -l pl
+Sterowniki VIDIX dla uk³adów 3Dlabs GLINT R3 oraz Permedia.
 
-%package vidix-mach64
-Summary:        VIDIX based video driver for Mach64 and 3Drage chips
-Summary(pl):	Modu³y video oparte na VIDIX dla uk³adów Mach64 oraz 3DRage
+%package -n xine-output-video-vidix-radeon
+Summary:        VIDIX driver for Radeon chips
+Summary(pl):    Sterownik VIDIX dla uk³adów Radeon
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-radeon
 
-%description vidix-mach64
-VIDIX based video driver for Mach64 and 3Drage chips.
+%description -n xine-output-video-vidix-radeon
+VIDIX driver for Radeon chips.
 
-%description vidix-mach64 -l pl
-Modu³y video oparte na VIDIX dla uk³adów Mach64 oraz 3DRage.
+%description -n xine-output-video-vidix-radeon -l pl
+Sterownik VIDIX dla uk³adów Radeon.
 
-%package vidix-cyberblade
-Summary:        VIDIX based video driver for Cyberblade/i1chips
-Summary(pl):    Modu³y video oparte na VIDIX dla uk³adów Cyberblade/i1
+%package -n xine-output-video-vidix-rage128
+Summary:        VIDIX driver for Rage128 chips
+Summary(pl):	Sterownik VIDIX dla uk³adów Rage128
 Group:          Libraries
-Requires:       %{name} = %{version}
+Requires:	xine-output-video-vidix = %{version}
+Obsoletes:	xine-lib-vidix-rage128
 
-%description vidix-cyberblade
-VIDIX based video driver for Cyberblade/i1 chips.
+%description -n xine-output-video-vidix-rage128
+VIDIX driver for Rage128 chips.
 
-%description vidix-cyberblade -l pl
-Modu³y video oparte na VIDIX dla uk³adów Cyberblade/i1.
+%description -n xine-output-video-vidix-rage128 -l pl
+Sterownik VIDIX dla uk³adów Rage128.
+
+%package -n xine-output-video-xshm
+Summary:	XINE - XFree XShm support
+Summary(pl):	XINE - obs³uga XFree XShm
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-xshm
+
+%description -n xine-output-video-xshm
+XINE video output plugin using XFree MIT shared memory.
+
+%description -n xine-output-video-xshm -l pl
+Wtyczka wyj¶cia obrazu do XINE z obs³ug± XFree MIT shared memory.
+
+%package -n xine-output-video-xv
+Summary:	XINE - XFree XVideo support
+Summary(pl):	XINE - obs³uga XFree XVideo
+Summary(pt_BR):	XINE - suporte a XFree XVideo
+Group:		Libraries
+Requires:	%{name} = %{version}
+Obsoletes:	xine-lib-xv
+
+%description -n xine-output-video-xv
+XINE video output plugin using XFree XVideo extension.
+
+%description -n xine-output-video-xv -l pl
+Wtyczka wyj¶cia obrazu do XINE u¿ywaj±ca rozszerzenia XVideo.
+
+%description -n xine-output-video-xv -l pt_BR
+Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 
 %prep
 %setup -q -n %{name}-%{_version}
@@ -454,8 +526,9 @@ Modu³y video oparte na VIDIX dla uk³adów Cyberblade/i1.
 %{__automake}
 
 %configure \
-CPPFLAGS=-I/usr/include/xvid \
-%{!?_without_aalib:		--with-aalib-prefix=/usr} \
+	CPPFLAGS=-I/usr/include/xvid \
+	--with-external-dvdnav \
+%{!?_without_aalib:	--with-aalib-prefix=/usr} \
 %{!?_without_alsa:	--enable-alsa} \
 %{?_without_alsa:	--disable-alsa} \
 %{?_with_dxr3:		--enable-dxr3} \
@@ -486,22 +559,18 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
+%dir %{_datadir}/xine/libxine1
 %{_datadir}/xine/libxine1/fonts
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post 
 %attr(755,root,root) %{_pluginsdir}/post/*.so
-%ifnarch ppc
-#%%dir %{_pluginsdir}/vidix 
-%attr(755,root,root) %{_pluginsdir}/vidix/*.so
-%endif
 %{_docdir}/xine
 
 # input plugins
 #%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cdda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
@@ -529,7 +598,6 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_pva.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
@@ -568,9 +636,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
-%ifnarch ppc
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
-%endif
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
@@ -583,151 +648,157 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
 
 # Others
-%attr(755,root,root) %{_pluginsdir}/xineplug_flac.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
-%ifnarch ppc
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
-%endif
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xine-config
-%{_includedir}/*
-%{_libdir}/libxine*.la
 %attr(755,root,root) %{_libdir}/libxine*.so
-%{_pluginsdir}/*.la
-%{_pluginsdir}/post/*.la
-%ifnarch ppc
-%{_pluginsdir}/vidix/*.la
-%endif
-%{_mandir}/man[13]/*
+%{_libdir}/libxine*.la
+%{_includedir}/*
 %{_aclocaldir}/*.m4
 %{_pkgconfigdir}/libxine.pc
+%{_mandir}/man[13]/*
 
-%if %{?_without_aalib:0}%{!?_without_aalib:1}
-%files aa
+%files -n xine-decode-flac
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*aa.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_flac.so
+
+%files -n xine-decode-vorbis
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
+
+%ifarch %{ix86}
+%files -n xine-decode-w32dll
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_w32dll.so
 %endif
 
-%if %{?_without_alsa:0}%{!?_without_alsa:1}
-%files alsa
+#%if 0%{!?_without_xvid:1}
+#%files -n xine-decode-xvid
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
+#%endif
+
+%if 0%{!?_without_gnome:1}
+%files -n xine-input-gnome-vfs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*alsa*.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
 %endif
 
-%if %{?_without_arts:0}%{!?_without_arts:1}
-%files arts
+%files -n xine-input-dvd
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*arts.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+
+%if 0%{!?_without_alsa:1}
+%files -n xine-output-audio-alsa
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_alsa.so
 %endif
 
-%if %{?_with_directfb:1}%{!?_with_directfb:0}
-%files directfb
+%if 0%{!?_without_arts:1}
+%files -n xine-output-audio-arts
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*_directfb.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_arts.so
 %endif
 
-%if %{?_with_dxr3:1}%{!?_with_dxr3:0}
-%files dxr3
+%if 0%{!?_without_esd:1}
+%files -n xine-output-audio-esd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_esd.so
+%endif
+
+%files -n xine-output-audio-oss
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
+
+%if 0%{!?_without_aalib:1}
+%files -n xine-output-video-aa
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_aa.so
+%endif
+
+%if 0%{?_with_directfb:1}
+%files -n xine-output-video-directfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
+%endif
+
+%if 0%{?_with_dxr3:1}
+%files -n xine-output-video-dxr3
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
 
-%if %{?_without_esd:0}%{!?_without_esd:1}
-%files esd
+%files -n xine-output-video-fb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*esd.so
-%endif
+%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_fb.so
 
-%files fb
-%defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/*_fb.so
-
-#%if %{?_without_opengl:0}%{!?_without_opengl:1}
+#%if 0%{?_without_opengl:0}
 #%files opengl
 #%defattr(644,root,root,755)
-#%attr(644,root,root) %{_pluginsdir}/*opengl.so
+#%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
 #%endif
 
-%files oss
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*oss.so
-
-%if %{?_without_sdl:0}%{!?_without_sdl:1}
-%files sdl
+%if 0%{!?_without_sdl:1}
+%files -n xine-output-video-sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
 %endif
 
-%files syncfb
+%files -n xine-output-video-syncfb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_syncfb.so
 
-%ifarch %{ix86}
-%files w32dll
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*w32dll.so
-%endif
-
-%files xshm
-%defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/*xshm.so
-
-%files xv
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/*xv.so
-
-%if 0%{!?_without_gnome:1}
-%files input-gnome-vfs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
-%endif
-
 %ifnarch ppc
-
-%files vidix-rage128
+%files -n xine-output-video-vidix
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_vidix.so
+%dir %{_pluginsdir}/vidix
 
-%files vidix-radeon
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/vidix/radeon*.so
-
-#%%files vidix-nvidia
-#%%defattr(644,root,root,755)
-#%%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
-
-%files vidix-cyberblade
+%files -n xine-output-video-vidix-cyberblade
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/cyberblade*.so
 
+# Please dont package vidix-genfb. genfb is just a sample driver.
 
-%files vidix-permedia
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/vidix/pm*.so
-
-%files vidix-mach64
+%files -n xine-output-video-vidix-mach64
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/mach64*.so
 
-%files vidix-matrox
+%files -n xine-output-video-vidix-matrox
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/mga*.so
 
-# Please dont package vidix-genfb. genfb is just a sample driver.
+#%files vidix-nvidia
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
 
+%files -n xine-output-video-vidix-permedia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/pm*.so
+
+%files -n xine-output-video-vidix-radeon
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/radeon*.so
+
+%files -n xine-output-video-vidix-rage128
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
 %endif
 
-#%if %{?_without_xvid:0}%{!?_without_xvid:1}
-#%files xvid
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
-#%endif
+%files -n xine-output-video-xshm
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
+
+%files -n xine-output-video-xv
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xv.so
