@@ -26,10 +26,10 @@ Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	0.9.13
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
-Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
 #Patch0:	%{name}-am_fixes.patch
 #Patch1:	%{name}-noopt.patch
 Patch2:		%{name}-automake_as.patch
