@@ -14,6 +14,7 @@
 %endif
 %ifarch sparc sparc64
 %define		_without_alsa	1
+%define		_without_xvid	1
 %endif
 
 Summary:	A Free Video Player
