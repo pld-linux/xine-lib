@@ -1,9 +1,10 @@
---- xine-lib-0.9.13/m4/Makefile.am.orig	Thu Jun 20 21:33:07 2002
-+++ xine-lib-0.9.13/m4/Makefile.am	Sat Oct  5 19:31:27 2002
-@@ -1,11 +1,7 @@
- ##
+diff -urN xine-lib-1-beta4.orig/m4/Makefile.am xine-lib-1-beta4/m4/Makefile.am
+--- xine-lib-1-beta4.orig/m4/Makefile.am	Thu Jan 30 14:28:10 2003
++++ xine-lib-1-beta4/m4/Makefile.am	Thu Jan 30 14:28:45 2003
+@@ -2,11 +2,7 @@
  ## Process this file with automake to produce Makefile.in
  ##
+ 
 -if INSTALL_M4
  m4datadir = @ACLOCAL_DIR@
 -else
