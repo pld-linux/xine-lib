@@ -62,7 +62,7 @@ BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel
-BuildRequires:	vcdimager-devel >= 0.7.19
+BuildRequires:	vcdimager-devel >= 0.7.20-2
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
@@ -631,7 +631,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/xine
 
 # input plugins
-#%attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cdda.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_file.so
@@ -646,20 +645,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_aiff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_avi.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_cda.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_eawve.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_film.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_flv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_games.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_iff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_image.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_matroska.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
@@ -668,60 +661,31 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_slave.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_smjpeg.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_snd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_voc.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_vqa.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wav.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wc3movie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv_frames.so
 
 # decoder plugins
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_adpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_bitplane.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_faad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_image.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqaudio.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
 
 # Others
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_file.so
