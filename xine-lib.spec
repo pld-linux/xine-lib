@@ -1,17 +1,21 @@
 #
 # Conditional build:
-# _with_dxr3		- build dxr3 video output and decode plugins
-# _without_aalib	- don't build aalib video output plugin
-# _without_alsa		- don't build ALSA audio output plugin
-# _without_arts		- don't build aRts audio output plugin
-# _without_directfb	- don't build DirectFB video output plugin
-# _without_esd		- don't build EsounD audio output plugin
-# _without_gnome	- don't build gnome_vfs plugin
-# _without_opengl	- don't build OpenGL video output plugin [useless at the moment]
-# _without_sdl		- don't build SDL video output plugin
-# _without_xvid		- don't build xvid decode plugin [useless at the moment]
+%bcond_without	aalib		# don't build aalib video output plugin
+%bcond_without	alsa		# don't build ALSA audio output plugin
+%bcond_without	arts		# don't build aRts audio output plugin
+%bcond_without	directfb	# don't build DirectFB video output plugin
+%bcond_without	dxr3		# don't build dxr3 video output and decode plugins
+%bcond_without	esd		# don't build EsounD audio output plugin
+%bcond_without	gnome		# don't build gnome_vfs plugin
+%bcond_with	opengl		# build OpenGL video output plugin [disabled in src at the moment]
+%bcond_without	sdl		# don't build SDL video output plugin
+%bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 #
-%define		_rc		rc1
+%ifnarch %{ix86}
+%undefine	with_dxr3
+%endif
+
+%define		_rc		rc3a
 %define		_version	1-%{_rc}
 
 Summary:	A Free Video Player
@@ -25,31 +29,38 @@ Epoch:		1
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
-# Source0-md5:	6e4c65fa2a3677f9f761772703dd9477
+# Source0-md5:	6dfd0c67b5b694adb283c0f6d8d3ab03
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
+Patch2:		%{name}-am18.patch
+Patch3:		%{name}-devfs.patch
 URL:		http://xine.sourceforge.net/
-%{!?_without_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
-%{!?_without_opengl:BuildRequires:	OpenGL-devel}
-%{!?_without_sdl:BuildRequires:		SDL-devel}
-%{!?_without_aalib:BuildRequires:	aalib-devel >= 1.3}
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
-%{!?_without_arts:BuildRequires:	artsc-devel >= 0.9.5}
+%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
+%{?with_opengl:BuildRequires:	OpenGL-devel}
+%{?with_sdl:BuildRequires:	SDL-devel}
+%{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
+%{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
+%{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.5
-%{!?_without_esd:BuildRequires:		esound-devel >= 0.2.8}
+%{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
-%{!?_without_gnome:BuildRequires:	gnome-vfs2-devel}
+%{?with_gnome:BuildRequires:	gnome-vfs2-devel}
+BuildRequires:	libcdio-devel >= 0.64
 BuildRequires:	libdvdnav-devel >= 0.1.9
+%{?with_dxr3:BuildRequires:	libfame-devel}
 BuildRequires:	libmng-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
+BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
+#%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel
-%{!?_without_xvid:BuildRequires:	xvid-devel}
+BuildRequires:	vcdimager-cdio-devel >= 0.7.19
+%{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
@@ -57,7 +68,7 @@ Obsoletes:	xine
 Obsoletes:	xine-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define 	_noautoreqdep	%{!?_without_opengl:libGL.so.1 libGLU.so.1}
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %define		_pluginsdir	%{_libdir}/xine/plugins/1.0.0
 
@@ -135,20 +146,19 @@ XINE - FLAC decoder/demuxer plugin.
 XINE - wtyczka dekodera i demuxera FLAC.
 
 %package -n xine-decode-ogg
-Summary:	XINE - Ogg/Vorbis and Ogg/Speex decoder plugins
-Summary(pl):	XINE - wtyczki dekoderów Ogg/Vorbis i Ogg/Speex
+Summary:	XINE - Ogg/Vorbis, Ogg/Speex, Ogg/Theora decoder plugins
+Summary(pl):	XINE - wtyczki dekoderów Ogg/Vorbis, Ogg/Speex, Ogg/Theora
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-decode-vorbis
-# Ogg/Theora info to be added when plugin is ready
 
 %description -n xine-decode-ogg
-XINE Ogg/Vorbis and Ogg/Speex decoding plugins: Ogg demuxer, Vorbis
-and Speex decoders.
+XINE Ogg/Vorbis, Ogg/Speex, Ogg/Theora decoding plugins: Ogg demuxer,
+Vorbis, Speex and Theora decoders.
 
 %description -n xine-decode-ogg -l pl
-Wtyczki XINE dekoduj±ce Ogg/Vorbis i Ogg/Speex: demuxer Ogg oraz
-dekodery Vorbis i Speex.
+Wtyczki XINE dekoduj±ce Ogg/Vorbis, Ogg/Speex, Ogg/Theora: demuxer Ogg
+oraz dekodery Vorbis, Speex, Theora.
 
 %package -n xine-decode-w32dll
 Summary:	XINE - win32dll decoder support
@@ -217,6 +227,18 @@ Video4Linux input driver for xine.
 
 %description -n xine-input-v4l -l pl
 Sterownik wej¶cia Video4Linux dla xine.
+
+%package -n xine-input-vcd
+Summary:	VCD input driver for xine
+Summary(pl):	Sterownik wej¶cia VCD dla xine
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-vcd
+VCD input driver for xine (for reading VideoCD).
+
+%description -n xine-input-vcd -l pl
+Sterownik wej¶cia VCD dla xine (do czytania VideoCD).
 
 %package -n xine-output-audio-alsa
 Summary:	XINE - alsa support
@@ -525,6 +547,8 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %setup -q -n %{name}-%{_version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -532,14 +556,15 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
+CPPFLAGS=-I/usr/include/xvid
 %configure \
-	CPPFLAGS=-I/usr/include/xvid \
 	--with-external-dvdnav \
-	%{!?_without_aalib:--with-aalib-prefix=/usr} \
-	%{!?_without_alsa:--enable-alsa} \
-	%{?_without_alsa:--disable-alsa} \
-	%{?_with_dxr3:--enable-dxr3} \
-	%{!?_with_dxr3:--disable-dxr3}
+	%{?with_aalib:--with-aalib-prefix=/usr} \
+	%{?with_alsa:--enable-alsa} \
+	%{!?with_alsa:--disable-alsa} \
+	%{?with_dxr3:--enable-dxr3} \
+	%{!?with_dxr3:--disable-dxr3}
+
 %{__make}
 
 %install
@@ -590,7 +615,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_aiff.so
@@ -607,12 +632,14 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_nsv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_pva.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_rawdv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_real.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_realaudio.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_roq.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_slave.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_smjpeg.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_snd.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_sputext.so
@@ -622,8 +649,6 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_wc3movie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_yuv_frames.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_nsv.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_slave.so
 
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_28k8.so
@@ -648,6 +673,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrle.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtrpza.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qtsmc.so
@@ -658,17 +684,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_roqvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spuogm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_svq1.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_wc3video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv_frames.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_pcm.so
 
 # Others
-%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_none.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
 
 %files devel
 %defattr(644,root,root,755)
@@ -687,7 +711,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-ogg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_speex.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_theora.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_theora.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ogg.so
 
@@ -698,17 +722,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_w32dll.so
 %endif
 
-#%if 0%{!?_without_xvid:1}
-#%files -n xine-decode-xvid
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
-#%endif
+%if %{with xvid}
+%files -n xine-decode-xvid
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
+%endif
 
 %files -n xine-input-dvd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
 
-%if 0%{!?_without_gnome:1}
+%if %{with gnome}
 %files -n xine-input-gnome-vfs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
@@ -718,19 +742,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
 
-%if 0%{!?_without_alsa:1}
+%files -n xine-input-vcd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_vcd.so
+
+%if %{with alsa}
 %files -n xine-output-audio-alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_alsa.so
 %endif
 
-%if 0%{!?_without_arts:1}
+%if %{with arts}
 %files -n xine-output-audio-arts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_arts.so
 %endif
 
-%if 0%{!?_without_esd:1}
+%if %{with esd}
 %files -n xine-output-audio-esd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_esd.so
@@ -740,22 +768,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
 
-%if 0%{!?_without_aalib:1}
+%if %{with aalib}
 %files -n xine-output-video-aa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_aa.so
 %endif
 
-%if 0%{!?_without_directfb:1}
+%if %{with directfb}
 %files -n xine-output-video-directfb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_directfb.so
 %endif
 
-%if 0%{?_with_dxr3:1}
+%if %{with dxr3}
 %files -n xine-output-video-dxr3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3_spu.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_dxr3_video.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
 
@@ -763,13 +792,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_fb.so
 
-#%if 0%{?_without_opengl:0}
-#%files opengl
-#%defattr(644,root,root,755)
-#%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
-#%endif
+%if %{with opengl}
+%files opengl
+%defattr(644,root,root,755)
+%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
+%endif
 
-%if 0%{!?_without_sdl:1}
+%if %{with sdl}
 %files -n xine-output-video-sdl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_sdl.so
