@@ -34,9 +34,8 @@ Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-automake_as.patch
 Patch2:		%{name}-syncfb.patch
-#Patch3:		%{name}-kernel.patch
-Patch4:		%{name}-nolibs.patch
-Patch5:		%{name}-sparc.patch
+Patch3:		%{name}-nolibs.patch
+Patch4:		%{name}-sparc.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -593,10 +592,9 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1
-%patch4 -p1
+%patch3 -p1
 %ifarch sparc
-%patch5 -p1
+%patch4 -p1
 %endif
 
 %build
