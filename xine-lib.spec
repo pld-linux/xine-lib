@@ -350,10 +350,10 @@ plugins para o xine e o xine-ui.
 rm -f missing
 %{__libtoolize}
 %{__gettextize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
-autoheader
+%{__autoheader}
 
 %configure \
 %{!?_without_aa:	--with-aalib-prefix=/usr} \
@@ -361,7 +361,8 @@ autoheader
 %{?_without_alsa:	--disable-alsa} \
 %{!?_without_dxr3:	--enable-dxr3} \
 %{?_without_dxr3:	--disable-dxr3} \
-			--disable-vidix
+			--disable-vidix \
+			--with-xvid-prefix=/usr
 
 %{__make}
 
