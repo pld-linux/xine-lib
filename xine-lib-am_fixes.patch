@@ -4,7 +4,7 @@
  CFLAGS = @CFLAGS@ -I$(srcdir)/wine
  
 -DEBUG_CFLAGS = @DEBUG_CFLAGS@ -I$(srcdir)/wine
-+INCLUDES = -I$(srcdir)/wine
++INCLUDES = -I$(srcdir)/wine -I../xine-utils -I../xine-engine -I../video_out -I../audio_out -I..
  
  SUBDIRS = wine DirectShow
  
