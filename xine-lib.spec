@@ -19,14 +19,14 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta9
+%define		_version	1-beta10
 
 Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b9
+Version:	1.0b10
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -525,6 +525,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_games.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_idcin.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_image.so
 #%attr(755,root,root) %{_pluginsdir}/xineplug_dmx_ipmovie.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mng.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_mpeg*.so
@@ -557,6 +558,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_fli.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_gsm610.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_idcinvideo.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_image.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayaudio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_interplayvideo.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_logpcm.so
