@@ -31,6 +31,7 @@ Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{_version}.tar.gz
+# Source0-md5: db00ce938944b2f3b334e7c27352eadf
 Patch0:		%{name}-am17.patch
 Patch1:		%{name}-lt14d.patch
 Patch2:		%{name}-automake_as.patch
