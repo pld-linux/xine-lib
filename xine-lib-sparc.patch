@@ -10,10 +10,10 @@
 +	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
 --- xine-lib-1-rc4a/src/libmpeg2/Makefile.am.orig	2004-04-29 12:47:39.000000000 +0000
 +++ xine-lib-1-rc4a/src/libmpeg2/Makefile.am	2004-06-07 21:31:14.000000000 +0000
-@@ -28,3 +28,6 @@
+@@ -29,3 +29,6 @@
  xineplug_decode_mpeg2_la_LDFLAGS = -avoid-version -module @XINE_PLUGIN_MIN_SYMS@
  
- noinst_HEADERS = vlc.h mpeg2.h mpeg2_internal.h idct_mlib.h vis.h
+ noinst_HEADERS = vlc.h mpeg2.h xxmc.h mpeg2_internal.h idct_mlib.h vis.h
 +
 +motion_comp_vis.lo: motion_comp_vis.c
-+		$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
++	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
