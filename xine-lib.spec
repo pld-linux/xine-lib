@@ -19,14 +19,14 @@
 %define		_without_xvid	1
 %endif
 
-%define		_version	1-beta7
+%define		_version	1-beta8
 
 Summary:	A Free Video Player
 Summary(ko):	공개 동영상 플레이어
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0b7
+Version:	1.0b8
 Release:	1
 License:	GPL
 Group:		Libraries
