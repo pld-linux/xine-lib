@@ -348,7 +348,7 @@ plugins para o xine e o xine-ui.
 
 %build
 rm -f missing
-%{__libtoolize}
+#%%{__libtoolize}
 %{__gettextize}
 %{__aclocal}
 %{__autoconf}
