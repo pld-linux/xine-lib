@@ -1,52 +1,57 @@
 # Conditional build:
 # --without	aa
-# --with	alsa	(alsa support is currently broken)
+# --without	alsa
 # --without	arts
-# --without	esd
-# --without	oss
+# --with	directfb
 # --with	dxr3
+# --without	esd
 # --without	opengl
+# --without	sdl
+# --without	xvid
+
+%ifarch alpha
+%define		_without_arts	1
+%endif
+%ifarch sparc sparc64
+%define		_without_alsa	1
+%endif
 
 Summary:	A Free Video Player
 Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz video
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	0.9.9
-Release:	0.2
+Version:	0.9.10
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://xine.sourceforge.net/files/%{name}-%{version}.tar.gz
-Patch0:		%{name}-configure_vfill.patch
-Patch1:		%{name}-am_fixes.patch
-Patch2:		%{name}-ac_fixes.patch
+Patch0:		%{name}-am_fixes.patch
+Patch1:		%{name}-noopt.patch
 URL:		http://xine.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1.5
 %{!?_without_aa:BuildRequires:		aalib-devel}
 %{!?_without_aa:BuildRequires:		aalib-progs}
-%ifnarch alpha
 %{!?_without_arts:BuildRequires:	arts-devel}
-%endif
-%ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
-%endif
 %{!?_without_esd:BuildRequires:		esound-devel}
 %{!?_without_opengl:BuildRequires:	OpenGL-devel}
+%{!?_without_sdl:BuildRequires:		SDL-devel}
+%{!?_with_directfb:BuildRequires:	DirectFB-devel}
 %ifarch %{ix86}
 BuildRequires:  divx4linux-devel
-BuildRequires:	xvid-devel
+%{!?_without_xvid:BuildRequires:	xvid-devel}
 %else
 BuildRequires:	libdivxdecore-devel
 %endif
 BuildRequires:	gettext-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	libtool >= 1.4.2
-BuildRequires:	zlib-devel
-BuildRequires:	SDL-devel
-BuildRequires:	pkgconfig
-BuildRequires:	imlib-devel
 BuildRequires:	glut-devel
+BuildRequires:	imlib-devel
+BuildRequires:	libvorbis-devel
+BuildRequires:	libtool >= 1.4.2-9
+BuildRequires:	pkgconfig
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xine
 
@@ -172,6 +177,18 @@ XINE video/decoder plugins for DXR3 card support.
 %description dxr3 -l pl
 Wtyczka odtwarzacza obrazu do XINE z obs³ug± kart DXR3.
 
+%package xvid
+Summary:	XINE - xvid DIVX decoding support
+Summary(pl):	XINE - obs³uga dekodera DIVX xvid
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description xvid
+XINE decoder plugin for DIVX decoding with xvid library.
+
+%description xvid -l pl
+Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekê xvid.
+
 %package xv
 Summary:	XINE - XFree XVideo support
 Summary(pl):	XINE - obs³uga XFree XVideo
@@ -240,6 +257,32 @@ SyncFB (for Matrox G200/G400 cards) interface for xine.
 %description fb -l pl
 Wtyczka video do XINE dla framebuffera.
 
+%package directfb
+Summary:	XINE - accelereted framebuffer support
+Summary(pl):	XINE - obs³uga akelereowanego framebuffera
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description directfb
+XINE plugin for accelereted framebuffer support (with DirectFB
+library).
+
+%description directfb -l pl
+Wtyczka video do XINE dla akcelerowanego framebuffera (przez
+bibliotekê DirectFB).
+
+%package sdl
+Summary:	XINE - SDL output support
+Summary(pl):	XINE - obs³uga wyj¶cia SDL
+Group:		Libraries
+Requires:	%{name} = %{version}
+
+%description sdl
+XINE plugin for output with SDL library.
+
+%description sdl -l pl
+Wtyczka video do XINE dla wy¶wieltania poprzez bibliotekê SDL.
+
 %package opengl
 Summary:	XINE - OpenGL video output
 Summary(pl):	XINE - wy¶wietlanie OpenGL
@@ -291,7 +334,6 @@ plugins para o xine e o xine-ui.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 rm -f missing
@@ -302,37 +344,23 @@ aclocal
 %{__automake}
 autoheader
 
-# flag for libmad
-%ifarch %{ix86}
-CPPFLAGS="-DFPM_INTEL"
-%endif
-%ifarch sparc
-CPPFLAGS="-DFPM_SPARC"
-%endif
-%ifarch ppc
-CPPFLAGS="-DFPM_PPC"
-%endif
-%ifarch ia64 alpha
-CPPFLAGS="-DFPM_64BIT"
-%endif
-%ifnarch %{ix86} sparc ppc ia64 alpha
-CPPFLAGS="-DFPM_DEFAULT"
-%endif
-export CPPFLAGS
-
 %configure \
-	--with-aalib-prefix=/usr \
-%{?_with_alsa:	--enable-alsa} \
-%{!?_with_alsa:	--disable-alsa}
+%{!?_without_aa:	--with-aalib-prefix=/usr} \
+%{!?_without_alsa:	--enable-alsa} \
+%{?_without_alsa:	--disable-alsa} \
+%{!?_without_dxr3:	--enable-dxr3} \
+%{?_without_dxr3:	--disable-dxr3}
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf AUTHORS ChangeLog TODO
+mv $RPM_BUILD_ROOT%{_datadir}/aclocal/*.m4 $RPM_BUILD_ROOT%{_aclocaldir}
 
 %find_lang %{name}
 
@@ -346,11 +374,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
 %dir %{_datadir}/xine
+%{_datadir}/xine/fonts
 %dir %{_datadir}/xine/skins
 %{_datadir}/xine/skins/*.png
+%{_datadir}/xine/skins/*.mpg
 %dir %{_libdir}/xine
 %dir %{_pluginsdir}
-%doc *.gz
+%doc AUTHORS ChangeLog TODO
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cda.so
@@ -371,38 +401,52 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_dmx_qt.so
 # decoder plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_a52.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cinepak.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_cyuv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_divx4.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_dts.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_ff.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_msvc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
-#%attr(755,root,root) %{_pluginsdir}/xineplug_decode_vfill.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_vorbis.so
 
-%if %{!?_without_oss:1}%{?_without_oss:0}
 %files oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*oss.so
+
+%if %{!?_with_directfb:0}%{?_with_directfb:1}
+%files directfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/*_directfb.so
+%endif
+
+%if %{!?_without_sdl:1}%{?_without_sdl:0}
+%files sdl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/*_sdl.so
+%endif
+
+%if %{!?_without_xvid:1}%{?_without_xvid:0}
+%files xvid
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
 %endif
 
 %if %{?_with_alsa:1}%{!?_with_alsa:0}
-%ifnarch sparc sparc64
 %files alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*alsa*.so
 %endif
-%endif
 
-%ifnarch alpha
 %if %{!?_without_arts:1}%{?_without_arts:0}
 %files arts
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/*arts.so
-%endif
 %endif
 
 %if %{!?_without_esd:1}%{?_without_esd:0}
@@ -461,3 +505,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libxine*.so
 %attr(755,root,root) %{_pluginsdir}/*.la
 %{_mandir}/man[13]/*
+%{_aclocaldir}/*.m4
