@@ -22,18 +22,17 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0
-Release:	4
+Version:	1.0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
-# Source0-md5:	96e5195c366064e7778af44c3e71f43a
+# Source0-md5:	9be804b337c6c3a2e202c5a7237cb0f8
 Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
-Patch4:		%{name}-pthread_leak.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -50,7 +49,7 @@ BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 BuildRequires:	libXvMCW-devel
 BuildRequires:	libcaca-devel
-BuildRequires:	libcdio-devel >= 0.64
+BuildRequires:	libcdio-devel >= 0.71
 BuildRequires:	libdvdnav-devel >= 0.1.9
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
@@ -65,7 +64,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	polypaudio-devel >= 0.6
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
-BuildRequires:	vcdimager-devel >= 0.7.20-2
+BuildRequires:	vcdimager-devel >= 0.7.21
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
@@ -76,7 +75,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.0
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.1
 
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
@@ -592,6 +591,19 @@ VIDIX driver for Rage128 chips.
 %description -n xine-output-video-vidix-rage128 -l pl
 Sterownik VIDIX dla uk³adów Rage128.
 
+%package -n xine-output-video-vidix-savage
+Summary:	VIDIX driver for S3 Savage chips
+Summary(pl):	Sterownik VIDIX dla uk³adów S3 Savage
+Group:		Libraries
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-vidix-savage
+VIDIX driver for S3 Savage series chips.
+
+%description -n xine-output-video-vidix-savage -l pl
+Sterownik VIDIX dla uk³adów S3 serii Savage.
+
 %package -n xine-output-video-vidix-sis
 Summary:	VIDIX driver for SiS chips
 Summary(pl):	Sterownik VIDIX dla uk³adów SiS
@@ -604,6 +616,19 @@ VIDIX driver for SiS 300 and 310/325 series chips.
 
 %description -n xine-output-video-vidix-sis -l pl
 Sterownik VIDIX dla uk³adów SiS serii 300 i 310/325.
+
+%package -n xine-output-video-vidix-unichrome
+Summary:	VIDIX driver for VIA CLE266 Unichrome chips
+Summary(pl):	Sterownik VIDIX dla uk³adów VIA CLE266 Unichrome
+Group:		Libraries
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+Requires:	xine-output-video-vidix = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-vidix-unichrome
+VIDIX driver for VIA CLE266 Unichrome chips.
+
+%description -n xine-output-video-vidix-unichrome -l pl
+Sterownik VIDIX dla uk³adów VIA CLE2666 Unichrome.
 
 %package -n xine-output-video-xshm
 Summary:	XINE - XFree XShm support
@@ -645,7 +670,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch2 -p1
 %endif
 %patch3 -p1
-%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -676,7 +700,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 	m4datadir=%{_aclocaldir}
 
 # remove useless *.la files
-rm -f $RPM_BUILD_ROOT%{_libdir}/xine/plugins/1.0.0/{,vidix,post}/*.la
+rm -f $RPM_BUILD_ROOT%{_pluginsdir}/{,vidix,post}/*.la
 
 %find_lang xine-lib
 
@@ -747,6 +771,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_image.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
@@ -918,9 +943,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/mga*.so
 
-#%files vidix-nvidia
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
+%files -n xine-output-video-vidix-nvidia
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/nvidia*.so
 
 %files -n xine-output-video-vidix-permedia
 %defattr(644,root,root,755)
@@ -934,9 +959,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/rage128*.so
 
+%files -n xine-output-video-vidix-savage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/savage*.so
+
 %files -n xine-output-video-vidix-sis
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/sis*.so
+
+%files -n xine-output-video-vidix-unichrome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/vidix/unichrome*.so
 %endif
 
 %files -n xine-output-video-xshm
