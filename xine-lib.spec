@@ -12,7 +12,7 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
-%bcond_with gcc4		# build with gcc4 fixes
+%bcond_with	gcc4		# build with gcc4 fixes
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -23,13 +23,13 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0.1
+Version:	1.0.2
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
-# Source0-md5:	9be804b337c6c3a2e202c5a7237cb0f8
+# Source0-md5:	f193aa14017ef104b797ccde9d82edc9
 Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
@@ -51,7 +51,7 @@ BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 BuildRequires:	libXvMCW-devel
 BuildRequires:	libcaca-devel
-BuildRequires:	libcdio-devel >= 0.71
+BuildRequires:	libcdio-devel >= 0.72
 BuildRequires:	libdvdnav-devel >= 0.1.9
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
@@ -77,7 +77,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.1
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.2
 
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
@@ -802,7 +802,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_aclocaldir}/*.m4
 %{_pkgconfigdir}/libxine.pc
-%{_mandir}/man[13]/*
+%{_mandir}/man[135]/*
 
 %files -n xine-decode-flac
 %defattr(644,root,root,755)
