@@ -23,13 +23,13 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.0.2
+Version:	1.1.0
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
-# Source0-md5:	f193aa14017ef104b797ccde9d82edc9
+# Source0-md5:	3537cfd58d253b4be20a4975e7086e38
 Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
@@ -77,7 +77,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.0.2
+%define		_pluginsdir	%{_libdir}/xine/plugins/%{version}
 
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
