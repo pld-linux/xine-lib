@@ -12,7 +12,6 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
-%bcond_with	gcc4		# build with gcc4 fixes
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -24,7 +23,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.0.2
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -34,7 +33,6 @@ Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
-Patch4:		%{name}-gcc4.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -672,9 +670,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch2 -p1
 %endif
 %patch3 -p1
-%if %{with gcc4}
-%patch4 -p1
-%endif
 
 %build
 %{__libtoolize}
