@@ -668,9 +668,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%ifarch sparc
 %patch2 -p1
-%endif
 %patch3 -p1
 %if %{with gcc4}
 %patch4 -p1
