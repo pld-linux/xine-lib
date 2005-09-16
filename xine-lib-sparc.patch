@@ -1,15 +1,33 @@
-diff -urN xine-lib-1.1.0.org/configure.ac xine-lib-1.1.0/configure.ac
+diff -urbB xine-lib-1.1.0.org/configure.ac xine-lib-1.1.0/configure.ac
 --- xine-lib-1.1.0.org/configure.ac	2005-07-21 23:10:10.000000000 +0200
-+++ xine-lib-1.1.0/configure.ac	2005-09-16 12:32:43.769045600 +0200
-@@ -1942,6 +1942,7 @@
++++ xine-lib-1.1.0/configure.ac	2005-09-16 13:24:01.605143392 +0200
+@@ -1749,6 +1749,8 @@
+ enable_ffmmx="no"
+ enable_armv4l="no"
+ 
++arch_sparc="no"
++
+ case "$host_or_hostalias" in
+   i386-*-freebsd*)
+     CFLAGS="-pipe -fomit-frame-pointer $f_af $f_al $f_aj $m_wm $m_psb -fexpensive-optimizations $f_si $f_nsa -ffast-math -funroll-loops $INLINE_FUNCTIONS $CFLAGS"
+@@ -1942,6 +1944,7 @@
      ;;
  
    sparc*-*-linux*)
-+    AM_CONDITIONAL([ARCH_SPARC], TRUE)
++    arch_sparc="yes"
      case $host_alias in
      sparc-*)    cpu_cflags="-mcpu=supersparc -mtune=supersparc" ;;
      sparc64-*)
-diff -urN xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am
+@@ -2092,6 +2095,7 @@
+ fi
+ AC_SUBST(W32DLL_DEP)
+ 
++AM_CONDITIONAL([ARCH_SPARC], test x"$arch_sparc" = "xyes")
+ AM_CONDITIONAL(HAVE_FFMMX, test x"$enable_ffmmx" = "xyes")
+ 
+ dnl ---------------------------------------------
+Tylko w xine-lib-1.1.0: configure.ac~
+diff -urbB xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am
 --- xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am	2004-04-25 20:59:58.000000000 +0200
 +++ xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am	2005-09-16 12:31:05.607968352 +0200
 @@ -13,3 +13,9 @@
@@ -22,7 +40,7 @@ diff -urN xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib
 +dsputil_vis.lo: dsputil_vis.c
 +	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
 +endif
-diff -urN xine-lib-1.1.0.org/src/libmpeg2/Makefile.am xine-lib-1.1.0/src/libmpeg2/Makefile.am
+diff -urbB xine-lib-1.1.0.org/src/libmpeg2/Makefile.am xine-lib-1.1.0/src/libmpeg2/Makefile.am
 --- xine-lib-1.1.0.org/src/libmpeg2/Makefile.am	2005-04-26 00:44:22.000000000 +0200
 +++ xine-lib-1.1.0/src/libmpeg2/Makefile.am	2005-09-16 12:31:36.309301040 +0200
 @@ -31,3 +31,9 @@
