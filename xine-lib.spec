@@ -24,7 +24,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.0
-Release:	4
+Release:	4.1
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -35,6 +35,7 @@ Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
 Patch4:		%{name}-gcc4.patch
+Patch5:		xine-lib-formatstring.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.9}
 %{?with_opengl:BuildRequires:	OpenGL-devel}
@@ -673,6 +674,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %if %{with gcc4}
 %patch4 -p1
 %endif
+%patch5 -p0
 
 %build
 %{__libtoolize}
