@@ -3,6 +3,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_without	arts		# don't build aRts audio output plugin
+%bcond_without	caca		# don't build libcaca video output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
@@ -53,7 +54,7 @@ BuildRequires:	gettext-devel
 %{?with_opengl:BuildRequires:	glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 BuildRequires:	libXvMCW-devel
-BuildRequires:	libcaca-devel
+%{?with_caca:BuildRequires:	libcaca-devel}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
@@ -904,9 +905,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_dxr3.so
 %endif
 
+%if %{with caca}
 %files -n xine-output-video-caca
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_caca.so
+%endif
 
 %files -n xine-output-video-fb
 %defattr(644,root,root,755)
