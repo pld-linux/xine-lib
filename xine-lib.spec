@@ -5,9 +5,11 @@
 %bcond_without	arts		# don't build aRts audio output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
+%bcond_without	dvd		# don't build dvdnav stuff
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
+%bcond_without	polypaudio	# don't build polypaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
@@ -53,7 +55,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	libXvMCW-devel
 BuildRequires:	libcaca-devel
 BuildRequires:	libcdio-devel >= 0.72
-BuildRequires:	libdvdnav-devel >= 0.1.9
+%{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
@@ -64,7 +66,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
-BuildRequires:	polypaudio-devel >= 0.6
+%{?with_polypaudio:BuildRequires:	polypaudio-devel >= 0.6}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
@@ -828,9 +830,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_xvid.so
 %endif
 
+%if %{with dvd}
 %files -n xine-input-dvd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_dvd.so
+%endif
 
 %if %{with gnome}
 %files -n xine-input-gnome-vfs
@@ -874,9 +878,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
 
+%if %{with polypaudio}
 %files -n xine-output-audio-polypaudio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_polypaudio.so
+%endif
 
 %if %{with aalib}
 %files -n xine-output-video-aa
