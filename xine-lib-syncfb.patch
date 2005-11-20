@@ -1,6 +1,6 @@
---- xine-lib-1-rc8/configure.ac.orig	2004-12-14 23:06:47.000000000 +0100
-+++ xine-lib-1-rc8/configure.ac	2004-12-21 21:03:55.484299736 +0100
-@@ -460,21 +460,6 @@
+--- xine-lib-1.1.1/configure.ac.orig	2005-11-14 13:34:45.000000000 +0100
++++ xine-lib-1.1.1/configure.ac	2005-11-19 23:50:02.836131584 +0100
+@@ -517,22 +517,6 @@
  AM_PATH_OPENGL()
  
  
@@ -10,7 +10,9 @@
 -
 -case "$host_or_hostalias" in
 -  *linux* )
--    have_syncfb="yes"
+-    AC_ARG_ENABLE([fb],
+-      AC_HELP_STRING([--disable-fb], [do not build syncfb plugins]),
+-      have_syncfb=$enableval, have_syncfb="yes")
 -    ;;
 -  *)
 -    have_syncfb="no"
@@ -18,11 +20,10 @@
 -esac
 -AM_CONDITIONAL(HAVE_SYNCFB, test x"$have_syncfb" = "xyes")
 -
--
+ 
  dnl ----------------------------------------------
  dnl Check for usable video-for-linux (v4l) support
- dnl ----------------------------------------------
-@@ -555,6 +540,21 @@
+@@ -614,6 +598,22 @@
  esac
  AM_CONDITIONAL(PPC_ARCH, test x$ppc_arch = "xyes")
  
@@ -32,7 +33,9 @@
 +
 +case "$host_or_hostalias" in
 +  *linux* )
-+    have_syncfb="yes"
++    AC_ARG_ENABLE([fb],
++      AC_HELP_STRING([--disable-fb], [do not build syncfb plugins]),
++      have_syncfb=$enableval, have_syncfb="yes")
 +    ;;
 +  *)
 +    have_syncfb="no"
@@ -40,11 +43,10 @@
 +esac
 +AM_CONDITIONAL(HAVE_SYNCFB, test x"$have_syncfb" = "xyes")
 +
-+
  dnl
  dnl Check if we can enable the xxmc plugin.
  dnl
-@@ -2451,7 +2451,7 @@
+@@ -2543,7 +2543,7 @@
  if test x"$no_x" != "xyes"; then
    echo "   - XShm (X11 shared memory)"
    dnl synfb
