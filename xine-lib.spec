@@ -688,8 +688,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
-	--with-w32-path=%{_libdir}/codecs \
-	--with-xv-path=/usr/X11R6/%{_lib}
+	--with-w32-path=%{_libdir}/codecs
 
 %{__make}
 
