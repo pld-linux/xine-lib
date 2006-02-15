@@ -51,7 +51,6 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_opengl:BuildRequires:	glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
-BuildRequires:	libXvMCW-devel
 %{?with_caca:BuildRequires:	libcaca-devel}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
@@ -69,6 +68,7 @@ BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
+BuildRequires:	xorg-lib-libXvMC-devel
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
