@@ -81,6 +81,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pluginsdir	%{_libdir}/xine/plugins/%{version}
 
+%define		specflags	-fomit-frame-pointer
+
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
 support mpeg-2 and mpeg-1 system (audio + video multiplexed) streams,
@@ -688,7 +690,8 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
-	--with-w32-path=%{_libdir}/codecs
+	--with-w32-path=%{_libdir}/codecs \
+	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
 %{__make}
 
