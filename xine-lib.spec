@@ -26,7 +26,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.1
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -912,7 +912,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with opengl}
 %files -n xine-output-video-opengl
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_opengl.so
 %endif
 
 %if %{with sdl}
@@ -982,7 +982,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xine-output-video-xshm
 %defattr(644,root,root,755)
-%attr(644,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xshm.so
 
 %files -n xine-output-video-xv
 %defattr(644,root,root,755)
