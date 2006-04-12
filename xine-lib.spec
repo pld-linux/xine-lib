@@ -26,7 +26,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.1
-Release:	5
+Release:	4
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -51,6 +51,7 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_opengl:BuildRequires:	glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
+BuildRequires:	libXvMCW-devel
 %{?with_caca:BuildRequires:	libcaca-devel}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
@@ -68,7 +69,6 @@ BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
-BuildRequires:	xorg-lib-libXvMC-devel
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
@@ -80,8 +80,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 %define		_pluginsdir	%{_libdir}/xine/plugins/%{version}
-
-%define		specflags	-fomit-frame-pointer
 
 %description
 xine is a free gpl-licensed video player for unix-like systems. We
@@ -691,7 +689,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
 	--with-w32-path=%{_libdir}/codecs \
-	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
+	--with-xv-path=/usr/X11R6/%{_lib}
 
 %{__make}
 
