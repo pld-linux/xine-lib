@@ -10,7 +10,7 @@
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_without	polypaudio	# don't build polypaudio output plugin
+%bcond_with	polypaudio	# don't build polypaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
@@ -26,7 +26,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.1
-Release:	5
+Release:	6
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -685,6 +685,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?with_dxr3:--enable-dxr3} \
 	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
+	%{!?with_polypaudio:--disable-polypaudio} \
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
