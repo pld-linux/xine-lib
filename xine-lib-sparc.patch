@@ -1,6 +1,6 @@
---- xine-lib-1.1.1/configure.ac.orig	2005-11-19 23:50:49.494038504 +0100
-+++ xine-lib-1.1.1/configure.ac	2005-11-20 00:07:16.747953096 +0100
-@@ -1869,6 +1869,8 @@
+--- xine-lib-1.1.2/configure.ac.orig	2006-07-11 12:28:38.744440000 +0200
++++ xine-lib-1.1.2/configure.ac	2006-07-11 12:44:30.944440000 +0200
+@@ -1951,6 +1951,8 @@
  enable_ffmmx="no"
  enable_armv4l="no"
  
@@ -9,17 +9,17 @@
  case "$host_or_hostalias" in
    i?86-* | k?-* | athlon-* | pentium*-)
      dnl enable x86 specific parts of the code
-@@ -1933,6 +1935,7 @@
+@@ -2016,6 +2018,7 @@
      fi
      ;;
    sparc*-*-linux*)
 +    arch_sparc="yes"
-     if test x$enable_vis = xyes; then
-       AC_DEFINE_UNQUOTED(ENABLE_VIS,,[Define this if you have Sun UltraSPARC CPU])
+     if test x$enable_vis != xno; then
+       has_vis=yes
      fi
-@@ -1982,6 +1985,7 @@
+@@ -2066,6 +2069,7 @@
  fi
- AC_SUBST(W32DLL_DEP)
+ AM_CONDITIONAL(ENABLE_VIS, test x"$has_vis" = "xyes")
  
 +AM_CONDITIONAL([ARCH_SPARC], test x"$arch_sparc" = "xyes")
  AM_CONDITIONAL(HAVE_FFMMX, test x"$enable_ffmmx" = "xyes")
@@ -51,14 +51,3 @@ diff -urbB xine-lib-1.1.0.org/src/libmpeg2/Makefile.am xine-lib-1.1.0/src/libmpe
 +	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
 +endif
 +	
-diff -urbB xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am
---- xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am	2006-04-12 06:25:56.000000000 +0000
-+++ xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am	2006-04-12 07:34:04.000000000 +0000
-@@ -1,6 +1,6 @@
- include $(top_srcdir)/misc/Makefile.common
- 
--AM_CFLAGS = $(LIBFFMPEG_CFLAGS)
-+AM_CFLAGS = $(LIBFFMPEG_CFLAGS) -I$(top_srcdir)/src/libffmpeg/libavutil
- ASFLAGS =
- 
- noinst_LTLIBRARIES = libavcodec_sparc.la
