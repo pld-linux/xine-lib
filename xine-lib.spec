@@ -1,4 +1,7 @@
 #
+# TODO:
+# /usr/lib/xine/plugins/1.1.2/xineplug_decode_gdk_pixbuf.so
+#
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
@@ -10,7 +13,7 @@
 %bcond_without	esd		# don't build EsounD audio output plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_without	polypaudio	# don't build polypaudio output plugin
+%bcond_with	polypaudio	# build polypaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
@@ -25,13 +28,13 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.1
-Release:	5
+Version:	1.1.2
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
-# Source0-md5:	b1f42602c776bb93e3cbf127e220cbfd
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
+# Source0-md5:	c4dd262c47caae6f428eb902ac8ec0e8
 Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
@@ -65,6 +68,7 @@ BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	pkgconfig
 %{?with_polypaudio:BuildRequires:	polypaudio-devel >= 0.6}
+%{?with_polypaudio:BuildRequires:	polypaudio-devel < 0.8}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
@@ -677,7 +681,8 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 
 %build
 %{__libtoolize}
-%{__gettextize}
+# breaks DOMAIN (modified Makefile.in.in?)
+#%%{__gettextize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
@@ -690,6 +695,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
+	%{!?with_polypaudio:--disable-polypaudio} \
 	--with-w32-path=%{_libdir}/codecs \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
@@ -706,7 +712,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 # remove useless *.la files
 rm -f $RPM_BUILD_ROOT%{_pluginsdir}/{,vidix,post}/*.la
 
-%find_lang xine-lib
+%find_lang libxine1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -714,7 +720,7 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files -f xine-lib.lang
+%files -f libxine1.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_libdir}/libxine*.so.*.*
