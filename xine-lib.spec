@@ -1,7 +1,4 @@
 #
-# TODO:
-# /usr/lib/xine/plugins/1.1.2/xineplug_decode_gdk_pixbuf.so
-#
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
@@ -11,6 +8,8 @@
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
 %bcond_without	esd		# don't build EsounD audio output plugin
+%bcond_without	fusionsound	# don't build FusionSound audio output plugin
+%bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
 %bcond_with	polypaudio	# build polypaudio output plugin
@@ -29,7 +28,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.2
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -41,9 +40,9 @@ Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
-#TODO:BuildRequires:	FusionSound-devel >= 0.9.23
+%{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
 BuildRequires:	ImageMagick-devel
-%{?with_opengl:BuildRequires:	OpenGL-devel}
+%{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.1.5}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
@@ -53,8 +52,9 @@ BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
-%{?with_opengl:BuildRequires:	glut-devel}
+%{?with_opengl:BuildRequires:	OpenGL-glut-devel}
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
+%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 2.0}
 %{?with_caca:BuildRequires:	libcaca-devel}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
@@ -73,6 +73,7 @@ BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
+BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXvMC-devel
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
@@ -160,6 +161,18 @@ XINE - FLAC decoder/demuxer plugin.
 
 %description -n xine-decode-flac -l pl
 XINE - wtyczka dekodera i demuxera FLAC.
+
+%package -n xine-decode-gdkpixbuf
+Summary:	XINE - gdk-pixbuf decoder plugin
+Summary(pl):	XINE - wtyczka dekodera gdk-pixbuf
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-gdkpixbuf
+XINE - gdk-pixbuf decoder plugin.
+
+%description -n xine-decode-gdkpixbuf -l pl
+XINE - wtyczka dekodera gdk-pixbuf.
 
 %package -n xine-decode-ogg
 Summary:	XINE - Ogg/Vorbis, Ogg/Speex, Ogg/Theora decoder plugins
@@ -319,6 +332,19 @@ Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± esd.
 %description -n xine-output-audio-esd -l pt_BR
 Plugin de audio para o xine, com suporte a esd.
 
+%package -n xine-output-audio-fusionsound
+Summary:	XINE - FusionSound support
+Summary(pl):	XINE - obs³uga FusionSound
+Group:		Libraries
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-audio-fusionsound
+XINE audio output plugin with FusionSound support.
+
+%description -n xine-output-audio-fusionsound -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± FusionSound.
+
 %package -n xine-output-audio-oss
 Summary:	XINE - OSS/ALSA support
 Summary(pl):	XINE - obs³uga OSS/ALSA
@@ -435,7 +461,6 @@ Summary(pl):	XINE - wy¶wietlanie przez OpenGL
 Group:		Libraries
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	OpenGL
 Obsoletes:	xine-lib-opengl
 
 %description -n xine-output-video-opengl
@@ -693,6 +718,8 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?with_dxr3:--enable-dxr3} \
 	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
+	%{?with_fusionsound:--enable-fusionsound} \
+	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
@@ -814,6 +841,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_flac.so
 
+%if %{with gdkpixbuf}
+%files -n xine-decode-gdkpixbuf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_gdk_pixbuf.so
+%endif
+
 %files -n xine-decode-ogg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_speex.so
@@ -876,6 +909,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-audio-esd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_esd.so
+%endif
+
+%if %{with fusionsound}
+%files -n xine-output-audio-fusionsound
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_fusionsound.so
 %endif
 
 %files -n xine-output-audio-oss
