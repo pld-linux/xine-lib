@@ -41,6 +41,7 @@ Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
+#TODO:BuildRequires:	FusionSound-devel >= 0.9.23
 BuildRequires:	ImageMagick-devel
 %{?with_opengl:BuildRequires:	OpenGL-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.1.5}
