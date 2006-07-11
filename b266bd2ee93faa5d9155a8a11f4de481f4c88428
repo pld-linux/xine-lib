@@ -1,0 +1,3 @@
+- started update to 1.1.2, updated sparc,win32-path patches
+  [fixes CVE-2005-4048 CVE-2006-1664 CVE-2006-2802]
+- polypaudio off by default (not ready for 0.8+)
