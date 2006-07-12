@@ -1,3 +1,5 @@
+# TODO
+# - --with-external-ffmpeg
 #
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
