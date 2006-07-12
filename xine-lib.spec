@@ -727,6 +727,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{!?with_polypaudio:--disable-polypaudio} \
 	--with-w32-path=%{_libdir}/codecs \
 	--with-xv-path=/usr/X11R6/%{_lib} \
+	--disable-altivec \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
 %{__make}
