@@ -199,6 +199,7 @@ Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	w32codec
 Obsoletes:	xine-lib-w32dll
+ExclusiveArch:	%{ix86}
 
 %description -n xine-decode-w32dll
 XINE win32dll decoder support.
