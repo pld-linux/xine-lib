@@ -198,6 +198,7 @@ Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	w32codec
 Obsoletes:	xine-lib-w32dll
+ExclusiveArch:  %{ix86}
 
 %description -n xine-decode-w32dll
 XINE win32dll decoder support.
@@ -704,7 +705,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1
 
 %build
 %{__libtoolize}
