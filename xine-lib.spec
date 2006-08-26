@@ -19,6 +19,7 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
+%bcond_with	vdr		# build with vdr support
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -40,6 +41,7 @@ Patch0:		%{name}-syncfb.patch
 Patch1:		%{name}-nolibs.patch
 Patch2:		%{name}-sparc.patch
 Patch3:		%{name}-win32-path.patch
+Patch4:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -706,6 +708,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%{?with_vdr:%patch4 -p1}
 
 %build
 %{__libtoolize}
