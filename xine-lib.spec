@@ -19,7 +19,7 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
-%bcond_with	vdr		# build with vdr support
+%bcond_without	vdr		# build with vdr support
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -72,6 +72,7 @@ BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
+%{?with_polypaudio:BuildRequires:	polypaudio-devel < 0.8}
 %{?with_polypaudio:BuildRequires:	polypaudio-devel >= 0.6}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
