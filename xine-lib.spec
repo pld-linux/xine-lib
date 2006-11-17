@@ -1,4 +1,5 @@
 # TODO
+# - update for pulseaudio
 # - --with-external-ffmpeg
 #
 # Conditional build:
@@ -714,9 +715,9 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{__libtoolize}
 # breaks DOMAIN (modified Makefile.in.in?)
 #%%{__gettextize}
-#%{__aclocal} -I m4
-#%{__autoconf}
-#%{__automake}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
 %configure \
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
