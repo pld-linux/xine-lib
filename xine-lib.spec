@@ -32,7 +32,7 @@ Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.2
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Libraries
