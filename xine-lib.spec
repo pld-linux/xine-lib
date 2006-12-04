@@ -20,7 +20,7 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
-%bcond_without	vdr		# build with vdr support
+%bcond_with	vdr		# build with vdr support
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
