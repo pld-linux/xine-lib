@@ -1,5 +1,4 @@
 # TODO
-# - update for pulseaudio
 # - --with-external-ffmpeg
 #
 # Conditional build:
@@ -15,7 +14,7 @@
 %bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_with	polypaudio	# build polypaudio output plugin
+%bcond_without	pulseaudio	# build pulseaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
 %bcond_with	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
@@ -59,7 +58,7 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 2.0}
-%{?with_caca:BuildRequires:	libcaca-devel}
+%{?with_caca:BuildRequires:	libcaca-devel >= 0.99}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
@@ -72,8 +71,7 @@ BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
-%{?with_polypaudio:BuildRequires:	polypaudio-devel < 0.8}
-%{?with_polypaudio:BuildRequires:	polypaudio-devel >= 0.6}
+%{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
@@ -367,22 +365,23 @@ Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS/ALSA.
 %description -n xine-output-audio-oss -l pt_BR
 Plugin de audio para o xine, com suporte a oss.
 
-%package -n xine-output-audio-polypaudio
-Summary:	XINE - polypaudio support
-Summary(pl):	XINE - obs³uga polypaudio
-Summary(pt_BR):	XINE - suporte a polypaudio
+%package -n xine-output-audio-pulseaudio
+Summary:	XINE - pulseaudio support
+Summary(pl):	XINE - obs³uga pulseaudio
+Summary(pt_BR):	XINE - suporte a pulseaudio
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-output-audio-polypaudio
 
-%description -n xine-output-audio-polypaudio
-XINE audio output plugins with polypaudio support.
+%description -n xine-output-audio-pulseaudio
+XINE audio output plugins with pulseaudio support.
 
-%description -n xine-output-audio-polypaudio -l pl
-Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± polypaudio.
+%description -n xine-output-audio-pulseaudio -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± pulseaudio.
 
-%description -n xine-output-audio-polypaudio -l pt_BR
-Plugin de audio para o xine, com suporte a polypaudio.
+%description -n xine-output-audio-pulseaudio -l pt_BR
+Plugin de audio para o xine, com suporte a pulseaudio.
 
 %package -n xine-output-video-aa
 Summary:	XINE - Ascii Art support
@@ -727,7 +726,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	--enable-ipv6 \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
-	%{!?with_polypaudio:--disable-polypaudio} \
+	%{!?with_pulseaudio:--disable-pulseaudio} \
 	--with-w32-path=/usr/lib/codecs \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
@@ -925,10 +924,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
 
-%if %{with polypaudio}
-%files -n xine-output-audio-polypaudio
+%if %{with pulseaudio}
+%files -n xine-output-audio-pulseaudio
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_polypaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_pulseaudio.so
 %endif
 
 %if %{with aalib}
