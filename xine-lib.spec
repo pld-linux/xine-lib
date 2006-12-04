@@ -6,7 +6,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_without	arts		# don't build aRts audio output plugin
-%bcond_without	caca		# don't build libcaca video output plugin
+%bcond_with	caca		# don't build libcaca video output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
@@ -17,7 +17,7 @@
 %bcond_without	opengl		# don't build OpenGL video output plugin
 %bcond_with	polypaudio	# build polypaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
-%bcond_without	sdl		# don't build SDL video output plugin
+%bcond_with	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 %bcond_with	vdr		# build with vdr support
