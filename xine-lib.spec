@@ -47,7 +47,7 @@ URL:		http://xine.sourceforge.net/
 BuildRequires:	ImageMagick-devel
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-glut-devel}
-%{?with_sdl:BuildRequires:	SDL-devel >= 1.1.5}
+%{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
