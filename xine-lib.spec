@@ -14,7 +14,7 @@
 %bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_without	pulseaudio	# build pulseaudio output plugin
+%bcond_without	pulseaudio	# don't build pulseaudio output plugin
 %bcond_without	samba		# don't build SMB input plugin
 %bcond_with	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
@@ -44,11 +44,11 @@ Patch3:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
-BuildRequires:	ImageMagick-devel
+BuildRequires:	ImageMagick-devel >= 1:6.0.0
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-glut-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
-%{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
+%{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
@@ -57,7 +57,7 @@ BuildRequires:	automake >= 1:1.8.1
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
-%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 2.0}
+%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 1:2.0.0}
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
