@@ -15,7 +15,7 @@
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
 %bcond_without	pulseaudio	# don't build pulseaudio output plugin
-%bcond_without	samba		# don't build SMB input plugin
+%bcond_without	smb		# don't build SMB input plugin
 %bcond_with	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
@@ -65,7 +65,7 @@ BuildRequires:	libcdio-devel >= 0.72
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
-%{?with_samba:BuildRequires:	libsmbclient-devel}
+%{?with_smb:BuildRequires:	libsmbclient-devel}
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
@@ -724,6 +724,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?with_fusionsound:--enable-fusionsound} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
+	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
 	%{!?with_pulseaudio:--disable-pulseaudio} \
@@ -882,7 +883,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
 %endif
 
-%if %{with samba}
+%if %{with smb}
 %files -n xine-input-smb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_smb.so
