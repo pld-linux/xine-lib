@@ -31,18 +31,17 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.2
-Release:	2
+Version:	1.1.3
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	c4dd262c47caae6f428eb902ac8ec0e8
-Patch0:		%{name}-syncfb.patch
-Patch1:		%{name}-nolibs.patch
-Patch2:		%{name}-sparc.patch
-Patch3:		%{name}-win32-path.patch
-Patch4:		%{name}-vdr.patch
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
+# Source0-md5:	161dc882a9e7352c63b3fd1b6ff2e55f
+Patch0:		%{name}-nolibs.patch
+Patch1:		%{name}-sparc.patch
+Patch2:		%{name}-win32-path.patch
+Patch3:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -708,8 +707,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%{?with_vdr:%patch4 -p1}
+%{?with_vdr:%patch3 -p1}
 
 %build
 %{__libtoolize}
