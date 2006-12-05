@@ -41,7 +41,8 @@ Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-win32-path.patch
 Patch3:		%{name}-am.patch
-Patch4:		%{name}-vdr.patch
+Patch4:		%{name}-sh.patch
+Patch5:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -708,10 +709,13 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%{?with_vdr:%patch4 -p1}
+%patch4 -p1
+%{?with_vdr:%patch5 -p1}
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
+# use system libtool.m4
+rm -f m4/libtool15.m4
 
 %build
 %{__libtoolize}
