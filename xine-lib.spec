@@ -60,6 +60,7 @@ BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+BuildRequires:	jack-audio-connection-kit-devel >= 0.100
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
@@ -349,9 +350,22 @@ XINE audio output plugin with FusionSound support.
 %description -n xine-output-audio-fusionsound -l pl
 Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± FusionSound.
 
+%package -n xine-output-audio-jack
+Summary:	XINE - JACK support
+Summary(pl):	XINE - obs³uga demona JACK
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-audio-jack
+XINE audio output plugin with JACK support.
+
+%description -n xine-output-audio-jack -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³uga demona JACK.
+
 %package -n xine-output-audio-oss
-Summary:	XINE - OSS/ALSA support
-Summary(pl):	XINE - obs³uga OSS/ALSA
+Summary:	XINE - OSS support
+Summary(pl):	XINE - obs³uga OSS
 Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -359,10 +373,10 @@ Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-oss
 
 %description -n xine-output-audio-oss
-XINE audio output plugins with OSS/ALSA support.
+XINE audio output plugin with OSS support.
 
 %description -n xine-output-audio-oss -l pl
-Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS/ALSA.
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS.
 
 %description -n xine-output-audio-oss -l pt_BR
 Plugin de audio para o xine, com suporte a oss.
@@ -929,6 +943,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_fusionsound.so
 %endif
+
+%files -n xine-output-audio-jack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_jack.so
 
 %files -n xine-output-audio-oss
 %defattr(644,root,root,755)
