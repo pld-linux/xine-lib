@@ -718,9 +718,9 @@ echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
 rm -f m4/libtool15.m4
 
 %build
-%{__libtoolize}
 # breaks DOMAIN (modified Makefile.in.in?)
 #%%{__gettextize}
+%{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
@@ -730,13 +730,13 @@ rm -f m4/libtool15.m4
 	%{?with_dxr3:--enable-dxr3} \
 	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
-	%{?with_fusionsound:--enable-fusionsound} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
 	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
 	%{!?with_pulseaudio:--disable-pulseaudio} \
+	%{?with_fusionsound:--with-fusionsound} \
 	--with-w32-path=/usr/lib/codecs \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
