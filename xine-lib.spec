@@ -5,7 +5,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_without	arts		# don't build aRts audio output plugin
-%bcond_with	caca		# don't build libcaca video output plugin
+%bcond_without	caca		# don't build libcaca video output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
@@ -16,7 +16,7 @@
 %bcond_without	opengl		# don't build OpenGL video output plugin
 %bcond_without	pulseaudio	# don't build pulseaudio output plugin
 %bcond_without	smb		# don't build SMB input plugin
-%bcond_with	sdl		# don't build SDL video output plugin
+%bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 %bcond_with	vdr		# build with vdr support
@@ -40,7 +40,8 @@ Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-win32-path.patch
-Patch3:		%{name}-vdr.patch
+Patch3:		%{name}-am.patch
+Patch4:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -706,7 +707,11 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%{?with_vdr:%patch3 -p1}
+%patch3 -p1
+%{?with_vdr:%patch4 -p1}
+
+# kill hack, it fails with recent automake
+echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
 
 %build
 %{__libtoolize}
