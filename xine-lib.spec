@@ -1,5 +1,4 @@
 # TODO
-# wavpack
 # - --with-external-ffmpeg
 #
 # Conditional build:
@@ -19,6 +18,7 @@
 %bcond_without	smb		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
+%bcond_without	wavpack		# don't build wavpack decode plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 %bcond_with	vdr		# build with vdr support
 #
@@ -79,6 +79,7 @@ BuildRequires:	pkgconfig
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
+%{?with_wavpack:BuildRequires:	wavpack-devel >= 4.40}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXvMC-devel
 %{?with_xvid:BuildRequires:	xvid-devel}
@@ -212,6 +213,18 @@ Obs³uga dekodera win32dll do XINE.
 
 %description -n xine-decode-w32dll -l pt_BR
 Suporte a win32dll para o xine.
+
+%package -n xine-decode-wavpack
+Summary:	XINE - wavpack decoder plugin
+Summary(pl):	XINE - wtyczka dekodera wavpack
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-wavpack
+XINE - wavpack decoder/demuxer plugin.
+
+%description -n xine-decode-wavpack -l pl
+XINE - wtyczka dekodera/demuxera wavpack.
 
 %package -n xine-decode-xvid
 Summary:	XINE - xvid DIVX decoding support
@@ -754,6 +767,7 @@ rm -f m4/libtool15.m4
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
 	--with-w32-path=/usr/lib/codecs \
+	%{?with_wavpack:--with-wavpack} \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
 %{__make}
@@ -888,6 +902,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_qt.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_w32dll.so
+%endif
+
+%if %{with wavpack}
+%files -n xine-decode-wavpack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wavpack.so
 %endif
 
 %if %{with xvid}
