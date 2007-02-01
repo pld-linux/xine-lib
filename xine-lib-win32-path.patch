@@ -1,0 +1,13 @@
+--- xine-lib-1.1.2/src/libw32dll/common.c.orig	2006-06-11 17:09:47.000000000 +0200
++++ xine-lib-1.1.2/src/libw32dll/common.c	2006-07-11 13:26:13.304440000 +0200
+@@ -6,9 +6,8 @@
+   DIR                *dir;
+   char               *path, *cfgpath;
+   char               *listpath[] = { "",
+-                                     "/usr/lib/codecs", 
++                                     WIN32_PATH, 
+                                      "/usr/local/lib/codecs",
+-                                     "/usr/lib/win32",
+                                      "/usr/local/lib/win32",
+                                      NULL };
+   int                 i = 0;

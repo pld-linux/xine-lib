@@ -1,0 +1,53 @@
+--- xine-lib-1.1.2/configure.ac.orig	2006-07-11 12:28:38.744440000 +0200
++++ xine-lib-1.1.2/configure.ac	2006-07-11 12:44:30.944440000 +0200
+@@ -1951,6 +1951,8 @@
+ enable_ffmmx="no"
+ enable_armv4l="no"
+ 
++arch_sparc="no"
++
+ case "$host_or_hostalias" in
+   i?86-* | k?-* | athlon-* | pentium*-)
+     dnl enable x86 specific parts of the code
+@@ -2016,6 +2018,7 @@
+     fi
+     ;;
+   sparc*-*-linux*)
++    arch_sparc="yes"
+     if test x$enable_vis != xno; then
+       has_vis=yes
+     fi
+@@ -2066,6 +2069,7 @@
+ fi
+ AM_CONDITIONAL(ENABLE_VIS, test x"$has_vis" = "xyes")
+ 
++AM_CONDITIONAL([ARCH_SPARC], test x"$arch_sparc" = "xyes")
+ AM_CONDITIONAL(HAVE_FFMMX, test x"$enable_ffmmx" = "xyes")
+ 
+ dnl ---------------------------------------------
+diff -urbB xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am
+--- xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am	2004-04-25 20:59:58.000000000 +0200
++++ xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am	2005-09-16 12:31:05.607968352 +0200
+@@ -13,3 +13,9 @@
+ sparc_modules = $(libavcodec_sparc_src)
+ 
+ libavcodec_sparc_la_SOURCES = $(sparc_modules) $(libavcodec_sparc_dummy)
++
++if ARCH_SPARC
++# this file needs 64 float regs (ultrasparc) and is not executed on !ultra
++dsputil_vis.lo: dsputil_vis.c
++	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
++endif
+diff -urbB xine-lib-1.1.0.org/src/libmpeg2/Makefile.am xine-lib-1.1.0/src/libmpeg2/Makefile.am
+--- xine-lib-1.1.0.org/src/libmpeg2/Makefile.am	2005-04-26 00:44:22.000000000 +0200
++++ xine-lib-1.1.0/src/libmpeg2/Makefile.am	2005-09-16 12:31:36.309301040 +0200
+@@ -31,3 +31,9 @@
+ 
+ noinst_HEADERS = vlc.h mpeg2.h xvmc.h xvmc_vld.h mpeg2_internal.h idct_mlib.h vis.h \
+ 	libmpeg2_accel.h
++
++if ARCH_SPARC
++motion_comp_vis.lo: motion_comp_vis.c
++	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
++endif
++	
