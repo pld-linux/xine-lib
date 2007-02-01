@@ -1,7 +1,7 @@
---- xine-lib-1.1.4/configure.ac.orig	2007-02-01 12:35:08.818134000 +0100
-+++ xine-lib-1.1.4/configure.ac	2007-02-01 12:36:20.068134000 +0100
-@@ -2194,6 +2194,8 @@
- arch_x86="no"
+--- xine-lib-1.1.2/configure.ac.orig	2006-07-11 12:28:38.744440000 +0200
++++ xine-lib-1.1.2/configure.ac	2006-07-11 12:44:30.944440000 +0200
+@@ -1951,6 +1951,8 @@
+ enable_ffmmx="no"
  enable_armv4l="no"
  
 +arch_sparc="no"
@@ -9,22 +9,22 @@
  case "$host_or_hostalias" in
    i?86-* | k?-* | athlon-* | pentium*-)
      dnl enable x86 specific parts of the code
-@@ -2247,6 +2249,7 @@
+@@ -2016,6 +2018,7 @@
      fi
      ;;
    sparc*-*-linux*)
 +    arch_sparc="yes"
-     if test "x$enable_vis" != xno; then
+     if test x$enable_vis != xno; then
        has_vis=yes
      fi
-@@ -2294,6 +2297,7 @@
-    esac
+@@ -2066,6 +2069,7 @@
  fi
- AM_CONDITIONAL(ENABLE_VIS, test "x$has_vis" = "xyes")
-+AM_CONDITIONAL([ARCH_SPARC], test x"$arch_sparc" = "xyes")
+ AM_CONDITIONAL(ENABLE_VIS, test x"$has_vis" = "xyes")
  
- if test "x$arch_x86" = "xyes"; then
-    AC_DEFINE_UNQUOTED(ARCH_X86,,[Define this if you're running x86 architecture])
++AM_CONDITIONAL([ARCH_SPARC], test x"$arch_sparc" = "xyes")
+ AM_CONDITIONAL(HAVE_FFMMX, test x"$enable_ffmmx" = "xyes")
+ 
+ dnl ---------------------------------------------
 diff -urbB xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am
 --- xine-lib-1.1.0.org/src/libffmpeg/libavcodec/sparc/Makefile.am	2004-04-25 20:59:58.000000000 +0200
 +++ xine-lib-1.1.0/src/libffmpeg/libavcodec/sparc/Makefile.am	2005-09-16 12:31:05.607968352 +0200
