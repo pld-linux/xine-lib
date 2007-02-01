@@ -1,4 +1,5 @@
 # TODO
+# wavpack
 # - --with-external-ffmpeg
 #
 # Conditional build:
@@ -30,13 +31,13 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.3
-Release:	3
+Version:	1.1.4
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.gz
-# Source0-md5:	161dc882a9e7352c63b3fd1b6ff2e55f
+Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
+# Source0-md5:	e8ecc022457d8ffc9fec91681c5fff2b
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-win32-path.patch
@@ -751,6 +752,7 @@ rm -f m4/libtool15.m4
 	--with-external-dvdnav \
 	%{!?with_pulseaudio:--disable-pulseaudio} \
 	%{?with_fusionsound:--with-fusionsound} \
+	--with-libflac \
 	--with-w32-path=/usr/lib/codecs \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
@@ -787,7 +789,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post
 %attr(755,root,root) %{_pluginsdir}/post/*.so
-%{_docdir}/xine
+%{_docdir}/xine-lib
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cdda.so
