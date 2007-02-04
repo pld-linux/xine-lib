@@ -907,7 +907,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with wavpack}
 %files -n xine-decode-wavpack
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_wavpack.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_wavpack.so
 %endif
 
 %if %{with xvid}
