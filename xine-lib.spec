@@ -21,9 +21,9 @@
 %define		_version	1-beta2
 
 Summary:	A Free Video Player
-Summary(ko):	∞¯∞≥ µøøµªÛ «√∑π¿ÃæÓ
-Summary(pl):	Odtwarzacz video
-Summary(pt_BR):	Xine, um player de video
+Summary(ko.UTF-8):   Í≥µÍ∞ú ÎèôÏòÅÏÉÅ ÌîåÎ†àÏù¥Ïñ¥
+Summary(pl.UTF-8):   Odtwarzacz video
+Summary(pt_BR.UTF-8):   Xine, um player de video
 Name:		xine-lib
 Version:	1.0b2
 Release:	2
@@ -73,43 +73,43 @@ the playback of both. Depending on the properties of the mpeg stream,
 playback will need more or less processor power, 100% frame rate has
 been seen on a 400 MHz P II system.
 
-%description -l fr
-xine est un lecteur vidÈo libre sous license GPL pour les systËmes de
-type unix. Nous supportons les flux mpeg-2 et mpeg-1 (audio + vidÈo
-multiplexÈs), Èventuellement le mpeg-4 et d'autres formats peuvent
-Ítres ajoutÈs.
+%description -l fr.UTF-8
+xine est un lecteur vid√©o libre sous license GPL pour les syst√®mes de
+type unix. Nous supportons les flux mpeg-2 et mpeg-1 (audio + vid√©o
+multiplex√©s), √©ventuellement le mpeg-4 et d'autres formats peuvent
+√™tres ajout√©s.
 
-xine joue les donnÈes vidÈo et audio de vidÈo mpeg-2 et synchronise la
-lecture des deux. En fonction des propriÈtes du flux mpeg, la lecture
+xine joue les donn√©es vid√©o et audio de vid√©o mpeg-2 et synchronise la
+lecture des deux. En fonction des propri√©tes du flux mpeg, la lecture
 aura besoin de plus ou moins de puissance du processeur, 100% de
-restitution de trame a ÈtÈ vus sur un systËme PII 400MHz.
+restitution de trame a √©t√© vus sur un syst√®me PII 400MHz.
 
-%description -l ko
-xine ¥¬ GPL∂Û¿Ãº±Ω∫∏¶ µ˚∏£¥¬ UNIXøÎ ∞¯∞≥ µøøµªÛ «√∑π¿ÃæÓ¿‘¥œ¥Ÿ. ¿Ã
-«√∑π¿ÃæÓ¥¬ mpeg-2 øÕ mpeg 1 Ω∫∆Æ∏≤¿ª ¡ˆø¯«œ∏Á, «ˆ¿Á¥¬ ¡ˆø¯«œ¡ˆ æ ¡ˆ∏∏
-≥™¡ﬂø°¥¬ mpeg-4 øÕ ¥Ÿ∏• «¸Ωƒ¿« µøøµªÛµµ ¡ˆø¯«“ øπ¡§¿‘¥œ¥Ÿ.
+%description -l ko.UTF-8
+xine Îäî GPLÎùºÏù¥ÏÑ†Ïä§Î•º Îî∞Î•¥Îäî UNIXÏö© Í≥µÍ∞ú ÎèôÏòÅÏÉÅ ÌîåÎ†àÏù¥Ïñ¥ÏûÖÎãàÎã§. Ïù¥
+ÌîåÎ†àÏù¥Ïñ¥Îäî mpeg-2 ÏôÄ mpeg 1 Ïä§Ìä∏Î¶ºÏùÑ ÏßÄÏõêÌïòÎ©∞, ÌòÑÏû¨Îäî ÏßÄÏõêÌïòÏßÄ ÏïäÏßÄÎßå
+ÎÇòÏ§ëÏóêÎäî mpeg-4 ÏôÄ Îã§Î•∏ ÌòïÏãùÏùò ÎèôÏòÅÏÉÅÎèÑ ÏßÄÏõêÌï† ÏòàÏ†ïÏûÖÎãàÎã§.
 
-%description -l pl
-xine jest wolnodostÍpnym odtwarzaczem video dla systemÛw uniksowych.
-Obs≥uguje strumienie MPEG-2 i MPEG-1 (dºwiÍk oraz obraz), moøe byÊ
-dodana obs≥uga MPEG-4 i innych formatÛw.
+%description -l pl.UTF-8
+xine jest wolnodostƒôpnym odtwarzaczem video dla system√≥w uniksowych.
+Obs≈Çuguje strumienie MPEG-2 i MPEG-1 (d≈∫wiƒôk oraz obraz), mo≈ºe byƒá
+dodana obs≈Çuga MPEG-4 i innych format√≥w.
 
-xine odczytuje obraz i dºwiÍk z filmÛw MPEG-2 i synchronizuje ich
-odtwarzanie. Zaleønie od w≥a∂ciwo∂ci strumienia MPEG, odtwarzanie moøe
-wymagaÊ wiÍcej lub mniej mocy procesora, 100% klatek moøe byÊ widoczne
+xine odczytuje obraz i d≈∫wiƒôk z film√≥w MPEG-2 i synchronizuje ich
+odtwarzanie. Zale≈ºnie od w≈Ça≈õciwo≈õci strumienia MPEG, odtwarzanie mo≈ºe
+wymagaƒá wiƒôcej lub mniej mocy procesora, 100% klatek mo≈ºe byƒá widoczne
 na P II 400MHz.
 
-%description -l pt_BR
-O xine È um video player GPL para sistemas unix. LÍ arquivos MPEG-2 e
-MPEG-1, alÈm de AVIs MS MPEG4 / OpenDivX.
+%description -l pt_BR.UTF-8
+O xine √© um video player GPL para sistemas unix. L√™ arquivos MPEG-2 e
+MPEG-1, al√©m de AVIs MS MPEG4 / OpenDivX.
 
-O xine lÍ o conte˙do vÌdeo e ·udio e sincroniza-os em tempo-real. As
+O xine l√™ o conte√∫do v√≠deo e √°udio e sincroniza-os em tempo-real. As
 necessidades de processador dependem das propriedades de cada arquivo.
 
 %package oss
 Summary:	XINE - OSS/ALSA support
-Summary(pl):	XINE - obs≥uga OSS/ALSA
-Summary(pt_BR):	XINE - suporte a oss
+Summary(pl.UTF-8):   XINE - obs≈Çuga OSS/ALSA
+Summary(pt_BR.UTF-8):   XINE - suporte a oss
 Group:		Libraries
 Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
@@ -117,16 +117,16 @@ Requires:	%{name} = %{version}
 %description oss
 XINE audio plugins with OSS/ALSA support.
 
-%description oss -l pl
-Wtyczka audio do XINE z obs≥ug± OSS/ALSA.
+%description oss -l pl.UTF-8
+Wtyczka audio do XINE z obs≈ÇugƒÖ OSS/ALSA.
 
-%description oss -l pt_BR
+%description oss -l pt_BR.UTF-8
 Plugin de audio para o xine, com suporte a oss.
 
 %package alsa
 Summary:	XINE - alsa support
-Summary(pl):	XINE - obs≥uga alsa
-Summary(pt_BR):	XINE - suporte a alsa
+Summary(pl.UTF-8):   XINE - obs≈Çuga alsa
+Summary(pt_BR.UTF-8):   XINE - suporte a alsa
 Group:		Libraries
 Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
@@ -134,16 +134,16 @@ Requires:	%{name} = %{version}
 %description alsa
 XINE audio plugin with alsa support.
 
-%description alsa -l pl
-Wtyczka audio do XINE z obs≥ug± ALSA.
+%description alsa -l pl.UTF-8
+Wtyczka audio do XINE z obs≈ÇugƒÖ ALSA.
 
-%description alsa -l pt_BR
+%description alsa -l pt_BR.UTF-8
 Plugin de audio para o xine, com suporte a alsa.
 
 %package arts
 Summary:	XINE - arts support
-Summary(pl):	XINE - obs≥uga arts
-Summary(pt_BR):	XINE - suporte a arts
+Summary(pl.UTF-8):   XINE - obs≈Çuga arts
+Summary(pt_BR.UTF-8):   XINE - suporte a arts
 Group:		Libraries
 Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
@@ -151,13 +151,13 @@ Requires:	%{name} = %{version}
 %description arts
 XINE audio plugin with arts support.
 
-%description arts -l pl
-Wtyczka audio do XINE z obs≥ug± arts.
+%description arts -l pl.UTF-8
+Wtyczka audio do XINE z obs≈ÇugƒÖ arts.
 
 %package esd
 Summary:	XINE - esd support
-Summary(pl):	XINE - obs≥uga esd
-Summary(pt_BR):	XINE - suporte a esd
+Summary(pl.UTF-8):   XINE - obs≈Çuga esd
+Summary(pt_BR.UTF-8):   XINE - suporte a esd
 Group:		Libraries
 Provides:	xine-plugin-audio
 Requires:	%{name} = %{version}
@@ -165,107 +165,107 @@ Requires:	%{name} = %{version}
 %description esd
 XINE audio plugin with esd support.
 
-%description esd -l pl
-Wtyczka audio do XINE z obs≥ug± esd.
+%description esd -l pl.UTF-8
+Wtyczka audio do XINE z obs≈ÇugƒÖ esd.
 
-%description esd -l pt_BR
+%description esd -l pt_BR.UTF-8
 Plugin de audio para o xine, com suporte a esd.
 
 %package dxr3
 Summary:	XINE - DXR3 support
-Summary(pl):	XINE - obs≥uga DXR3
+Summary(pl.UTF-8):   XINE - obs≈Çuga DXR3
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description dxr3
 XINE video/decoder plugins for DXR3 card support.
 
-%description dxr3 -l pl
-Wtyczka odtwarzacza obrazu do XINE z obs≥ug± kart DXR3.
+%description dxr3 -l pl.UTF-8
+Wtyczka odtwarzacza obrazu do XINE z obs≈ÇugƒÖ kart DXR3.
 
 %package xvid
 Summary:	XINE - xvid DIVX decoding support
-Summary(pl):	XINE - obs≥uga dekodera DIVX xvid
+Summary(pl.UTF-8):   XINE - obs≈Çuga dekodera DIVX xvid
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description xvid
 XINE decoder plugin for DIVX decoding with xvid library.
 
-%description xvid -l pl
-Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekÍ xvid.
+%description xvid -l pl.UTF-8
+Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekƒô xvid.
 
 %package xv
 Summary:	XINE - XFree XVideo support
-Summary(pl):	XINE - obs≥uga XFree XVideo
-Summary(pt_BR):	XINE - suporte a XFree XVideo
+Summary(pl.UTF-8):   XINE - obs≈Çuga XFree XVideo
+Summary(pt_BR.UTF-8):   XINE - suporte a XFree XVideo
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description xv
 XINE video plugin using XFree XVideo extension.
 
-%description xv -l pl
-Wtyczka video do XINE uøywaj±ca rozszerzenia XVideo.
+%description xv -l pl.UTF-8
+Wtyczka video do XINE u≈ºywajƒÖca rozszerzenia XVideo.
 
-%description xv -l pt_BR
-Plugin de video para o xine, utilizando a extens„o XVideo do XFree.
+%description xv -l pt_BR.UTF-8
+Plugin de video para o xine, utilizando a extens√£o XVideo do XFree.
 
 %package aa
 Summary:	XINE - Ascii Art support
-Summary(pl):	XINE - obs≥uga Ascii Art
-Summary(pt_BR):	XINE - suporte a aalib
+Summary(pl.UTF-8):   XINE - obs≈Çuga Ascii Art
+Summary(pt_BR.UTF-8):   XINE - suporte a aalib
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description aa
 XINE video plugin using Ascii Art library.
 
-%description aa -l pl
-Wtyczka video do XINE z obs≥ug± Ascii Art.
+%description aa -l pl.UTF-8
+Wtyczka video do XINE z obs≈ÇugƒÖ Ascii Art.
 
-%description aa -l pt_BR
+%description aa -l pt_BR.UTF-8
 Plugin de video para o xine, utilizando a aalib.
 
 %package xshm
 Summary:	XINE - XFree XShm support
-Summary(pl):	XINE - obs≥uga XFree XShm
+Summary(pl.UTF-8):   XINE - obs≈Çuga XFree XShm
 Group:		Libraries
 Requires:	%{name} >= %{version}
 
 %description xshm
 XINE video plugin using XFree MIT shared memory.
 
-%description xshm -l pl
-Wtyczka video do XINE z obs≥ug± XFree MIT shared memory.
+%description xshm -l pl.UTF-8
+Wtyczka video do XINE z obs≈ÇugƒÖ XFree MIT shared memory.
 
 %package syncfb
 Summary:	XINE - SyncFB (Matrox G200/G400) support
-Summary(pl):	XINE - obs≥uga SyncFB (Matrox G200/G400)
+Summary(pl.UTF-8):   XINE - obs≈Çuga SyncFB (Matrox G200/G400)
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description syncfb
 SyncFB (for Matrox G200/G400 cards) interface for xine.
 
-%description syncfb -l pl
-Wtyczka video do XINE obs≥uguj±ca interfejs SyncFB (dla kart Matrox G200/G400).
+%description syncfb -l pl.UTF-8
+Wtyczka video do XINE obs≈ÇugujƒÖca interfejs SyncFB (dla kart Matrox G200/G400).
 
 %package fb
 Summary:	XINE - framebuffer support
-Summary(pl):	XINE - obs≥uga framebuffera
+Summary(pl.UTF-8):   XINE - obs≈Çuga framebuffera
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description fb
 SyncFB (for Matrox G200/G400 cards) interface for xine.
 
-%description fb -l pl
+%description fb -l pl.UTF-8
 Wtyczka video do XINE dla framebuffera.
 
 %package directfb
 Summary:	XINE - accelereted framebuffer support
-Summary(pl):	XINE - obs≥uga akelereowanego framebuffera
+Summary(pl.UTF-8):   XINE - obs≈Çuga akelereowanego framebuffera
 Group:		Libraries
 Requires:	%{name} = %{version}
 
@@ -273,25 +273,25 @@ Requires:	%{name} = %{version}
 XINE plugin for accelereted framebuffer support (with DirectFB
 library).
 
-%description directfb -l pl
+%description directfb -l pl.UTF-8
 Wtyczka video do XINE dla akcelerowanego framebuffera (przez
-bibliotekÍ DirectFB).
+bibliotekƒô DirectFB).
 
 %package sdl
 Summary:	XINE - SDL output support
-Summary(pl):	XINE - obs≥uga wyj∂cia SDL
+Summary(pl.UTF-8):   XINE - obs≈Çuga wyj≈õcia SDL
 Group:		Libraries
 Requires:	%{name} = %{version}
 
 %description sdl
 XINE plugin for output with SDL library.
 
-%description sdl -l pl
-Wtyczka video do XINE dla wy∂wieltania poprzez bibliotekÍ SDL.
+%description sdl -l pl.UTF-8
+Wtyczka video do XINE dla wy≈õwieltania poprzez bibliotekƒô SDL.
 
 %package opengl
 Summary:	XINE - OpenGL video output
-Summary(pl):	XINE - wy∂wietlanie OpenGL
+Summary(pl.UTF-8):   XINE - wy≈õwietlanie OpenGL
 Group:		Libraries
 Requires:	%{name} = %{version}
 Requires:	OpenGL
@@ -299,13 +299,13 @@ Requires:	OpenGL
 %description opengl
 XINE plugin using OpenGL for video output.
 
-%description opengl -l pl
-Wtyczka video do XINE wykorzystuj±ca OpenGL do wy∂wietlania.
+%description opengl -l pl.UTF-8
+Wtyczka video do XINE wykorzystujƒÖca OpenGL do wy≈õwietlania.
 
 %package w32dll
 Summary:	XINE - win32dll decoder support
-Summary(pl):	XINE - obs≥uga dekodera win32dll
-Summary(pt_BR):	XINE - suporte a decoder win32dll
+Summary(pl.UTF-8):   XINE - obs≈Çuga dekodera win32dll
+Summary(pt_BR.UTF-8):   XINE - suporte a decoder win32dll
 Group:		Libraries
 Requires:	%{name} = %{version}
 Requires:	w32codec
@@ -313,16 +313,16 @@ Requires:	w32codec
 %description w32dll
 XINE win32dll decoder support.
 
-%description w32dll -l pl
-Obs≥uga dekodera win32dll do XINE.
+%description w32dll -l pl.UTF-8
+Obs≈Çuga dekodera win32dll do XINE.
 
-%description w32dll -l pt_BR
+%description w32dll -l pt_BR.UTF-8
 Suporte a win32dll para o xine.
 
 %package devel
 Summary:	XINE - development files
-Summary(pl):	Pliki dla programistÛw XINE
-Summary(pt_BR):	XINE - arquivos de desenvolvimento
+Summary(pl.UTF-8):   Pliki dla programist√≥w XINE
+Summary(pt_BR.UTF-8):   XINE - arquivos de desenvolvimento
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 Obsoletes:	xine-devel
@@ -330,84 +330,84 @@ Obsoletes:	xine-devel
 %description devel
 HTML documentation of XINE API and development components.
 
-%description devel -l pl
-Pliki dla programistÛw oraz dokumentacja HTML do API XINE.
+%description devel -l pl.UTF-8
+Pliki dla programist√≥w oraz dokumentacja HTML do API XINE.
 
-%description devel -l pt_BR
-Arquivos include a bibliotecas est·ticas necess·rias para compilar
+%description devel -l pt_BR.UTF-8
+Arquivos include a bibliotecas est√°ticas necess√°rias para compilar
 plugins para o xine e o xine-ui.
 
 %package	vidix-rage128
 Summary:	VIDIX based video driver for Rage128 chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow Rage128
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow Rage128
 Group:		Libraries
 Requires:       %{name} = %{version}
 
 %description	vidix-rage128
 VIDIX based video driver for Rage128 chips.
 
-%description 	vidix-rage128 -l pl
-Modu≥y video oparte na VIDIX dla chipsetow Rage128.
+%description 	vidix-rage128 -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow Rage128.
 
 %package        vidix-radeon
 Summary:	VIDIX based video driver for Radeon chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow Radeon
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow Radeon
 Group:          Libraries
 Requires:       %{name} = %{version}
 
 %description	vidix-radeon
 VIDIX based video driver for Radeon chips.
 
-%description 	vidix-radeon -l pl
-Modu≥y video oparte na VIDIX dla chipsetow Radeon.
+%description 	vidix-radeon -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow Radeon.
 
 %package        vidix-nvidia
 Summary:	VIDIX based video driver for Riva and Riva-derived chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow Riva oraz pochodnych
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow Riva oraz pochodnych
 Group:          Libraries
 Requires:       %{name} = %{version}
 
 %description	vidix-nvidia
 VIDIX based video driver for Riva and Riva-derived chips, ex. riva tnt, geforce 2.
 
-%description  	vidix-nvidia -l pl
-Modu≥y video oparte na VIDIX dla chipsetow Riva oraz pochodnych.
+%description  	vidix-nvidia -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow Riva oraz pochodnych.
 
 %package        vidix-permedia
 Summary:	VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia
 Group:          Libraries
 Requires:       %{name} = %{version}
 
 %description	vidix-permedia
 VIDIX based video driver for 3Dlabs GLINT R3 and Permedia chips.
 
-%description 	vidix-permedia -l pl
-Modu≥y video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia.
+%description 	vidix-permedia -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow 3Dlabs GLINT R3 oraz Permedia.
 
 %package        vidix-matrox
 Summary:	VIDIX based video driver for Matrox Mga chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow Matrox Mga
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow Matrox Mga
 Group:          Libraries
 Requires:       %{name} = %{version}
 
 %description	vidix-matrox
 VIDIX based video driver for Matrox Mga chips.
 
-%description 	vidix-matrox -l pl
-Modu≥y video oparte na VIDIX dla chipsetow Matrox Mga.
+%description 	vidix-matrox -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow Matrox Mga.
 
 %package        vidix-mach64
 Summary:	VIDIX based video driver for Mach64 and 3Drage chips
-Summary(pl):	Modu≥y video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage
+Summary(pl.UTF-8):   Modu≈Çy video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage
 Group:          Libraries
 Requires:       %{name} = %{version}
 
 %description
 VIDIX based video driver for Mach64 and 3Drage chips.
 
-%description	vidix-mach64 -l pl
-Modu≥y video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage/
+%description	vidix-mach64 -l pl.UTF-8
+Modu≈Çy video oparte na VIDIX dla chipsetow Mach64 oraz 3DRage/
 
 %prep
 %setup -q -n %{name}-%{_version}
