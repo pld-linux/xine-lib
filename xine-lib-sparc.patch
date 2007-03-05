@@ -51,3 +51,15 @@ diff -urbB xine-lib-1.1.0.org/src/libmpeg2/Makefile.am xine-lib-1.1.0/src/libmpe
 +	$(LTCOMPILE) -c -o $@ $< -mcpu=ultrasparc
 +endif
 +	
+diff -ur xine-lib-1.1.4.orig/src/libffmpeg/libavutil/common.h xine-lib-1.1.4/src/libffmpeg/libavutil/common.h
+--- xine-lib-1.1.4.orig/src/libffmpeg/libavutil/common.h	2007-01-28 19:38:35.000000000 +0100
++++ xine-lib-1.1.4/src/libffmpeg/libavutil/common.h	2007-03-05 14:11:02.000000000 +0100
+@@ -365,7 +365,7 @@
+ #endif
+ 
+ /* xine: another config.h with codecs to use */
+-#include "ffmpeg_config.h"
++#include "../ffmpeg_config.h"
+ 
+ #endif /* COMMON_H */
+ 
