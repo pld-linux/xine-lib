@@ -14,11 +14,13 @@
 %bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_with	polypaudio	# build polypaudio output plugin
-%bcond_without	samba		# don't build SMB input plugin
+%bcond_without	pulseaudio	# don't build pulseaudio output plugin
+%bcond_without	smb		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
+%bcond_without	wavpack		# don't build wavpack decode plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
+%bcond_with	vdr		# build with vdr support
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -29,25 +31,27 @@ Summary(ko):	°ø°³ µ¿¿µ»ó ÇÃ·¹ÀÌ¾î
 Summary(pl):	Odtwarzacz filmów
 Summary(pt_BR):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.2
-Release:	3
+Version:	1.1.4
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	c4dd262c47caae6f428eb902ac8ec0e8
-Patch0:		%{name}-syncfb.patch
-Patch1:		%{name}-nolibs.patch
-Patch2:		%{name}-sparc.patch
-Patch3:		%{name}-win32-path.patch
+# Source0-md5:	e8ecc022457d8ffc9fec91681c5fff2b
+Patch0:		%{name}-nolibs.patch
+Patch1:		%{name}-sparc.patch
+Patch2:		%{name}-win32-path.patch
+Patch3:		%{name}-am.patch
+Patch4:		%{name}-sh.patch
+Patch5:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
-BuildRequires:	ImageMagick-devel
+BuildRequires:	ImageMagick-devel >= 1:6.0.0
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-glut-devel}
-%{?with_sdl:BuildRequires:	SDL-devel >= 1.1.5}
-%{?with_aalib:BuildRequires:	aalib-devel >= 1.3}
+%{?with_sdl:BuildRequires:	SDL-devel >= 1.2.9}
+%{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 %{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
@@ -56,26 +60,26 @@ BuildRequires:	automake >= 1:1.8.1
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
-%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 2.0}
-BuildRequires:	libXvMCW-devel
-%{?with_caca:BuildRequires:	libcaca-devel}
+%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+BuildRequires:	jack-audio-connection-kit-devel >= 0.100
+%{?with_caca:BuildRequires:	libcaca-devel >= 0.99}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libpng-devel
-%{?with_samba:BuildRequires:	libsmbclient-devel}
+%{?with_smb:BuildRequires:	libsmbclient-devel}
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	libvorbis-devel
 BuildRequires:	pkgconfig
-%{?with_polypaudio:BuildRequires:	polypaudio-devel < 0.8}
-%{?with_polypaudio:BuildRequires:	polypaudio-devel >= 0.6}
+%{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.21
+%{?with_wavpack:BuildRequires:	wavpack-devel >= 4.40}
 %{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
@@ -207,6 +211,18 @@ Obs³uga dekodera win32dll do XINE.
 
 %description -n xine-decode-w32dll -l pt_BR
 Suporte a win32dll para o xine.
+
+%package -n xine-decode-wavpack
+Summary:	XINE - wavpack decoder plugin
+Summary(pl):	XINE - wtyczka dekodera wavpack
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-wavpack
+XINE - wavpack decoder/demuxer plugin.
+
+%description -n xine-decode-wavpack -l pl
+XINE - wtyczka dekodera/demuxera wavpack.
 
 %package -n xine-decode-xvid
 Summary:	XINE - xvid DIVX decoding support
@@ -346,9 +362,22 @@ XINE audio output plugin with FusionSound support.
 %description -n xine-output-audio-fusionsound -l pl
 Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± FusionSound.
 
+%package -n xine-output-audio-jack
+Summary:	XINE - JACK support
+Summary(pl):	XINE - obs³uga demona JACK
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-audio-jack
+XINE audio output plugin with JACK support.
+
+%description -n xine-output-audio-jack -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³uga demona JACK.
+
 %package -n xine-output-audio-oss
-Summary:	XINE - OSS/ALSA support
-Summary(pl):	XINE - obs³uga OSS/ALSA
+Summary:	XINE - OSS support
+Summary(pl):	XINE - obs³uga OSS
 Summary(pt_BR):	XINE - suporte a oss
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -356,30 +385,31 @@ Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-oss
 
 %description -n xine-output-audio-oss
-XINE audio output plugins with OSS/ALSA support.
+XINE audio output plugin with OSS support.
 
 %description -n xine-output-audio-oss -l pl
-Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS/ALSA.
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± OSS.
 
 %description -n xine-output-audio-oss -l pt_BR
 Plugin de audio para o xine, com suporte a oss.
 
-%package -n xine-output-audio-polypaudio
-Summary:	XINE - polypaudio support
-Summary(pl):	XINE - obs³uga polypaudio
-Summary(pt_BR):	XINE - suporte a polypaudio
+%package -n xine-output-audio-pulseaudio
+Summary:	XINE - pulseaudio support
+Summary(pl):	XINE - obs³uga pulseaudio
+Summary(pt_BR):	XINE - suporte a pulseaudio
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-output-audio-polypaudio
 
-%description -n xine-output-audio-polypaudio
-XINE audio output plugins with polypaudio support.
+%description -n xine-output-audio-pulseaudio
+XINE audio output plugins with pulseaudio support.
 
-%description -n xine-output-audio-polypaudio -l pl
-Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± polypaudio.
+%description -n xine-output-audio-pulseaudio -l pl
+Wtyczka wyj¶cia d¼wiêku do XINE z obs³ug± pulseaudio.
 
-%description -n xine-output-audio-polypaudio -l pt_BR
-Plugin de audio para o xine, com suporte a polypaudio.
+%description -n xine-output-audio-pulseaudio -l pt_BR
+Plugin de audio para o xine, com suporte a pulseaudio.
 
 %package -n xine-output-video-aa
 Summary:	XINE - Ascii Art support
@@ -705,11 +735,18 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%{?with_vdr:%patch5 -p1}
+
+# kill hack, it fails with recent automake
+echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
+# use system libtool.m4
+rm -f m4/libtool15.m4
 
 %build
-%{__libtoolize}
 # breaks DOMAIN (modified Makefile.in.in?)
 #%%{__gettextize}
+%{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
@@ -719,15 +756,16 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 	%{?with_dxr3:--enable-dxr3} \
 	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
-	%{?with_fusionsound:--enable-fusionsound} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
+	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
-	%{!?with_polypaudio:--disable-polypaudio} \
+	%{!?with_pulseaudio:--disable-pulseaudio} \
+	%{?with_fusionsound:--with-fusionsound} \
+	--with-libflac \
 	--with-w32-path=/usr/lib/codecs \
-	--with-xv-path=/usr/X11R6/%{_lib} \
-	--disable-altivec \
+	%{?with_wavpack:--with-wavpack} \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
 
 %{__make}
@@ -763,7 +801,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_pluginsdir}
 %dir %{_pluginsdir}/post
 %attr(755,root,root) %{_pluginsdir}/post/*.so
-%{_docdir}/xine
+%{_docdir}/xine-lib
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cdda.so
@@ -864,6 +902,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_w32dll.so
 %endif
 
+%if %{with wavpack}
+%files -n xine-decode-wavpack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_wavpack.so
+%endif
+
 %if %{with xvid}
 %files -n xine-decode-xvid
 %defattr(644,root,root,755)
@@ -882,7 +926,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_gnome_vfs.so
 %endif
 
-%if %{with samba}
+%if %{with smb}
 %files -n xine-input-smb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_smb.so
@@ -920,14 +964,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_fusionsound.so
 %endif
 
+%files -n xine-output-audio-jack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_jack.so
+
 %files -n xine-output-audio-oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_oss.so
 
-%if %{with polypaudio}
-%files -n xine-output-audio-polypaudio
+%if %{with pulseaudio}
+%files -n xine-output-audio-pulseaudio
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_polypaudio.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_pulseaudio.so
 %endif
 
 %if %{with aalib}
