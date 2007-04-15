@@ -31,13 +31,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.4
-Release:	2
+Version:	1.1.5
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	e8ecc022457d8ffc9fec91681c5fff2b
+# Source0-md5:	7fa9ffa381a9b4579fd884700bab5c64
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-win32-path.patch
@@ -74,6 +74,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	libvorbis-devel
+BuildRequires:	libxcb-devel >= 1.0
 BuildRequires:	pkgconfig
 %{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
@@ -699,6 +700,20 @@ VIDIX driver for VIA CLE266 Unichrome chips.
 %description -n xine-output-video-vidix-unichrome -l pl.UTF-8
 Sterownik VIDIX dla układów VIA CLE2666 Unichrome.
 
+%package -n xine-output-video-xcb
+Summary:	XINE - XCB support
+Summary(pl.UTF-8):	XINE - obsługa XCB
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-lib-xshm
+
+%description -n xine-output-video-xcb
+XINE video output plugin using XShm or Xv via XCB.
+
+%description -n xine-output-video-xcb -l pl.UTF-8
+Wtyczka wyjścia obrazu do XINE z obsługą XShm lub Xv poprzez XCB.
+
 %package -n xine-output-video-xshm
 Summary:	XINE - XFree XShm support
 Summary(pl.UTF-8):	XINE - obsługa XFree XShm
@@ -766,6 +781,8 @@ rm -f m4/libtool15.m4
 	%{!?with_pulseaudio:--disable-pulseaudio} \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
+	%{?with_stk:--with-libstk} \
+	--with-real-codecs-path=%{_libdir}/codecs \
 	--with-w32-path=/usr/lib/codecs \
 	%{?with_wavpack:--with-wavpack} \
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
@@ -856,7 +873,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_real_audio.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
@@ -1080,6 +1096,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/vidix/unichrome*.so
 %endif
+
+%files -n xine-output-video-xcb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xcbshm.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xcbxv.so
 
 %files -n xine-output-video-xshm
 %defattr(644,root,root,755)
