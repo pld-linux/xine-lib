@@ -714,6 +714,20 @@ XINE video output plugin using XShm or Xv via XCB.
 %description -n xine-output-video-xcb -l pl.UTF-8
 Wtyczka wyjścia obrazu do XINE z obsługą XShm lub Xv poprzez XCB.
 
+%package -n xine-output-video-xdirectfb
+Summary:	XINE - accelereted DirectFB X11 support
+Summary(pl.UTF-8):	XINE - obsługa DirectFB X11
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-lib-directfb
+
+%description -n xine-output-video-xdirectfb
+XINE video output plugin for DirectFB X11.
+
+%description -n xine-output-video-xdirectfb -l pl.UTF-8
+Wtyczka wyjścia obrazu do XINE dla DirectFB X11.
+
 %package -n xine-output-video-xshm
 Summary:	XINE - XFree XShm support
 Summary(pl.UTF-8):	XINE - obsługa XFree XShm
@@ -1101,6 +1115,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xcbshm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xcbxv.so
+
+%if %{with directfb}
+%files -n xine-output-video-xdirectfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_xdirectfb.so
+%endif
 
 %files -n xine-output-video-xshm
 %defattr(644,root,root,755)
