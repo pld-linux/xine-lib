@@ -31,7 +31,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.7
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -87,6 +87,7 @@ BuildRequires:	zlib-devel
 BuildConflicts:	xine-lib-devel < 1.0
 Obsoletes:	xine
 Obsoletes:	xine-libs
+Obsoletes:	xine-output-audio-arts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
