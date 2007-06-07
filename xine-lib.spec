@@ -4,7 +4,6 @@
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
-%bcond_without	arts		# don't build aRts audio output plugin
 %bcond_without	caca		# don't build libcaca video output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
@@ -31,13 +30,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.6
+Version:	1.1.7
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	9dc1a4f81ccd644e4c0e294ff35fb76d
+# Source0-md5:	63735be200f97d784ed02b2123da7caf
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-sparc.patch
 Patch2:		%{name}-win32-path.patch
@@ -53,7 +52,6 @@ BuildRequires:	ImageMagick-devel >= 1:6.0.0
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
-%{?with_arts:BuildRequires:	artsc-devel >= 0.9.5}
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
@@ -318,21 +316,6 @@ Wtyczka wyjścia dźwięku do XINE z obsługą ALSA.
 
 %description -n xine-output-audio-alsa -l pt_BR.UTF-8
 Plugin de audio para o xine, com suporte a alsa.
-
-%package -n xine-output-audio-arts
-Summary:	XINE - arts support
-Summary(pl.UTF-8):	XINE - obsługa arts
-Summary(pt_BR.UTF-8):	XINE - suporte a arts
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-lib-arts
-
-%description -n xine-output-audio-arts
-XINE audio output plugin with arts support.
-
-%description -n xine-output-audio-arts -l pl.UTF-8
-Wtyczka wyjścia dźwięku do XINE z obsługą arts.
 
 %package -n xine-output-audio-esd
 Summary:	XINE - esd support
@@ -976,12 +959,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-audio-alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_alsa.so
-%endif
-
-%if %{with arts}
-%files -n xine-output-audio-arts
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_arts.so
 %endif
 
 %if %{with esd}
