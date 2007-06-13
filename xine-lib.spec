@@ -66,6 +66,7 @@ BuildRequires:	libcdio-devel >= 0.72
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
+BuildRequires:	libmpcdec-devel
 BuildRequires:	libpng-devel
 %{?with_smb:BuildRequires:	libsmbclient-devel}
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
@@ -180,6 +181,19 @@ XINE - gdk-pixbuf decoder plugin.
 
 %description -n xine-decode-gdkpixbuf -l pl.UTF-8
 XINE - wtyczka dekodera gdk-pixbuf.
+
+%package -n xine-decode-mpc
+Summary:	XINE - MPC/MusePack decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera MPC/MusePack
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Obsoletes:	xine-decode-vorbis
+
+%description -n xine-decode-mpc
+XINE - MPC/MusePack decoder plugin.
+
+%description -n xine-decode-mpc -l pl.UTF-8
+XINE - wtyczka dekodera MPC/MusePack.
 
 %package -n xine-decode-ogg
 Summary:	XINE - Ogg/Vorbis, Ogg/Speex, Ogg/Theora decoder plugins
@@ -768,15 +782,15 @@ rm -f m4/libtool15.m4
 %configure \
 	%{?with_alsa:--enable-alsa} \
 	%{!?with_alsa:--disable-alsa} \
-	%{?with_dxr3:--enable-dxr3} \
-	%{!?with_dxr3:--disable-dxr3} \
 	%{?with_directfb:--enable-directfb} \
+	%{?with_dxr3:--enable-dxr3}%{!?with_dxr3:--disable-dxr3} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
+	%{!?with_pulseaudio:--disable-pulseaudio} \
 	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
-	%{!?with_pulseaudio:--disable-pulseaudio} \
+	--with-external-libmpcdec \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
 	%{?with_stk:--with-libstk} \
@@ -867,7 +881,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_image.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mad.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_nsf.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_real.so
@@ -903,6 +916,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_gdk_pixbuf.so
 %endif
+
+%files -n xine-decode-mpc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_mpc.so
 
 %files -n xine-decode-ogg
 %defattr(644,root,root,755)
