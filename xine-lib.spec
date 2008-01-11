@@ -823,7 +823,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f libxine1.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
-%attr(755,root,root) %{_libdir}/libxine*.so.*.*
+%attr(755,root,root) %{_libdir}/libxine.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxine.so.1
 %dir %{_datadir}/xine
 %dir %{_datadir}/xine/libxine1
 %{_datadir}/xine/libxine1/fonts
@@ -833,6 +834,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_pluginsdir}/post
 %attr(755,root,root) %{_pluginsdir}/post/*.so
 %{_docdir}/xine-lib
+%{_mandir}/man5/xine.5*
 
 # input plugins
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_cdda.so
@@ -900,12 +902,13 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xine-config
-%attr(755,root,root) %{_libdir}/libxine*.so
-%{_libdir}/libxine*.la
-%{_includedir}/*
-%{_aclocaldir}/*.m4
+%attr(755,root,root) %{_libdir}/libxine.so
+%{_libdir}/libxine.la
+%{_includedir}/xine.h
+%{_includedir}/xine
+%{_aclocaldir}/xine.m4
 %{_pkgconfigdir}/libxine.pc
-%{_mandir}/man[135]/*
+%{_mandir}/man1/xine-config.1*
 
 %files -n xine-decode-flac
 %defattr(644,root,root,755)
