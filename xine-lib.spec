@@ -98,7 +98,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		specflags	-fomit-frame-pointer
 
 %description
-xine is a free gpl-licensed video player for unix-like systems. We
+xine is a free GPL-licensed video player for Unix-like systems. We
 support mpeg-2 and mpeg-1 system (audio + video multiplexed) streams,
 eventually mpeg-4 and other formats might be added.
 
@@ -109,7 +109,7 @@ been seen on a 400 MHz P II system.
 
 %description -l fr.UTF-8
 xine est un lecteur vidéo libre sous license GPL pour les systèmes de
-type unix. Nous supportons les flux mpeg-2 et mpeg-1 (audio + vidéo
+type Unix. Nous supportons les flux mpeg-2 et mpeg-1 (audio + vidéo
 multiplexés), éventuellement le mpeg-4 et d'autres formats peuvent
 êtres ajoutés.
 
