@@ -20,6 +20,9 @@
 %bcond_without	wavpack		# don't build wavpack decode plugin
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 %bcond_with	vdr		# build with vdr support
+%bcond_without	vis		# build without vis sparc extensions - with vis breaks compatibility
+				# with v7 processors and enables vis optimization for sparc64 arch.
+				# without vis is currently broken it fails on ffmpeg
 #
 %ifnarch %{ix86}
 %undefine	with_dxr3
@@ -38,11 +41,10 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
 # Source0-md5:	55e7d2b1f4a9052db847244572a4ecb5
 Patch0:		%{name}-nolibs.patch
-Patch1:		%{name}-sparc.patch
-Patch2:		%{name}-win32-path.patch
-Patch3:		%{name}-am.patch
-Patch4:		%{name}-sh.patch
-Patch5:		%{name}-vdr.patch
+Patch1:		%{name}-win32-path.patch
+Patch2:		%{name}-am.patch
+Patch3:		%{name}-sh.patch
+Patch4:		%{name}-vdr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -764,8 +766,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%{?with_vdr:%patch5 -p1}
+%{?with_vdr:%patch4 -p1}
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
@@ -797,8 +798,17 @@ rm -f m4/libtool15.m4
 	--with-real-codecs-path=%{_libdir}/codecs \
 	--with-w32-path=/usr/lib/codecs \
 	%{?with_wavpack:--with-wavpack} \
+%if %{with vis}
+%ifarch sparc
+	CFLAGS="%{rpmcflags} -mv8plus" \
+%endif
+%ifarch sparc64
+	CFLAGS="%{rpmcflags} -mvis" \
+%endif
+%else
+	--disable-vis \
+%endif
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
-
 %{__make}
 
 %install
