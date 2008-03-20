@@ -799,7 +799,7 @@ rm -f m4/libtool15.m4
 	--with-w32-path=/usr/lib/codecs \
 	%{?with_wavpack:--with-wavpack} \
 %if %{with vis}
-%ifarch sparc sparc64
+%ifarch sparc sparcv9 sparc64
 	CFLAGS="%{rpmcflags} -mvis" \
 %endif
 %else
