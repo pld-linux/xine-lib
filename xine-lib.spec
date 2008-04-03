@@ -34,7 +34,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.11.1
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
@@ -95,7 +95,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
-%define		_pluginsdir	%{_libdir}/xine/plugins/%{version}
+# based on libtool numbers
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.20
 
 %define		specflags	-fomit-frame-pointer
 
@@ -806,15 +807,13 @@ rm -f m4/libtool15.m4
 	--disable-vis \
 %endif
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
-%{__make} \
-	XINE_PLUGINDIR=%{_pluginsdir}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 %{__make} install \
-	XINE_PLUGINDIR=%{_pluginsdir} \
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
