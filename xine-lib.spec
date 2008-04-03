@@ -806,13 +806,15 @@ rm -f m4/libtool15.m4
 	--disable-vis \
 %endif
 	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
-%{__make}
+%{__make} \
+	XINE_PLUGINDIR=%{_pluginsdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 %{__make} install \
+	XINE_PLUGINDIR=%{_pluginsdir} \
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
