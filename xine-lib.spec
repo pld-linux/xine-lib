@@ -833,6 +833,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f libxine1.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
+%attr(755,root,root) %{_bindir}/xine-list-1.1
 %attr(755,root,root) %{_libdir}/libxine.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libxine.so.1
 %dir %{_datadir}/xine
@@ -841,9 +842,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xine
 %dir %{_libdir}/xine/plugins
 %dir %{_pluginsdir}
+%{_pluginsdir}/mime.types
 %dir %{_pluginsdir}/post
 %attr(755,root,root) %{_pluginsdir}/post/*.so
 %{_docdir}/xine-lib
+%{_mandir}/man1/xine-list-1.1.1*
 %{_mandir}/man5/xine.5*
 
 # input plugins
@@ -908,6 +911,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_file.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_ao_out_none.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_none.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_vo_out_raw.so
 
 %files devel
 %defattr(644,root,root,755)
