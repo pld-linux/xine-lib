@@ -220,7 +220,7 @@ Summary(pl.UTF-8):	XINE - obsługa dekodera win32dll
 Summary(pt_BR.UTF-8):	XINE - suporte a decoder win32dll
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	w32codec
+Suggests:	w32codec
 Obsoletes:	xine-lib-w32dll
 
 %description -n xine-decode-w32dll
