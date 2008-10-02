@@ -34,7 +34,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.15
-Release:	6.1
+Release:	7
 Epoch:		2
 License:	GPL
 Group:		Libraries
