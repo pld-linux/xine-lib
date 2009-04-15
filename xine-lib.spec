@@ -47,6 +47,9 @@ Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
 URL:		http://xine.sourceforge.net/
+# http://sourceforge.net/project/shownotes.php?group_id=9655&release_id=673233
+# Requires update to 1.1.16.3
+BuildRequires:	security(CVE-2009-1274)
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
 BuildRequires:	ImageMagick-devel >= 1:6.0.0
