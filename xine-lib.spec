@@ -33,13 +33,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.16.2
+Version:	1.1.16.3
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	336dd1f6266e9f943430ca6009b7aa7e
+# Source0-md5:	4f508abf088cf427a731f85634c8260d
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-am.patch
@@ -47,9 +47,6 @@ Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
 URL:		http://xine.sourceforge.net/
-# http://sourceforge.net/project/shownotes.php?group_id=9655&release_id=673233
-# Requires update to 1.1.16.3
-BuildRequires:	security(CVE-2009-1274)
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
 BuildRequires:	ImageMagick-devel >= 1:6.0.0
