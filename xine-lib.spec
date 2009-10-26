@@ -63,7 +63,7 @@ BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 1:2.0.0}
 BuildRequires:	jack-audio-connection-kit-devel >= 0.100
-%{?with_caca:BuildRequires:	libcaca-devel >= 0.99}
+%{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
