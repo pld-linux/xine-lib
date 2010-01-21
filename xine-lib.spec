@@ -33,13 +33,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.16.3
-Release:	8
+Version:	1.1.17
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	4f508abf088cf427a731f85634c8260d
+# Source0-md5:	25aea3cae7d8e2fb091941454fcfab54
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-am.patch
@@ -97,7 +97,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.26
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.27
 
 %define		specflags	-fomit-frame-pointer
 
@@ -903,6 +903,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spu.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spucmml.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_decode_spuhdmv.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_spudvb.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_sputext.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_decode_yuv.so
