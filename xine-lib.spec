@@ -1,5 +1,5 @@
 # TODO
-# - --with-external-ffmpeg
+# - fix build --with-external-dvdnav
 #
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
@@ -33,13 +33,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.17
-Release:	3
+Version:	1.1.18
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	25aea3cae7d8e2fb091941454fcfab54
+# Source0-md5:	2313c279bc99303cd12d4ee0ac826e20
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-am.patch
@@ -58,6 +58,8 @@ BuildRequires:	ImageMagick-devel >= 1:6.0.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
+BuildRequires:	faad2-devel
+BuildRequires:	ffmpeg-devel
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
@@ -97,7 +99,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.27
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.28
 
 %define		specflags	-fomit-frame-pointer
 
@@ -784,16 +786,18 @@ rm -f m4/libtool15.m4
 %{__autoconf}
 %{__automake}
 %configure \
-	%{?with_alsa:--enable-alsa} \
-	%{!?with_alsa:--disable-alsa} \
+	%{!?with_aalib:--disable-aalib} \
+	%{!?with_alsa:--without-alsa} \
 	%{?with_directfb:--enable-directfb} \
-	%{?with_dxr3:--enable-dxr3}%{!?with_dxr3:--disable-dxr3} \
+	%{!?with_dxr3:--disable-dxr3} \
+	%{!?with_esd:--without-esound} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
-	%{!?with_pulseaudio:--disable-pulseaudio} \
+	%{!?with_pulseaudio:--without-pulseaudio} \
 	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
 	--with-external-dvdnav \
+	--with-external-ffmpeg \
 	--with-external-libmpcdec \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
@@ -986,6 +990,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-input-v4l
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l2.so
 
 %files -n xine-input-vcd
 %defattr(644,root,root,755)
