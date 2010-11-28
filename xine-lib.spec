@@ -46,6 +46,7 @@ Patch2:		%{name}-am.patch
 Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
+Patch6:		%{name}-xxmc.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -772,6 +773,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch3 -p1
 %{?with_vdr:%patch4 -p1}
 %patch5 -p1
+%patch6 -01
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
