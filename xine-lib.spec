@@ -773,7 +773,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch3 -p1
 %{?with_vdr:%patch4 -p1}
 %patch5 -p1
-%patch6 -01
+%patch6 -p0
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
