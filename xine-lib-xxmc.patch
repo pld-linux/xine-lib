@@ -1,0 +1,14 @@
+--- src/video_out/xxmc.h.orig	2010-03-09 23:17:05.000000000 +0100
++++ src/video_out/xxmc.h	2010-11-28 19:17:29.946567005 +0100
+@@ -77,10 +77,10 @@
+ #include <X11/extensions/XShm.h>
+ #include <X11/extensions/Xv.h>
+ #include <X11/extensions/Xvlib.h>
++#include <X11/extensions/XvMClib.h>
+ #ifdef HAVE_VLDXVMC
+   #include <X11/extensions/vldXvMC.h>
+ #else
+-  #include <X11/extensions/XvMClib.h>
+   #include <X11/extensions/XvMC.h>
+ #endif
+ 
