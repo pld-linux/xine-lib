@@ -100,7 +100,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.28
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.29
 
 %define		specflags	-fomit-frame-pointer
 
