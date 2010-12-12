@@ -14,7 +14,7 @@
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
-%bcond_with	esd		# don't build EsounD audio output plugin
+%bcond_with	esd		# build EsounD audio output plugin
 %bcond_without	fusionsound	# don't build FusionSound audio output plugin
 %bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
@@ -783,8 +783,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
-# use system libtool.m4
-rm -f m4/libtool15.m4
 
 %build
 # breaks DOMAIN (modified Makefile.in.in?)
@@ -830,9 +828,6 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
-
-# remove useless *.la files
-rm -f $RPM_BUILD_ROOT%{_pluginsdir}/{,vidix,post}/*.la
 
 %find_lang libxine1
 
