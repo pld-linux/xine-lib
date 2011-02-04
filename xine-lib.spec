@@ -540,7 +540,7 @@ Obsoletes:	xine-lib-sdl
 %description -n xine-output-video-stk
 XINE video output plugin using libstk library.
 
-%description -n xine-output-video-sdl -l pl.UTF-8
+%description -n xine-output-video-stk -l pl.UTF-8
 Wtyczka wyjścia obrazu do XINE wyświetlająca poprzez bibliotekę
 libstk.
 
