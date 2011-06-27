@@ -53,6 +53,7 @@ Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
 Patch6:		%{name}-xxmc.patch
+Patch7:		%{name}-ffmpeg-0.8.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -66,7 +67,7 @@ BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	faad2-devel
-BuildRequires:	ffmpeg-devel
+BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
@@ -780,6 +781,7 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %{?with_vdr:%patch4 -p1}
 %patch5 -p1
 %patch6 -p0
+%patch7 -p1
 
 # kill hack, it fails with recent automake
 echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
