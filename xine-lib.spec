@@ -24,6 +24,7 @@
 %bcond_without	sdl		# don't build SDL video output plugin
 %bcond_without	stk		# don't build stk video output plugin
 %bcond_without	wavpack		# don't build wavpack decode plugin
+%bcond_with	v4l1		# Video4Linux 1 input plugin (obsolete in current Linux)
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
 %bcond_with	vdr		# build with vdr support
 %bcond_without	vis		# build without vis sparc extensions - with vis breaks compatibility
@@ -42,9 +43,9 @@ Name:		xine-lib
 Version:	1.1.19
 Release:	10
 Epoch:		2
-License:	GPL
+License:	GPL v2+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/xine/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.bz2
 # Source0-md5:	a410a0f0617e1d6309f0cbe907f73f8a
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
@@ -54,6 +55,7 @@ Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
 Patch6:		%{name}-xxmc.patch
 Patch7:		%{name}-ffmpeg-0.8.patch
+Patch8:		%{name}-pvr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -782,13 +784,10 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch5 -p1
 %patch6 -p0
 %patch7 -p1
-
-# kill hack, it fails with recent automake
-echo 'AC_DEFUN([AM_PROG_AS_MOD],[AM_PROG_AS])' > m4/as.m4
+%patch8 -p1
 
 %build
-# breaks DOMAIN (modified Makefile.in.in?)
-#%%{__gettextize}
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
@@ -866,7 +865,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_net.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_pnm.so
-%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pvr.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_stdin_fifo.so
@@ -994,7 +992,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xine-input-v4l
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_pluginsdir}/xineplug_inp_pvr.so
+%if %{with v4l1}
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l.so
+%endif
 %attr(755,root,root) %{_pluginsdir}/xineplug_inp_v4l2.so
 
 %files -n xine-input-vcd
