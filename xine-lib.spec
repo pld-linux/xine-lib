@@ -40,21 +40,19 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.19
-Release:	14
+Version:	1.1.20
+Release:	0.1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	a410a0f0617e1d6309f0cbe907f73f8a
+# Source0-md5:	1213457c42e2370155eb26e1c862dab2
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-am.patch
 Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
-Patch6:		%{name}-xxmc.patch
-Patch7:		%{name}-ffmpeg-0.8.patch
 Patch8:		%{name}-pvr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
@@ -109,7 +107,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		_pluginsdir	%{_libdir}/xine/plugins/1.29
+%define		_pluginsdir	%{_libdir}/xine/plugins/1.30
 
 %define		specflags	-fomit-frame-pointer
 
@@ -782,8 +780,6 @@ Plugin de video para o xine, utilizando a extensão XVideo do XFree.
 %patch3 -p1
 %{?with_vdr:%patch4 -p1}
 %patch5 -p1
-%patch6 -p0
-%patch7 -p1
 %patch8 -p1
 
 %build
