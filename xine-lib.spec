@@ -39,7 +39,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.1.20
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
@@ -104,6 +104,8 @@ BuildRequires:	xorg-lib-libXvMC-devel
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
+# used for MOD support in generic audio demuxer
+Requires:	libmodplug >= 0.7
 Obsoletes:	xine
 Obsoletes:	xine-libs
 Obsoletes:	xine-output-audio-arts
@@ -302,6 +304,7 @@ Summary:	XINE - Ogg/Vorbis, Ogg/Speex, Ogg/Theora decoder plugins
 Summary(pl.UTF-8):	XINE - wtyczki dekoderów Ogg/Vorbis, Ogg/Speex, Ogg/Theora
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	speex >= 1:1.1.6
 Obsoletes:	xine-decode-vorbis
 
 %description -n xine-decode-ogg
@@ -335,6 +338,7 @@ Summary:	XINE - wavpack audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku wavpack
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	wavpack >= 4.40
 
 %description -n xine-decode-wavpack
 XINE - wavpack audio decoder/demuxer plugin.
@@ -360,6 +364,7 @@ Summary:	XINE input plugin for DVD
 Summary(pl.UTF-8):	Wtyczka wejściowa XINE dla DVD
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libdvdnav >= 0.1.9
 
 %description -n xine-input-dvd
 XINE input plugin and DVD/VOB SPU decoder for DVD.
@@ -409,6 +414,8 @@ Summary:	VCD input driver for xine
 Summary(pl.UTF-8):	Sterownik wejścia VCD dla xine
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libcdio >= 0.72
+Requires:	vcdimager >= 0.7.23
 
 %description -n xine-input-vcd
 VCD input driver for xine (for reading VideoCD).
@@ -440,6 +447,7 @@ Summary(pl.UTF-8):	XINE - obsługa esd
 Summary(pt_BR.UTF-8):	XINE - suporte a esd
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	esound >= 0.2.8
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-esd
 
@@ -457,6 +465,7 @@ Summary:	XINE - FusionSound support
 Summary(pl.UTF-8):	XINE - obsługa FusionSound
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	FusionSound >= 0.9.23
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 
 %description -n xine-output-audio-fusionsound
@@ -470,6 +479,7 @@ Summary:	XINE - JACK support
 Summary(pl.UTF-8):	XINE - obsługa demona JACK
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	jack-audio-connection-kit >= 0.100
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 
 %description -n xine-output-audio-jack
@@ -502,6 +512,7 @@ Summary(pl.UTF-8):	XINE - obsługa pulseaudio
 Summary(pt_BR.UTF-8):	XINE - suporte a pulseaudio
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	pulseaudio >= 0.9
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-output-audio-polypaudio
 
@@ -520,6 +531,7 @@ Summary(pl.UTF-8):	XINE - obsługa Ascii Art
 Summary(pt_BR.UTF-8):	XINE - suporte a aalib
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	aalib >= 1.4
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-aa
 
@@ -537,6 +549,7 @@ Summary:	XINE - accelereted framebuffer support
 Summary(pl.UTF-8):	XINE - obsługa akcelerowanego framebuffera
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	DirectFB >= 0.9.22
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-directfb
 
@@ -553,6 +566,7 @@ Summary:	XINE - DXR3 support
 Summary(pl.UTF-8):	XINE - obsługa DXR3
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libfame >= 0.8.10
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-dxr3
 
@@ -567,6 +581,7 @@ Summary:	XINE - Color AsCii Art support
 Summary(pl.UTF-8):	XINE - obsługa Color AsCii Art
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libcaca >= 0.99-0.beta14
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 
 %description -n xine-output-video-caca
@@ -608,6 +623,7 @@ Summary:	XINE - SDL output support
 Summary(pl.UTF-8):	XINE - obsługa wyjścia SDL
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	SDL >= 1.2.11
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-sdl
 
@@ -805,6 +821,7 @@ Summary:	XINE - XCB support
 Summary(pl.UTF-8):	XINE - obsługa XCB
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libxcb >= 1.0
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-xshm
 
