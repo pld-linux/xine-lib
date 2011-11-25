@@ -1,0 +1,27 @@
+Nothing from a52_internal.h is needed by xine plugin
+--- xine-lib-1.1.20/configure.ac.orig	2011-11-25 18:43:46.799774547 +0100
++++ xine-lib-1.1.20/configure.ac	2011-11-25 18:59:53.849806927 +0100
+@@ -1310,7 +1310,7 @@
+   AC_MSG_RESULT([a52dec support disabled])
+ elif test "x$external_a52dec" = "xyes"; then
+   have_a52="yes"
+-  AC_CHECK_HEADERS([a52dec/a52.h a52dec/a52_internal.h],, have_a52="no",
++  AC_CHECK_HEADERS([a52dec/a52.h],, have_a52="no",
+ [
+   #ifdef HAVE_SYS_TYPES_H
+   # include <sys/types.h>
+--- xine-lib-1.1.20/src/liba52/xine_a52_decoder.c.orig	2010-03-09 23:17:05.000000000 +0100
++++ xine-lib-1.1.20/src/liba52/xine_a52_decoder.c	2011-11-25 18:59:23.256472569 +0100
+@@ -53,12 +53,6 @@
+ # include "a52.h"
+ #endif
+ 
+-#ifdef HAVE_A52DEC_A52_INTERNAL_H
+-# include <a52dec/a52_internal.h>
+-#else
+-# include "a52_internal.h"
+-#endif
+-
+ #include "buffer.h"
+ #include "xineutils.h"
+ 

@@ -1,7 +1,3 @@
-# TODO
-# - consider --with-external-a52dec (or document why using internal)
-# - consider --with-external-libdts (or document why using internal)
-# - consider --with-external-libmad (or document why using internal)
 #
 # Workaround for xine-lib.spec - libstk.spec updating:
 # 	1. make-request -r --without stk xine-lib
@@ -55,7 +51,8 @@ Patch2:		%{name}-am.patch
 Patch3:		%{name}-sh.patch
 Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
-Patch8:		%{name}-pvr.patch
+Patch6:		%{name}-a52.patch
+Patch7:		%{name}-pvr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -63,6 +60,7 @@ BuildRequires:	ImageMagick-devel >= 1:6.0.0
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
 %{?with_opengl:BuildRequires:	OpenGL-glut-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
+BuildRequires:	a52dec-libs-devel
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
 BuildRequires:	autoconf >= 2.59
@@ -79,7 +77,9 @@ BuildRequires:	jack-audio-connection-kit-devel >= 0.100
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
+BuildRequires:	libdts-devel
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
+BuildRequires:	libmad-devel
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libmpcdec-devel
@@ -177,6 +177,30 @@ Pliki dla programistów oraz dokumentacja HTML do API XINE.
 Arquivos include a bibliotecas estáticas necessárias para compilar
 plugins para o xine e o xine-ui.
 
+%package -n xine-decode-a52
+Summary:	XINE - A52 audio decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku A52
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-a52
+XINE - A52 audio decoder plugin.
+
+%description -n xine-decode-a52 -l pl.UTF-8
+XINE - wtyczka dekodera dźwięku A52.
+
+%package -n xine-decode-dts
+Summary:	XINE - DTS audio decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku DTS
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-dts
+XINE - DTS audio decoder plugin.
+
+%description -n xine-decode-dts -l pl.UTF-8
+XINE - wtyczka dekodera dźwięku DTS.
+
 %package -n xine-decode-faad
 Summary:	XINE - FAAD audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku FAAD
@@ -237,12 +261,23 @@ XINE - ImageMagick based image decoder plugin.
 %description -n xine-decode-image -l pl.UTF-8
 XINE - wtyczka dekodera obrazów opartego na ImageMagick.
 
+%package -n xine-decode-mad
+Summary:	XINE - MAD-based MP3 audio decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku MP3 oparta na bibliotece MAD
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-mad
+XINE - MAD-based MP3 audio decoder plugin.
+
+%description -n xine-decode-mad -l pl.UTF-8
+XINE - wtyczka dekodera dźwięku MP3 oparta na bibliotece MAD.
+
 %package -n xine-decode-mpc
 Summary:	XINE - MPC/MusePack audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku MPC/MusePack
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-decode-vorbis
 
 %description -n xine-decode-mpc
 XINE - MPC/MusePack audio decoder plugin.
@@ -845,7 +880,8 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch3 -p1
 %{?with_vdr:%patch4 -p1}
 %patch5 -p1
-%patch8 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 %{__gettextize}
@@ -864,8 +900,11 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 	%{!?with_pulseaudio:--without-pulseaudio} \
 	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
+	--with-external-a52dec \
 	--with-external-dvdnav \
 	--with-external-ffmpeg \
+	--with-external-libdts \
+	--with-external-libmad \
 	--with-external-libmpcdec \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
@@ -958,13 +997,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_yuv_frames.so
 
 # decoder plugins
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_a52.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_bitplane.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dts.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_gsm610.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_lpcm.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mad.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_nsf.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_real.so
@@ -993,6 +1029,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/libxine.pc
 %{_mandir}/man1/xine-config.1*
 
+%files -n xine-decode-a52
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_a52.so
+
+%files -n xine-decode-dts
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dts.so
+
 %files -n xine-decode-faad
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_faad.so
@@ -1014,6 +1058,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-image
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_image.so
+
+%files -n xine-decode-mad
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mad.so
 
 %files -n xine-decode-mpc
 %defattr(644,root,root,755)
