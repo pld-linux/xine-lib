@@ -33,6 +33,8 @@
 %undefine	with_dxr3
 %endif
 
+%define		_vdr_plugin_ver	0.9.4
+
 Summary:	A Free Video Player
 Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
@@ -45,11 +47,12 @@ License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.bz2
 # Source0-md5:	1213457c42e2370155eb26e1c862dab2
+Source1:	http://home.vrweb.de/~rnissl/vdr-xine-%{_vdr_plugin_ver}.tgz
+# Source1-md5:	0374123d6991f55d91122b020361d8f6
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-am.patch
 Patch3:		%{name}-sh.patch
-Patch4:		%{name}-vdr.patch
 Patch5:		%{name}-ac.patch
 Patch6:		%{name}-a52.patch
 Patch7:		%{name}-pvr.patch
@@ -111,7 +114,7 @@ Obsoletes:	xine-libs
 Obsoletes:	xine-output-audio-arts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
+%define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
 %define		xine_pluginsdir	%{_libdir}/xine/plugins/1.30
@@ -890,12 +893,12 @@ XINE - postprocessing plugin based on FFmpeg's libpostproc.
 XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 
 %prep
-%setup -q
+%setup -q -a 1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%{?with_vdr:%patch4 -p1}
+%{?with_vdr:%{__patch} -p1 < xine-%{_vdr_plugin_ver}/patches/xine-lib.patch}
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
