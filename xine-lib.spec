@@ -20,7 +20,7 @@
 %bcond_without	pulseaudio	# don't build pulseaudio output plugin
 %bcond_without	smb		# don't build SMB input plugin
 %bcond_without	sdl		# don't build SDL video output plugin
-%bcond_without	stk		# don't build stk video output plugin
+%bcond_with	stk		# don't build stk video output plugin
 %bcond_without	wavpack		# don't build wavpack decode plugin
 %bcond_with	v4l1		# Video4Linux 1 input plugin (obsolete in current Linux)
 %bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
@@ -41,7 +41,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.1
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
