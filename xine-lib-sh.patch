@@ -1,17 +1,17 @@
 --- xine-lib-1.1.16.3/configure.ac.orig	2009-05-02 00:04:29.569438975 +0000
 +++ xine-lib-1.1.16.3/configure.ac	2009-05-02 00:06:52.962751969 +0000
-@@ -553,9 +553,9 @@
+@@ -982,9 +982,9 @@
  b
  :q
  q"
--x_lib_location="`ls -1 "${x_libraries:-/usr/local/lib}/libX11.so"* "${x_libraries:-/usr/lib}/libX11.so"* 2>/dev/null | sed -e \"${soname_script}\"`"
-+x_lib_location="$(ls -1 "${x_libraries:-/usr/local/lib}/libX11.so"* "${x_libraries:-/usr/lib}/libX11.so"* 2>/dev/null | sed -e "${soname_script}")"
- AC_DEFINE_UNQUOTED([LIBX11_SO], "${x_lib_location:-libX11.so}", [The soname of libX11, needed for dlopen()])
--x_lib_location="`ls -1 "${x_libraries:-/usr/local/lib}/libXv.so"*  "${x_libraries:-/usr/lib}/libXv.so"*  2>/dev/null | sed -e \"${soname_script}\"`"
-+x_lib_location="$(ls -1 "${x_libraries:-/usr/local/lib}/libXv.so"*  "${x_libraries:-/usr/lib}/libXv.so"*  2>/dev/null | sed -e "${soname_script}")"
- AC_DEFINE_UNQUOTED([LIBXV_SO],  "${x_lib_location:-libXv.so}",  [The soname of libXv, needed for dlopen()])
+-x_lib_location="`ls -1 "${x_libraries:-/usr/local/lib}/libX11.$acl_cv_shlibext"* "${x_libraries:-/usr/lib}/libX11.$acl_cv_shlibext"* 2>/dev/null | sed -e \"${soname_script}\"`"
++x_lib_location=$(ls -1 "${x_libraries:-/usr/local/lib}/libX11.$acl_cv_shlibext"* "${x_libraries:-/usr/lib}/libX11.$acl_cv_shlibext"* 2>/dev/null | sed -e \"${soname_script}\")
+ AC_DEFINE_UNQUOTED([LIBX11_SO], "${x_lib_location:-libX11.$acl_cv_shlibext}", [The soname of libX11, needed for dlopen()])
+-x_lib_location="`ls -1 "${x_libraries:-/usr/local/lib}/libXv.$acl_cv_shlibext"*  "${x_libraries:-/usr/lib}/libXv.$acl_cv_shlibext"*  2>/dev/null | sed -e \"${soname_script}\"`"
++x_lib_location=$(ls -1 "${x_libraries:-/usr/local/lib}/libXv.$acl_cv_shlibext"*  "${x_libraries:-/usr/lib}/libXv.$acl_cv_shlibext"*  2>/dev/null | sed -e \"${soname_script}\")
+ AC_DEFINE_UNQUOTED([LIBXV_SO],  "${x_lib_location:-libXv.$acl_cv_shlibext}",  [The soname of libXv, needed for dlopen()])
  
- 
+ dnl _FILE_OFFSET_BITS   (AC_SYS_LARGEFILE; ac_cv_sys_file_offset_bits)
 @@ -2512,7 +2512,7 @@
  
  XINE_BUILD_CC="`$CC -v 2>&1 | tail -1 2>/dev/null`"

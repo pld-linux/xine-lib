@@ -1,10 +1,10 @@
---- xine-lib-1.1.12/configure.ac.orig	2008-05-27 21:04:31.000000000 +0200
-+++ xine-lib-1.1.12/configure.ac	2008-05-27 21:05:02.000000000 +0200
-@@ -119,6 +119,7 @@
+--- xine-lib-1.2.1/configure.ac~	2012-02-15 09:07:21.000000000 +0100
++++ xine-lib-1.2.1/configure.ac	2012-02-15 09:11:13.049069705 +0100
+@@ -164,6 +164,7 @@
  
  AC_PROG_CC
- AM_PROG_AS
+ AM_PROG_CC_C_O
 +AC_PROG_CXX
+ AC_GNU_SOURCE
+ AC_ISC_POSIX
  
- case "$host_os" in
-   *darwin*)

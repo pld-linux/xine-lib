@@ -1,13 +1,13 @@
---- xine-lib-1-rc3c/configure.ac.orig	2004-04-12 22:17:29.000000000 +0200
-+++ xine-lib-1-rc3c/configure.ac	2004-04-12 22:19:00.638295880 +0200
-@@ -343,8 +343,8 @@
+--- xine-lib-1.2.1/configure.ac~	2012-02-04 01:41:43.000000000 +0100
++++ xine-lib-1.2.1/configure.ac	2012-02-15 09:05:03.683929323 +0100
+@@ -267,8 +267,8 @@
+ AM_CONDITIONAL([EXTERNAL_LIBXDG_BASEDIR], [test x"$have_xdg_basedir" = xyes])
  
  dnl Test for socket and network support library
- NET_LIBS=""
--AC_CHECK_LIB(socket, socket, NET_LIBS="-lsocket $NET_LIBS",)
--AC_CHECK_LIB(nsl, gethostbyname, NET_LIBS="-lnsl $NET_LIBS",)
-+AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket, socket, NET_LIBS="-lsocket $NET_LIBS",)])
-+AC_CHECK_FUNC(gethostbyname,,[AC_CHECK_LIB(nsl, gethostbyname, NET_LIBS="-lnsl $NET_LIBS",)])
+-AC_CHECK_LIB([socket], [socket],        [NET_LIBS="-lsocket $NET_LIBS"])
+-AC_CHECK_LIB([nsl],    [gethostbyname], [NET_LIBS="-lnsl $NET_LIBS"])
++#AC_CHECK_LIB([socket], [socket],        [NET_LIBS="-lsocket $NET_LIBS"])
++#AC_CHECK_LIB([nsl],    [gethostbyname], [NET_LIBS="-lnsl $NET_LIBS"])
+ AC_CHECK_LIB([resolv], [hstrerror],     [NET_LIBS="-lresolv $NET_LIBS"])
  AC_SUBST(NET_LIBS)
- 
  

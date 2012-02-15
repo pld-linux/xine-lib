@@ -40,22 +40,20 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.1.20
-Release:	6
+Version:	1.2.1
+Release:	1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.bz2
-# Source0-md5:	1213457c42e2370155eb26e1c862dab2
+# Source0-md5:	fdd1cf233bfd8b7fe65bf7ef9abfed34
 Source1:	http://home.vrweb.de/~rnissl/vdr-xine-%{_vdr_plugin_ver}.tgz
 # Source1-md5:	0374123d6991f55d91122b020361d8f6
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
-Patch2:		%{name}-am.patch
+
 Patch3:		%{name}-sh.patch
 Patch5:		%{name}-ac.patch
-Patch6:		%{name}-a52.patch
-Patch7:		%{name}-pvr.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -112,12 +110,13 @@ Requires:	libmodplug >= 0.7
 Obsoletes:	xine
 Obsoletes:	xine-libs
 Obsoletes:	xine-output-audio-arts
+Obsoletes:	xine-output-video-syncfb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		xine_pluginsdir	%{_libdir}/xine/plugins/1.30
+%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.1
 
 %define		specflags	-fomit-frame-pointer
 
@@ -652,22 +651,6 @@ XINE video output plugin using libstk library.
 Wtyczka wyjścia obrazu do XINE wyświetlająca poprzez bibliotekę
 libstk.
 
-%package -n xine-output-video-syncfb
-Summary:	XINE - SyncFB (Matrox G200/G400) support
-Summary(pl.UTF-8):	XINE - obsługa SyncFB (Matrox G200/G400)
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-lib-syncfb
-
-%description -n xine-output-video-syncfb
-XINE video output plugin using SyncFB interface (for Matrox G200/G400
-cards).
-
-%description -n xine-output-video-syncfb -l pl.UTF-8
-Wtyczka wyjścia obrazu do XINE obsługująca interfejs SyncFB (dla kart
-Matrox G200/G400).
-
 %package -n xine-output-video-vidix
 Summary:	XINE - VIDIX video output plugin
 Summary(pl.UTF-8):	XINE - wtyczka wyjścia obrazu VIDIX
@@ -896,12 +879,10 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %setup -q -a 1
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+
 %patch3 -p1
 %{?with_vdr:%{__patch} -p1 < xine-%{_vdr_plugin_ver}/patches/xine-lib.patch}
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
 
 %build
 %{__gettextize}
@@ -920,12 +901,15 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 	%{!?with_pulseaudio:--without-pulseaudio} \
 	%{!?with_smb:--disable-samba} \
 	%{?with_aalib:--with-aalib-prefix=/usr} \
-	--with-external-a52dec \
+	--enable-a52dec \
 	--with-external-dvdnav \
-	--with-external-ffmpeg \
-	--with-external-libdts \
-	--with-external-libmad \
-	--with-external-libmpcdec \
+	--enable-dts \
+	--enable-mad \
+	--with-speex \
+	--with-xcb \ \
+	--with-libflac \
+	--with-theora \
+	--with-vorbis \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
 	%{?with_stk:--with-libstk} \
@@ -950,7 +934,7 @@ install -d $RPM_BUILD_ROOT%{_aclocaldir}
 	DESTDIR=$RPM_BUILD_ROOT \
 	m4datadir=%{_aclocaldir}
 
-%find_lang libxine1
+%find_lang libxine2
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -958,15 +942,14 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files -f libxine1.lang
+%files -f libxine2.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog TODO
-%attr(755,root,root) %{_bindir}/xine-list-1.1
+%attr(755,root,root) %{_bindir}/xine-list-1.2
 %attr(755,root,root) %{_libdir}/libxine.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libxine.so.1
-%dir %{_datadir}/xine
-%dir %{_datadir}/xine/libxine1
-%{_datadir}/xine/libxine1/fonts
+%attr(755,root,root) %ghost %{_libdir}/libxine.so.2
+%dir %{_datadir}/xine-lib
+%{_datadir}/xine-lib/fonts
 %dir %{_libdir}/xine
 %dir %{_libdir}/xine/plugins
 %dir %{xine_pluginsdir}
@@ -979,7 +962,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/post/xineplug_post_tvtime.so
 %attr(755,root,root) %{xine_pluginsdir}/post/xineplug_post_visualizations.so
 %{_docdir}/xine-lib
-%{_mandir}/man1/xine-list-1.1.1*
+%{_mandir}/man1/xine-list-1.2.1*
 %{_mandir}/man5/xine.5*
 
 # input plugins
@@ -1005,6 +988,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_iff.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_image.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_matroska.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_modplug.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_playlist.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_vc1_es.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_nsv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_pva.so
@@ -1012,7 +998,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_rawdv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_real.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_slave.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_sputext.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_yuv_frames.so
 
@@ -1022,14 +1007,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_gsm610.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpeg2.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_nsf.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_real.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucmml.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spuhdmv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spudvb.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_sputext.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264_alter.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg12.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg4.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_vc1.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_yuv.so
 
 # Others
@@ -1037,6 +1025,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_ao_out_none.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_none.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_raw.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_vdpau.so
+
+# ?
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_nsf.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_sputext.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vdr.so
 
 %files devel
 %defattr(644,root,root,755)
@@ -1093,10 +1087,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xine-decode-ogg
 %defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_speex.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_theora.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vorbis.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_ogg.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_xiph.so
 
 %ifarch %{ix86}
 %files -n xine-decode-w32dll
@@ -1227,10 +1218,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_stk.so
 %endif
-
-%files -n xine-output-video-syncfb
-%defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_syncfb.so
 
 %ifarch %{ix86}
 %files -n xine-output-video-vidix
