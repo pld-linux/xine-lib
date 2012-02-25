@@ -23,8 +23,6 @@
 %bcond_with	stk		# don't build stk video output plugin
 %bcond_without	wavpack		# don't build wavpack decode plugin
 %bcond_with	v4l1		# Video4Linux 1 input plugin (obsolete in current Linux)
-%bcond_with	xvid		# build xvid decode plugin [disabled in sources at the moment]
-%bcond_with	vdr		# build with vdr support
 %bcond_without	vis		# build without vis sparc extensions - with vis breaks compatibility
 				# with v7 processors and enables vis optimization for sparc64 arch.
 				# without vis is currently broken it fails on ffmpeg
@@ -32,8 +30,9 @@
 %ifnarch %{ix86}
 %undefine	with_dxr3
 %endif
-
-%define		_vdr_plugin_ver	0.9.4
+%ifnarch sparc sparcv9 sparc64
+%undefine	with_vis
+%endif
 
 Summary:	A Free Video Player
 Summary(ko.UTF-8):	공개 동영상 플레이어
@@ -47,13 +46,10 @@ License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.bz2
 # Source0-md5:	fdd1cf233bfd8b7fe65bf7ef9abfed34
-Source1:	http://home.vrweb.de/~rnissl/vdr-xine-%{_vdr_plugin_ver}.tgz
-# Source1-md5:	0374123d6991f55d91122b020361d8f6
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
-
-Patch3:		%{name}-sh.patch
-Patch5:		%{name}-ac.patch
+Patch2:		%{name}-sh.patch
+Patch3:		%{name}-ac.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -68,47 +64,54 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	faad2-devel
-# libavcodec >= 51.20.0, libpostproc
+# libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc
 BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	flac-devel
 BuildRequires:	gettext-devel >= 0.17
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
-%{?with_gdkpixbuf:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+%{?with_gdkpixbuf:BuildRequires:	gdk-pixbuf2-devel >= 2.0}
 BuildRequires:	jack-audio-connection-kit-devel >= 0.100
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
-BuildRequires:	libdts-devel
+BuildRequires:	libdts-devel >= 0.0.5
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
 BuildRequires:	libmad-devel
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libpng-devel
+# for rsvg tool
+BuildRequires:	librsvg
 %{?with_smb:BuildRequires:	libsmbclient-devel}
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	libvdpau-devel
 BuildRequires:	libv4l-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxcb-devel >= 1.0
+BuildRequires:	libxdg-basedir-devel >= 1
+BuildRequires:	optipng
 BuildRequires:	pkgconfig
 %{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.23
 %{?with_wavpack:BuildRequires:	wavpack-devel >= 4.40}
+BuildRequires:	xmlto
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXv-devel
 BuildRequires:	xorg-lib-libXvMC-devel
-%{?with_xvid:BuildRequires:	xvid-devel}
 BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
-# used for MOD support in generic audio demuxer
-Requires:	libmodplug >= 0.7
+Requires:	libxdg-basedir >= 1
 Obsoletes:	xine
 Obsoletes:	xine-libs
+Obsoletes:	xine-decode-xvid
 Obsoletes:	xine-output-audio-arts
 Obsoletes:	xine-output-video-syncfb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -169,6 +172,10 @@ Summary(pl.UTF-8):	Pliki dla programistów XINE
 Summary(pt_BR.UTF-8):	XINE - arquivos de desenvolvimento
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+# libavutil >= 49.6.0
+Requires:	ffmpeg-devel >= 0.8
+Requires:	libxdg-basedir-devel >= 1
+Requires:	zlib-devel
 Obsoletes:	xine-devel
 
 %description devel
@@ -198,6 +205,7 @@ Summary:	XINE - DTS audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku DTS
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libdts >= 0.0.5
 
 %description -n xine-decode-dts
 XINE - DTS audio decoder plugin.
@@ -277,6 +285,20 @@ XINE - MAD-based MP3 audio decoder plugin.
 %description -n xine-decode-mad -l pl.UTF-8
 XINE - wtyczka dekodera dźwięku MP3 oparta na bibliotece MAD.
 
+%package -n xine-decode-modplug
+Summary:	XINE - ModPlug-based MOD audio decoder/demuxer plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera/demuksera dźwięku MOD oparta na bibliotece ModPlug
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libmodplug >= 0.7
+
+%description -n xine-decode-modplug
+XINE - ModPlug-based MOD audio decoder/demuxer plugin.
+
+%description -n xine-decode-modplug -l pl.UTF-8
+XINE - wtyczka dekodera/demuksera dźwięku MOD oparta na bibliotece
+ModPlug.
+
 %package -n xine-decode-mpc
 Summary:	XINE - MPC/MusePack audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku MPC/MusePack
@@ -347,19 +369,6 @@ XINE - wavpack audio decoder/demuxer plugin.
 
 %description -n xine-decode-wavpack -l pl.UTF-8
 XINE - wtyczka dekodera/demuxera dźwięku wavpack.
-
-%package -n xine-decode-xvid
-Summary:	XINE - xvid DIVX decoding support
-Summary(pl.UTF-8):	XINE - obsługa dekodera DIVX xvid
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Obsoletes:	xine-lib-xvid
-
-%description -n xine-decode-xvid
-XINE decoder plugin for DIVX decoding with xvid library.
-
-%description -n xine-decode-xvid -l pl.UTF-8
-Wtyczka dla XINE do dekodowania DIVX poprzez bibliotekę xvid.
 
 %package -n xine-input-dvd
 Summary:	XINE input plugin for DVD
@@ -564,8 +573,8 @@ Wtyczka wyjścia obrazu do XINE dla akcelerowanego framebuffera (przez
 bibliotekę DirectFB).
 
 %package -n xine-output-video-dxr3
-Summary:	XINE - DXR3 support
-Summary(pl.UTF-8):	XINE - obsługa DXR3
+Summary:	XINE - DXR3 video output and acceleration support
+Summary(pl.UTF-8):	XINE - obsługa wyjścia obrazu oraz akceleracji DXR3
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libfame >= 0.8.10
@@ -573,10 +582,11 @@ Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-dxr3
 
 %description -n xine-output-video-dxr3
-XINE video/decoder plugins for DXR3 card support.
+XINE video output plugin and accelerated decoders using DXR3 card.
 
 %description -n xine-output-video-dxr3 -l pl.UTF-8
-Wtyczka wyjścia i dekodera obrazu do XINE z obsługą kart DXR3.
+Wtyczka wyjścia oraz akcelerowanych dekoderów obrazu do XINE z obsługą
+kart DXR3.
 
 %package -n xine-output-video-caca
 Summary:	XINE - Color AsCii Art support
@@ -650,6 +660,20 @@ XINE video output plugin using libstk library.
 %description -n xine-output-video-stk -l pl.UTF-8
 Wtyczka wyjścia obrazu do XINE wyświetlająca poprzez bibliotekę
 libstk.
+
+%package -n xine-output-video-vdpau
+Summary:	XINE - VDPAU video output and acceleration support
+Summary(pl.UTF-8):	XINE - obsługa wyjścia obrazu oraz akceleracji VDPAU
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-vdpau
+XINE video output plugin and accelerated decoders using VDPAU.
+
+%description -n xine-output-video-vdpau -l pl.UTF-8
+Wtyczka wyjścia oraz akcelerowanych dekoderów obrazu do XINE wykorzystujących
+VDPAU.
 
 %package -n xine-output-video-vidix
 Summary:	XINE - VIDIX video output plugin
@@ -876,13 +900,11 @@ XINE - postprocessing plugin based on FFmpeg's libpostproc.
 XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 
 %prep
-%setup -q -a 1
+%setup -q
 %patch0 -p1
 %patch1 -p1
-
+%patch2 -p1
 %patch3 -p1
-%{?with_vdr:%{__patch} -p1 < xine-%{_vdr_plugin_ver}/patches/xine-lib.patch}
-%patch5 -p1
 
 %build
 %{__gettextize}
@@ -890,45 +912,44 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
+# --disable-optimizations to honour our optflags
 %configure \
+%if %{with vis}
+	CFLAGS="%{rpmcflags} -mvis" \
+%endif
+	--enable-a52dec \
 	%{!?with_aalib:--disable-aalib} \
-	%{!?with_alsa:--without-alsa} \
 	%{?with_directfb:--enable-directfb} \
+	--enable-dts \
 	%{!?with_dxr3:--disable-dxr3} \
-	%{!?with_esd:--without-esound} \
 	%{!?with_gdkpixbuf:--disable-gdkpixbuf} \
 	--enable-ipv6 \
-	%{!?with_pulseaudio:--without-pulseaudio} \
-	%{!?with_smb:--disable-samba} \
-	%{?with_aalib:--with-aalib-prefix=/usr} \
-	--enable-a52dec \
-	--with-external-dvdnav \
-	--enable-dts \
 	--enable-mad \
-	--with-speex \
-	--with-xcb \ \
-	--with-libflac \
-	--with-theora \
-	--with-vorbis \
+	--disable-optimizations \
+	%{!?with_smb:--disable-samba} \
+	--disable-silent-rules \
+	%{!?with_vis:--disable-vis} \
+	%{?with_aalib:--with-aalib-prefix=/usr} \
+	%{!?with_alsa:--without-alsa} \
+	%{!?with_esd:--without-esound} \
+	--with-external-dvdnav \
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
 	%{?with_stk:--with-libstk} \
+	%{!?with_pulseaudio:--without-pulseaudio} \
 	--with-real-codecs-path=%{_libdir}/codecs \
-	--with-w32-path=/usr/lib/codecs \
+	--with-speex \
+	--with-theora \
+	--with-vorbis \
 	%{?with_wavpack:--with-wavpack} \
-%if %{with vis}
-%ifarch sparc sparcv9 sparc64
-	CFLAGS="%{rpmcflags} -mvis" \
-%endif
-%else
-	--disable-vis \
-%endif
-	--disable-optimizations # we use own RPM_OPT_FLAGS optimalizations
-%{__make}
+	--with-w32-path=/usr/lib/codecs \
+	--with-xcb
+# V=1 because misc/Makefile.quiet overrides silent-rules setting
+%{__make} \
+	V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_aclocaldir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -988,7 +1009,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_iff.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_image.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_matroska.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_modplug.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_playlist.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_vc1_es.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_mpeg*.so
@@ -1013,11 +1033,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucmml.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spuhdmv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spudvb.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264_alter.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg12.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg4.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_vc1.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_yuv.so
 
 # Others
@@ -1025,7 +1040,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_ao_out_none.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_none.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_raw.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_vdpau.so
 
 # ?
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_nsf.so
@@ -1037,6 +1051,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xine-config
 %attr(755,root,root) %{_libdir}/libxine.so
 %{_libdir}/libxine.la
+# "weak" library provided by libxine
+%{_libdir}/libxine-interface.la
 %{_includedir}/xine.h
 %{_includedir}/xine
 %{_aclocaldir}/xine.m4
@@ -1077,6 +1093,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mad.so
 
+%files -n xine-decode-modplug
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_modplug.so
+
 %files -n xine-decode-mpc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpc.so
@@ -1100,12 +1120,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-wavpack
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_wavpack.so
-%endif
-
-%if %{with xvid}
-%files -n xine-decode-xvid
-%defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_xvid.so
 %endif
 
 %if %{with dvd}
@@ -1218,6 +1232,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_stk.so
 %endif
+
+%files -n xine-output-video-vdpau
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264_alter.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg12.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg4.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_vc1.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_vdpau.so
 
 %ifarch %{ix86}
 %files -n xine-output-video-vidix
