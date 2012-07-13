@@ -71,6 +71,7 @@ BuildRequires:	gettext-devel >= 0.17
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gdk-pixbuf2-devel >= 2.0}
 BuildRequires:	jack-audio-connection-kit-devel >= 0.100
+BuildRequires:	libbluray-devel >= 0.2.1
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
@@ -369,6 +370,19 @@ XINE - wavpack audio decoder/demuxer plugin.
 
 %description -n xine-decode-wavpack -l pl.UTF-8
 XINE - wtyczka dekodera/demuxera dźwięku wavpack.
+
+%package -n xine-input-bluray
+Summary:	XINE input plugin for BluRay
+Summary(pl.UTF-8):	Wtyczka wejściowa XINE dla BluRay
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libbluray >= 0.2.1
+
+%description -n xine-input-bluray
+XINE input plugin for BluRay.
+
+%description -n xine-input-bluray -l pl.UTF-8
+Wtyczka wejściowa XINE dla BluRay.
 
 %package -n xine-input-dvd
 Summary:	XINE input plugin for DVD
@@ -1121,6 +1135,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_wavpack.so
 %endif
+
+%files -n xine-input-bluray
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_bluray.so
 
 %if %{with dvd}
 %files -n xine-input-dvd
