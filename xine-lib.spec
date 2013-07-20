@@ -39,23 +39,26 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.2.2
-Release:	5
+Version:	1.2.3
+Release:	1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.xz
-# Source0-md5:	6fa70fa336f708452ce9bf311b401de2
+# Source0-md5:	011def012e9db3dee06808b4580ccede
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
 Patch3:		%{name}-ac.patch
+# from DirectFB 1.7.0
+Patch4:		%{name}-vdpau-hooks.patch
+Patch5:		%{name}-missing.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
 BuildRequires:	ImageMagick-devel >= 1:6.0.0
+%{?with_opengl:BuildRequires:	OpenGL-devel >= 2.0}
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
-%{?with_opengl:BuildRequires:	OpenGL-glut-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
 BuildRequires:	a52dec-libs-devel
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
@@ -75,8 +78,10 @@ BuildRequires:	libbluray-devel >= 0.2.1
 %{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
+%{?with_dvd:BuildRequires:	libdvdread-devel}
 BuildRequires:	libdts-devel >= 0.0.5
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
+BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
@@ -88,6 +93,7 @@ BuildRequires:	librsvg
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	libva-devel
 BuildRequires:	libvdpau-devel
 BuildRequires:	libv4l-devel
 BuildRequires:	libvorbis-devel
@@ -95,7 +101,7 @@ BuildRequires:	libxcb-devel >= 1.0
 BuildRequires:	libxdg-basedir-devel >= 1
 BuildRequires:	optipng
 BuildRequires:	pkgconfig
-%{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9}
+%{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9.7}
 #%{?with_dxr3:BuildRequires:	rte-devel} # only 0.4 supported
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.23
@@ -120,7 +126,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.2
+%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.3
 
 %define		specflags	-fomit-frame-pointer
 
@@ -273,6 +279,18 @@ XINE - ImageMagick based image decoder plugin.
 
 %description -n xine-decode-image -l pl.UTF-8
 XINE - wtyczka dekodera obrazów opartego na ImageMagick.
+
+%package -n xine-decode-libjpeg
+Summary:	XINE - libjpeg based JPEG image decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-libjpeg
+XINE - libjpeg based JPEG image decoder plugin.
+
+%description -n xine-decode-libjpeg -l pl.UTF-8
+XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg.
 
 %package -n xine-decode-mad
 Summary:	XINE - MAD-based MP3 audio decoder plugin
@@ -537,7 +555,7 @@ Summary(pl.UTF-8):	XINE - obsługa pulseaudio
 Summary(pt_BR.UTF-8):	XINE - suporte a pulseaudio
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	pulseaudio >= 0.9
+Requires:	pulseaudio >= 0.9.7
 Provides:	xine-plugin-audio = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-output-audio-polypaudio
 
@@ -675,6 +693,19 @@ XINE video output plugin using libstk library.
 Wtyczka wyjścia obrazu do XINE wyświetlająca poprzez bibliotekę
 libstk.
 
+%package -n xine-output-video-vaapi
+Summary:	XINE - VAAPI video output support
+Summary(pl.UTF-8):	XINE - obsługa wyjścia obrazu VAAPI
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
+
+%description -n xine-output-video-vaapi
+XINE video output plugin using VAAPI.
+
+%description -n xine-output-video-vaapi -l pl.UTF-8
+Wtyczka wyjścia obrazu do XINE wykorzystująca VAAPI.
+
 %package -n xine-output-video-vdpau
 Summary:	XINE - VDPAU video output and acceleration support
 Summary(pl.UTF-8):	XINE - obsługa wyjścia obrazu oraz akceleracji VDPAU
@@ -686,8 +717,8 @@ Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 XINE video output plugin and accelerated decoders using VDPAU.
 
 %description -n xine-output-video-vdpau -l pl.UTF-8
-Wtyczka wyjścia oraz akcelerowanych dekoderów obrazu do XINE wykorzystujących
-VDPAU.
+Wtyczka wyjścia oraz akcelerowanych dekoderów obrazu do XINE
+wykorzystujących VDPAU.
 
 %package -n xine-output-video-vidix
 Summary:	XINE - VIDIX video output plugin
@@ -919,6 +950,8 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__gettextize}
@@ -1011,6 +1044,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtsp.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_stdin_fifo.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_test.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
@@ -1102,6 +1136,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-image
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_image.so
+
+%files -n xine-decode-libjpeg
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libjpeg.so
 
 %files -n xine-decode-mad
 %defattr(644,root,root,755)
@@ -1237,6 +1275,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-output-video-opengl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_opengl.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_opengl2.so
 %endif
 
 %if %{with sdl}
@@ -1250,6 +1289,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_stk.so
 %endif
+
+%files -n xine-output-video-vaapi
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_vaapi.so
 
 %files -n xine-output-video-vdpau
 %defattr(644,root,root,755)
