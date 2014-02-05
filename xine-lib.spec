@@ -1,6 +1,6 @@
 #
 # Workaround for xine-lib.spec - libstk.spec updating:
-# 	1. make-request -r --without stk xine-lib
+#	1. make-request -r --without stk xine-lib
 #	2. make-request -r libstk
 #	3. bump release of xine-lib
 #	4. make-request -r xine-lib
@@ -40,7 +40,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.3
-Release:	5
+Release:	6
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
