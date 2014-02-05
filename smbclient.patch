@@ -1,0 +1,23 @@
+--- xine-lib-1.2.3/m4/input.m4~	2012-02-09 00:41:11.000000000 +0100
++++ xine-lib-1.2.3/m4/input.m4	2014-02-05 17:59:55.505504611 +0100
+@@ -79,8 +79,8 @@
+     dnl libsmbclient
+     XINE_ARG_ENABLE([samba], [Enable support for the Samba plugin])
+     if test x"$enable_samba" != x"no"; then
+-        AC_CHECK_LIB([smbclient], [smbc_init],
+-                     [AC_CHECK_HEADERS([libsmbclient.h], [have_samba=yes LIBSMBCLIENT_LIBS="-lsmbclient"])])
++    	PKG_CHECK_MODULES([LIBSMBCLIENT], [smbclient], [have_samba=yes])
++        AC_SUBST(LIBSMBCLIENT_CFLAGS)
+         AC_SUBST(LIBSMBCLIENT_LIBS)
+         if test x"$hard_enable_samba" = x"yes" && test x"$have_samba" != x"yes"; then
+             AC_MSG_ERROR([Samba support requested, but Samba not found])
+--- xine-lib-1.2.3/src/input/Makefile.am~	2012-06-30 20:02:39.000000000 +0200
++++ xine-lib-1.2.3/src/input/Makefile.am	2014-02-05 18:01:03.505504119 +0100
+@@ -150,6 +150,7 @@
+ xineplug_inp_gnome_vfs_la_CFLAGS = $(AM_CFLAGS) $(GNOME_VFS_CFLAGS)
+ 
+ xineplug_inp_smb_la_SOURCES = input_smb.c
++xineplug_inp_smb_la_CFLAGS = $(AM_CFLAGS) $(LIBSMBCLIENT_CFLAGS)
+ xineplug_inp_smb_la_LIBADD = $(XINE_LIB) $(LIBSMBCLIENT_LIBS) $(LTLIBINTL)
+ 
+ xineplug_inp_pvr_la_SOURCES = input_pvr.c
