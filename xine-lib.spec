@@ -72,7 +72,7 @@ BuildRequires:	faad2-devel
 # libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc
 BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	flac-devel
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gdk-pixbuf2-devel >= 2.0}
 BuildRequires:	jack-audio-connection-kit-devel >= 0.100
