@@ -39,24 +39,20 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.2.3
-Release:	12
+Version:	1.2.6
+Release:	1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.xz
-# Source0-md5:	011def012e9db3dee06808b4580ccede
+# Source0-md5:	02ee3c2380273989b4b016903209e05e
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
 Patch3:		%{name}-ac.patch
 # from DirectFB 1.7.0
 Patch4:		%{name}-vdpau-hooks.patch
-Patch5:		%{name}-missing.patch
-Patch6:		smbclient.patch
-Patch7:		%{name}-build.patch
-Patch8:		libdvdnav5.patch
-Patch9:		x32.patch
+Patch5:		x32.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -97,12 +93,13 @@ BuildRequires:	librsvg
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
 BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	libv4l-devel
 BuildRequires:	libva-devel
 BuildRequires:	libva-glx-devel
 BuildRequires:	libva-x11-devel
 BuildRequires:	libvdpau-devel
-BuildRequires:	libv4l-devel
 BuildRequires:	libvorbis-devel
+BuildRequires:	libvpx-devel >= 1.3.0
 BuildRequires:	libxcb-devel >= 1.0
 BuildRequires:	libxdg-basedir-devel >= 1
 BuildRequires:	optipng
@@ -132,7 +129,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
 
 # based on libtool numbers
-%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.3
+%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.5
 
 %define		specflags	-fomit-frame-pointer
 
@@ -297,6 +294,19 @@ XINE - libjpeg based JPEG image decoder plugin.
 
 %description -n xine-decode-libjpeg -l pl.UTF-8
 XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg.
+
+%package -n xine-decode-libvpx
+Summary:	XINE - WebM (VP8/VP9) video decoder
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazu WebM (VP8/VP9)
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libvpx-devel >= 1.3.0
+
+%description -n xine-decode-libvpx
+XINE - WebM (VP8/VP9) video decoder.
+
+%description -n xine-decode-libvpx -l pl.UTF-8
+XINE - wtyczka dekodera obrazu WebM (VP8/VP9).
 
 %package -n xine-decode-mad
 Summary:	XINE - MAD-based MP3 audio decoder plugin
@@ -958,10 +968,6 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 %{__gettextize}
@@ -1150,6 +1156,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-libjpeg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libjpeg.so
+
+%files -n xine-decode-libvpx
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libvpx.so
 
 %files -n xine-decode-mad
 %defattr(644,root,root,755)
