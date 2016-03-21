@@ -40,7 +40,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.6
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
@@ -53,6 +53,7 @@ Patch3:		%{name}-ac.patch
 # from DirectFB 1.7.0
 Patch4:		%{name}-vdpau-hooks.patch
 Patch5:		x32.patch
+Patch6:		ffmpeg3.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -68,7 +69,7 @@ BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	faad2-devel
 # libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc
-BuildRequires:	ffmpeg-devel >= 0.8
+BuildRequires:	ffmpeg-devel >= 3.0
 BuildRequires:	flac-devel
 BuildRequires:	gettext-tools >= 0.17
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel}
@@ -968,6 +969,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__gettextize}
