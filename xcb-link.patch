@@ -1,0 +1,11 @@
+--- xine-lib-1.2.6/src/video_out/Makefile.am~	2016-08-31 08:25:50.000000000 +0200
++++ xine-lib-1.2.6/src/video_out/Makefile.am	2016-08-31 08:32:35.363173568 +0200
+@@ -150,7 +150,7 @@
+ xineplug_vo_out_xcbshm_la_CFLAGS = $(AM_CFLAGS) $(XCB_CFLAGS) $(XCBSHM_CFLAGS) $(AVUTIL_CFLAGS)
+ 
+ xineplug_vo_out_xcbxv_la_SOURCES = video_out_xcbxv.c $(XCBOSD)
+-xineplug_vo_out_xcbxv_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL) $(XCBXV_LIBS) $(XCB_LIBS)
++xineplug_vo_out_xcbxv_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL) $(XCBXV_LIBS) $(XCBSHM_LIBS) $(XCB_LIBS)
+ xineplug_vo_out_xcbxv_la_CFLAGS = $(AM_CFLAGS) $(XCB_CFLAGS) $(XCBXV_CFLAGS)
+ 
+ xineplug_vo_out_xshm_la_SOURCES = video_out_xshm.c $(X11OSD)
