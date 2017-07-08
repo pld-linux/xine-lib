@@ -11,19 +11,17 @@ diff -r 23f700befc6c src/video_out/Makefile.am
  endif
  
  if ENABLE_XCB
-diff -r 23f700befc6c src/video_out/video_out_vdpau.c
---- a/src/video_out/video_out_vdpau.c	Sun Feb 20 23:38:32 2011 +0100
-+++ b/src/video_out/video_out_vdpau.c	Wed Mar 16 14:17:05 2011 +0100
-@@ -52,6 +52,8 @@
+--- xine-lib-1.2.8/src/video_out/video_out_vdpau.c.orig	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/video_out/video_out_vdpau.c	2017-07-08 07:46:55.935788912 +0200
+@@ -51,6 +51,7 @@
  #include <vdpau/vdpau_x11.h>
  #include "accel_vdpau.h"
  
 +#include "video_out_vdpau.h"
-+
- #ifdef HAVE_FFMPEG_AVUTIL_H
- #  include <mem.h>
- #else
-@@ -2353,6 +2355,7 @@
+ 
+ 
+ #define NUM_FRAMES_BACK 1
+@@ -2637,6 +2638,7 @@
  {
    vdpau_class_t       *class   = (vdpau_class_t *) class_gen;
    x11_visual_t        *visual  = (x11_visual_t *) visual_gen;
@@ -31,9 +29,9 @@ diff -r 23f700befc6c src/video_out/video_out_vdpau.c
    vdpau_driver_t      *this;
    config_values_t      *config  = class->xine->config;
    int i;
-@@ -2437,15 +2440,22 @@
-   this->yuv2rgb_factory = yuv2rgb_factory_init (MODE_24_BGR, 0, NULL);
-   this->ovl_yuv2rgb = this->yuv2rgb_factory->create_converter( this->yuv2rgb_factory );
+@@ -2713,15 +2715,22 @@
+   this->ovl_src_rect.x0 = 0;
+   this->ovl_src_rect.y0 = 0;
  
 -  VdpStatus st = vdp_device_create_x11( visual->display, visual->screen, &vdp_device, &vdp_get_proc_address );
 -  if ( st != VDP_STATUS_OK ) {
@@ -63,7 +61,7 @@ diff -r 23f700befc6c src/video_out/video_out_vdpau.c
    }
    st = vdp_get_proc_address( vdp_device, VDP_FUNC_ID_GET_ERROR_STRING , (void*)&vdp_get_error_string );
    if ( vdpau_init_error( st, "Can't get GET_ERROR_STRING proc address !!", &this->vo_driver, 0 ) )
-@@ -2600,6 +2610,22 @@
+@@ -2929,6 +2938,22 @@
    if ( vdpau_init_error( st, "Can't get PREEMPTION_CALLBACK_REGISTER proc address !!", &this->vo_driver, 1 ) )
      return NULL;
  

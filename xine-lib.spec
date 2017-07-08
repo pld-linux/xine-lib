@@ -1,3 +1,4 @@
+# TODO: openhevc?
 #
 # Workaround for xine-lib.spec - libstk.spec updating:
 #	1. make-request -r --without stk xine-lib
@@ -39,13 +40,13 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.2.6
-Release:	8
+Version:	1.2.8
+Release:	1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.xz
-# Source0-md5:	02ee3c2380273989b4b016903209e05e
+# Source0-md5:	427cc4568632eea725d5169a4a50ff22
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
@@ -53,8 +54,6 @@ Patch3:		%{name}-ac.patch
 # from DirectFB 1.7.0
 Patch4:		%{name}-vdpau-hooks.patch
 Patch5:		x32.patch
-Patch6:		ffmpeg3.patch
-Patch7:		xcb-link.patch
 Patch8:		imagemagick7.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
@@ -70,7 +69,7 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.8.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	faad2-devel
-# libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc
+# libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc >= 51.2.0
 BuildRequires:	ffmpeg-devel >= 3.0
 BuildRequires:	flac-devel
 BuildRequires:	gettext-tools >= 0.17
@@ -129,10 +128,8 @@ Obsoletes:	xine-output-audio-arts
 Obsoletes:	xine-output-video-syncfb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreqdep	libGL.so.1 libGLU.so.1
-
 # based on libtool numbers
-%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.5
+%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.6
 
 %define		specflags	-fomit-frame-pointer
 
@@ -971,8 +968,6 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
 %patch8 -p1
 
 %build
@@ -1058,57 +1053,39 @@ rm -rf $RPM_BUILD_ROOT
 # input plugins
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_cdda.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_dvb.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_file.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_net.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_pnm.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtp.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtsp.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_stdin_fifo.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_test.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_asf.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_audio.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_avi.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_fli.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_flv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_games.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_iff.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_image.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_matroska.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_playlist.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_vc1_es.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_mpeg*.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_nsv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_pva.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_qt.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_rawdv.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_real.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_slave.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_yuv4mpeg2.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_yuv_frames.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_video.so
 
 # decoder plugins
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_bitplane.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_gsm610.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpeg2.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_rawvideo.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_real.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_rgb.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucmml.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spuhdmv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spudvb.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_yuv.so
 
-# Others
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_ao_out_file.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_ao_out_none.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_none.so
+# output plugins
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_raw.so
 
 # ?
@@ -1322,11 +1299,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xine-output-video-vdpau
 %defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_h264_alter.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg12.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_mpeg4.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau_vc1.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_vdpau.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_vdpau.so
 
 %ifarch %{ix86}
