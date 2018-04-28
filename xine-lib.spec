@@ -41,7 +41,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.8
-Release:	6
+Release:	7
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
@@ -54,6 +54,7 @@ Patch3:		%{name}-ac.patch
 # from DirectFB 1.7.0
 Patch4:		%{name}-vdpau-hooks.patch
 Patch5:		x32.patch
+Patch6:		ffmpeg4.patch
 Patch8:		imagemagick7.patch
 URL:		http://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
@@ -968,6 +969,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 %patch8 -p1
 
 %build
