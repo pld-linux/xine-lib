@@ -198,3 +198,13 @@
    mpeg_parser_reset(parser);
  }
  
+--- xine-lib-1.2.8/src/dxr3/ffmpeg_encoder.c~	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/dxr3/ffmpeg_encoder.c	2018-04-29 01:12:12.480759214 +0200
+@@ -207,7 +207,6 @@
+   this->context->height = frame->oheight;
+ 
+   this->context->gop_size = 0; /*intra frames only */
+-  this->context->me_method = ME_ZERO; /*motion estimation type*/
+ 
+   this->context->time_base.den = 90000;
+   if (frame->vo_frame.duration > 90000 / 24)
