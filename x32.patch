@@ -1,17 +1,7 @@
---- xine-lib-1.2.3/src/post/planar/noise.c~	2012-02-05 20:17:02.000000000 +0100
-+++ xine-lib-1.2.3/src/post/planar/noise.c	2015-03-09 19:48:57.305807701 +0100
-@@ -37,7 +37,7 @@
- #  include <libavutil/mem.h>
- #endif
- 
--#ifdef ARCH_X86_64
-+#if defined(ARCH_X86_64) && !defined(__ILP32__)
- #  define REG_a  "rax"
- #  define intarch_t int64_t
- #else
---- xine-lib-1.2.8/src/post/goom/convolve_fx.c.orig	2017-02-21 12:13:13.000000000 +0100
-+++ xine-lib-1.2.8/src/post/goom/convolve_fx.c	2017-07-10 18:13:03.046198557 +0200
-@@ -152,7 +152,7 @@
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/src/post/goom/convolve_fx.c xine-lib-1.2.8/src/post/goom/convolve_fx.c
+--- xine-lib-1.2.8.org/src/post/goom/convolve_fx.c	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/post/goom/convolve_fx.c	2022-02-14 00:14:02.757106126 +0100
+@@ -152,7 +152,7 @@ static void create_output_with_brightnes
      yprime += c;
  
  #if defined(HAVE_MMX) && !defined(__sun)
@@ -20,3 +10,15 @@
      /* 64-bit os version. */
      __asm__ __volatile__
        ("\n\t pxor  %%mm7,  %%mm7"  /* mm7 = 0   */
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/src/post/planar/noise.c xine-lib-1.2.8/src/post/planar/noise.c
+--- xine-lib-1.2.8.org/src/post/planar/noise.c	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/post/planar/noise.c	2022-02-14 00:14:02.757106126 +0100
+@@ -31,7 +31,7 @@
+ #include <math.h>
+ #include <pthread.h>
+ 
+-#ifdef ARCH_X86_64
++#if defined(ARCH_X86_64) && !defined(__ILP32__)
+ #  define REG_a  "rax"
+ #  define intarch_t int64_t
+ #else

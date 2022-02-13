@@ -1,7 +1,7 @@
-diff -r 23f700befc6c src/video_out/Makefile.am
---- a/src/video_out/Makefile.am	Sun Feb 20 23:38:32 2011 +0100
-+++ b/src/video_out/Makefile.am	Wed Mar 16 14:17:05 2011 +0100
-@@ -40,6 +40,9 @@
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/src/video_out/Makefile.am xine-lib-1.2.8/src/video_out/Makefile.am
+--- xine-lib-1.2.8.org/src/video_out/Makefile.am	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/video_out/Makefile.am	2022-02-14 00:14:01.953771680 +0100
+@@ -48,6 +48,9 @@ endif
  
  if ENABLE_VDPAU
  vdpau_module = xineplug_vo_out_vdpau.la
@@ -10,9 +10,10 @@ diff -r 23f700befc6c src/video_out/Makefile.am
 +xine_include_HEADERS = video_out_vdpau.h
  endif
  
- if ENABLE_XCB
---- xine-lib-1.2.8/src/video_out/video_out_vdpau.c.orig	2017-02-21 12:13:13.000000000 +0100
-+++ xine-lib-1.2.8/src/video_out/video_out_vdpau.c	2017-07-08 07:46:55.935788912 +0200
+ if ENABLE_VAAPI
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/src/video_out/video_out_vdpau.c xine-lib-1.2.8/src/video_out/video_out_vdpau.c
+--- xine-lib-1.2.8.org/src/video_out/video_out_vdpau.c	2017-02-21 12:13:13.000000000 +0100
++++ xine-lib-1.2.8/src/video_out/video_out_vdpau.c	2022-02-14 00:14:01.953771680 +0100
 @@ -51,6 +51,7 @@
  #include <vdpau/vdpau_x11.h>
  #include "accel_vdpau.h"
@@ -21,7 +22,7 @@ diff -r 23f700befc6c src/video_out/Makefile.am
  
  
  #define NUM_FRAMES_BACK 1
-@@ -2637,6 +2638,7 @@
+@@ -2637,6 +2638,7 @@ static vo_driver_t *vdpau_open_plugin (v
  {
    vdpau_class_t       *class   = (vdpau_class_t *) class_gen;
    x11_visual_t        *visual  = (x11_visual_t *) visual_gen;
@@ -29,7 +30,7 @@ diff -r 23f700befc6c src/video_out/Makefile.am
    vdpau_driver_t      *this;
    config_values_t      *config  = class->xine->config;
    int i;
-@@ -2713,15 +2715,22 @@
+@@ -2713,15 +2715,22 @@ static vo_driver_t *vdpau_open_plugin (v
    this->ovl_src_rect.x0 = 0;
    this->ovl_src_rect.y0 = 0;
  
@@ -61,7 +62,7 @@ diff -r 23f700befc6c src/video_out/Makefile.am
    }
    st = vdp_get_proc_address( vdp_device, VDP_FUNC_ID_GET_ERROR_STRING , (void*)&vdp_get_error_string );
    if ( vdpau_init_error( st, "Can't get GET_ERROR_STRING proc address !!", &this->vo_driver, 0 ) )
-@@ -2929,6 +2938,22 @@
+@@ -2929,6 +2938,22 @@ static vo_driver_t *vdpau_open_plugin (v
    if ( vdpau_init_error( st, "Can't get PREEMPTION_CALLBACK_REGISTER proc address !!", &this->vo_driver, 1 ) )
      return NULL;
  
@@ -84,9 +85,9 @@ diff -r 23f700befc6c src/video_out/Makefile.am
    st = vdp_preemption_callback_register(vdp_device, &vdp_preemption_callback, (void*)this);
    if ( vdpau_init_error( st, "Can't register preemption callback !!", &this->vo_driver, 1 ) )
      return NULL;
-diff -r 23f700befc6c src/video_out/video_out_vdpau.h
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/src/video_out/video_out_vdpau.h	Wed Mar 16 14:17:05 2011 +0100
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/src/video_out/video_out_vdpau.h xine-lib-1.2.8/src/video_out/video_out_vdpau.h
+--- xine-lib-1.2.8.org/src/video_out/video_out_vdpau.h	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.8/src/video_out/video_out_vdpau.h	2022-02-14 00:14:01.953771680 +0100
 @@ -0,0 +1,58 @@
 +/*
 + * kate: space-indent on; indent-width 2; mixedindent off; indent-mode cstyle; remove-trailing-space on;

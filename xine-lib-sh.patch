@@ -1,6 +1,7 @@
---- xine-lib-1.1.16.3/configure.ac.orig	2009-05-02 00:04:29.569438975 +0000
-+++ xine-lib-1.1.16.3/configure.ac	2009-05-02 00:06:52.962751969 +0000
-@@ -982,9 +982,9 @@
+diff -urNp -x '*.orig' xine-lib-1.2.8.org/configure.ac xine-lib-1.2.8/configure.ac
+--- xine-lib-1.2.8.org/configure.ac	2022-02-14 00:14:00.030435681 +0100
++++ xine-lib-1.2.8/configure.ac	2022-02-14 00:14:00.377102828 +0100
+@@ -1000,9 +1000,9 @@ t q
  b
  :q
  q"
@@ -11,9 +12,9 @@
 +x_lib_location=$(ls -1 "${x_libraries:-/usr/local/lib}/libXv.$acl_cv_shlibext"*  "${x_libraries:-/usr/lib}/libXv.$acl_cv_shlibext"*  2>/dev/null | sed -e \"${soname_script}\")
  AC_DEFINE_UNQUOTED([LIBXV_SO],  "${x_lib_location:-libXv.$acl_cv_shlibext}",  [The soname of libXv, needed for dlopen()])
  
- dnl _FILE_OFFSET_BITS   (AC_SYS_LARGEFILE; ac_cv_sys_file_offset_bits)
-@@ -2512,7 +2512,7 @@
- 
+ dnl Does X11 need XLockDisplay () to prevent deadlocks?
+@@ -1245,7 +1245,7 @@ OBJCFLAGS="$UNIVERSAL_CFLAGS $miscflags
+ dnl Some informations about xine-lib compilation for xine-config
  XINE_BUILD_CC="`$CC -v 2>&1 | tail -1 2>/dev/null`"
  XINE_BUILD_OS="`uname -s -r -m`"
 -XINE_BUILD_DATE="`date "+%a %d %b %Y %T"`"
