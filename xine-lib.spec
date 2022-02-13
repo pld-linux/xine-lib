@@ -9,7 +9,7 @@
 # Conditional build:
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
-%bcond_without	caca		# don't build libcaca video output plugin
+%bcond_with	caca		# don't build libcaca video output plugin
 %bcond_without	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
@@ -41,7 +41,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.8
-Release:	18
+Release:	19
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
@@ -987,6 +987,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %endif
 	--enable-a52dec \
 	%{!?with_aalib:--disable-aalib} \
+	%{!?with_caca:--without-caca} \
 	%{?with_directfb:--enable-directfb} \
 	--enable-dts \
 	%{!?with_dxr3:--disable-dxr3} \
