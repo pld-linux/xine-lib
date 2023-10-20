@@ -10,7 +10,7 @@
 %bcond_without	aalib		# don't build aalib video output plugin
 %bcond_without	alsa		# don't build ALSA audio output plugin
 %bcond_with	caca		# don't build libcaca video output plugin
-%bcond_without	directfb	# don't build DirectFB video output plugin
+%bcond_with	directfb	# don't build DirectFB video output plugin
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
 %bcond_with	esd		# build EsounD audio output plugin
