@@ -51,6 +51,7 @@ Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
 Patch3:		ffmpeg6.patch
+Patch4:		binutils-2.39.patch
 URL:		https://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
@@ -963,6 +964,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__gettextize}
@@ -1177,7 +1179,6 @@ rm -rf $RPM_BUILD_ROOT
 %ifarch %{ix86}
 %files -n xine-decode-w32dll
 %defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_qt.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_w32dll.so
 %endif
 
@@ -1269,9 +1270,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with dxr3}
 %files -n xine-output-video-dxr3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dxr3_spu.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dxr3_video.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_dxr3.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_dxr3.so
 %endif
 
 %if %{with caca}
