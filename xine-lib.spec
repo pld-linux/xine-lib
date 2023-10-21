@@ -94,6 +94,7 @@ BuildRequires:	libtool >= 0:1.4.2-9
 BuildRequires:	libv4l-devel
 BuildRequires:	libva-devel
 BuildRequires:	libva-glx-devel
+BuildRequires:	libva-wayland-devel
 BuildRequires:	libva-x11-devel
 BuildRequires:	libvdpau-devel
 BuildRequires:	libvorbis-devel
