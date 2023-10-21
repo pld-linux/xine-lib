@@ -40,24 +40,18 @@ Summary(ko.UTF-8):	공개 동영상 플레이어
 Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
-Version:	1.2.8
-Release:	22
+Version:	1.2.13
+Release:	1
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/xine/%{name}-%{version}.tar.xz
-# Source0-md5:	427cc4568632eea725d5169a4a50ff22
+Source0:	https://downloads.sourceforge.net/xine/%{name}-%{version}.tar.xz
+# Source0-md5:	9e1be39857b7a3cd7cc0f2b96331ff22
 Patch0:		%{name}-nolibs.patch
 Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
-Patch3:		%{name}-ac.patch
-# from DirectFB 1.7.0
-Patch4:		%{name}-vdpau-hooks.patch
-Patch5:		x32.patch
-Patch6:		ffmpeg4.patch
-Patch8:		imagemagick7.patch
-Patch9:		extern.patch
-URL:		http://xine.sourceforge.net/
+Patch3:		ffmpeg6.patch
+URL:		https://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
 BuildRequires:	ImageMagick-devel >= 1:6.0.0
@@ -131,7 +125,7 @@ Obsoletes:	xine-output-video-syncfb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # based on libtool numbers
-%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.6
+%define		xine_pluginsdir	%{_libdir}/xine/plugins/2.11
 
 %define		specflags	-fomit-frame-pointer
 
@@ -968,11 +962,6 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 %{__gettextize}
@@ -1057,13 +1046,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # input plugins
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_cdda.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_crypto.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_dvb.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_http.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_mms.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_net.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_pnm.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_network.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_nfs.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtp.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtsp.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_ssh.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
@@ -1079,23 +1068,38 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_video.so
 
 # decoder plugins
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dav1d.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_gsm610.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libaom.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libpng.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_rawvideo.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_real.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucc.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spucmml.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spuhdmv.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spudvb.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_spuhdmv.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_to_spdif.so
+
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_va_display_drm.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_va_display_glx.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_va_display_wl.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_va_display_x11.so
 
 # output plugins
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_gl_egl_wl.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_gl_egl_x11.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_gl_glx.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vo_out_raw.so
 
 # ?
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_hw_frame_vaapi.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_nsf.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_sputext.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_gnutls.so
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_openssl.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vdr.so
 
 %files devel
