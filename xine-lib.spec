@@ -14,7 +14,7 @@
 %bcond_without	dxr3		# don't build dxr3 video output and decode plugins
 %bcond_without	dvd		# don't build dvdnav stuff
 %bcond_with	esd		# build EsounD audio output plugin
-%bcond_without	fusionsound	# don't build FusionSound audio output plugin
+%bcond_with	fusionsound	# don't build FusionSound audio output plugin
 %bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
 %bcond_without	gnome		# don't build gnome_vfs input plugin
 %bcond_without	opengl		# don't build OpenGL video output plugin
@@ -41,7 +41,7 @@ Summary(pl.UTF-8):	Odtwarzacz filmów
 Summary(pt_BR.UTF-8):	Xine, um player de video
 Name:		xine-lib
 Version:	1.2.13
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL v2+
 Group:		Libraries
