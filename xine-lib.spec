@@ -89,6 +89,7 @@ BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdread-devel}
 BuildRequires:	libdts-devel >= 0.0.5
 %{?with_dxr3:BuildRequires:	libfame-devel >= 0.8.10}
+BuildRequires:	libgcrypt-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libmng-devel
@@ -135,9 +136,6 @@ BuildRequires:	zlib-devel
 BuildConflicts:	xine-lib-devel < 1.0
 Requires:	libxdg-basedir >= 1
 Requires:	xorg-lib-libX11 >= 1.5
-# XXX: subpackages
-Requires:	dav1d >= 0.3.1
-Requires:	gnutls >= 2.8.6
 Obsoletes:	xine < 1
 Obsoletes:	xine-libs
 Obsoletes:	xine-decode-xvid < 2:1.2.1
@@ -227,6 +225,19 @@ XINE - A52 audio decoder plugin.
 %description -n xine-decode-a52 -l pl.UTF-8
 XINE - wtyczka dekodera dźwięku A52.
 
+%package -n xine-decode-dav1d
+Summary:	XINE - AV1 video decoder plugin using dav1d library
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazu AV1 wykorzystująca bibliotekę dav1d
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	libdts >= 0.0.5
+
+%description -n xine-decode-dav1d
+XINE - AV1 video decoder plugin using dav1d library.
+
+%description -n xine-decode-dav1d -l pl.UTF-8
+XINE - wtyczka dekodera obrazu AV1 wykorzystująca bibliotekę dav1d.
+
 %package -n xine-decode-dts
 Summary:	XINE - DTS audio decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera dźwięku DTS
@@ -300,6 +311,18 @@ XINE - ImageMagick based image decoder plugin.
 %description -n xine-decode-image -l pl.UTF-8
 XINE - wtyczka dekodera obrazów opartego na ImageMagick.
 
+%package -n xine-decode-libaom
+Summary:	XINE - AV1 video decoder plugin using AOM library
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazu AV1 wykorzystująca bibliotekę AOM
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-libaom
+XINE - AV1 video decoder plugin using AOM library.
+
+%description -n xine-decode-libaom -l pl.UTF-8
+XINE - wtyczka dekodera obrazu AV1 wykorzystująca bibliotekę AOM.
+
 %package -n xine-decode-libjpeg
 Summary:	XINE - libjpeg based JPEG image decoder plugin
 Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg
@@ -311,6 +334,18 @@ XINE - libjpeg based JPEG image decoder plugin.
 
 %description -n xine-decode-libjpeg -l pl.UTF-8
 XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg.
+
+%package -n xine-decode-libpng
+Summary:	XINE - libpng based PNG image decoder plugin
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazów PNG opartego na libpng
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-libpng
+XINE - libpng based PNG image decoder plugin.
+
+%description -n xine-decode-libpng -l pl.UTF-8
+XINE - wtyczka dekodera obrazów PNG opartego na libpng.
 
 %package -n xine-decode-libvpx
 Summary:	XINE - WebM (VP8/VP9) video decoder
@@ -435,6 +470,19 @@ XINE input plugin for BluRay.
 %description -n xine-input-bluray -l pl.UTF-8
 Wtyczka wejściowa XINE dla BluRay.
 
+%package -n xine-input-crypto
+Summary:	XINE input plugin for transparent decryption of input data
+Summary(pl.UTF-8):	Wtyczka wejściowa XINE do przezroczystego odszyfrowywania danych wejściowych
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-crypto
+XINE input plugin for transparent decryption of input data.
+
+%description -n xine-input-crypto -l pl.UTF-8
+Wtyczka wejściowa XINE do przezroczystego odszyfrowywania danych
+wejściowych.
+
 %package -n xine-input-dvd
 Summary:	XINE input plugin for DVD
 Summary(pl.UTF-8):	Wtyczka wejściowa XINE dla DVD
@@ -461,6 +509,18 @@ GNOME VFS input driver for xine.
 %description -n xine-input-gnome-vfs -l pl.UTF-8
 Sterownik wejścia GNOME VFS dla xine.
 
+%package -n xine-input-nfs
+Summary:	NFS input driver for xine
+Summary(pl.UTF-8):	Sterownik wejścia NFS dla xine
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-nfs
+NFS input driver for xine.
+
+%description -n xine-input-nfs -l pl.UTF-8
+Sterownik wejścia NFS dla xine.
+
 %package -n xine-input-smb
 Summary:	SMB input driver for xine
 Summary(pl.UTF-8):	Sterownik wejścia SMB dla xine
@@ -472,6 +532,43 @@ SMB input driver for xine.
 
 %description -n xine-input-smb -l pl.UTF-8
 Sterownik wejścia SMB dla xine.
+
+%package -n xine-input-ssh
+Summary:	SFTP/SCP input driver for xine using libssh library
+Summary(pl.UTF-8):	Sterownik wejścia SFTP/SCP dla xine wykorzystujący bibliotekę libssh
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-ssh
+SFTP/SCP input driver for xine using libssh library.
+
+%description -n xine-input-ssh -l pl.UTF-8
+Sterownik wejścia SFTP/SCP dla xine wykorzystujący bibliotekę libssh.
+
+%package -n xine-input-tls-gnutls
+Summary:	TLS input driver for xine using gnutls library
+Summary(pl.UTF-8):	Sterownik wejścia TLS dla xine wykorzystujący bibliotekę gnutls
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	gnutls >= 2.8.6
+
+%description -n xine-input-tls-gnutls
+TLS input driver for xine using gnutls library.
+
+%description -n xine-input-tls-gnutls -l pl.UTF-8
+Sterownik wejścia TLS dla xine wykorzystujący bibliotekę gnutls.
+
+%package -n xine-input-tls-openssl
+Summary:	TLS input driver for xine using openssl library
+Summary(pl.UTF-8):	Sterownik wejścia TLS dla xine wykorzystujący bibliotekę openssl
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-input-tls-openssl
+TLS input driver for xine using openssl library.
+
+%description -n xine-input-tls-openssl -l pl.UTF-8
+Sterownik wejścia TLS dla xine wykorzystujący bibliotekę openssl.
 
 %package -n xine-input-v4l
 Summary:	Video4Linux input driver for xine
@@ -1068,13 +1165,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # input plugins
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_cdda.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_crypto.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_dvb.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_mms.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_network.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_nfs.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_rtp.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_ssh.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_vcdo.so
 
 # demuxer plugins
@@ -1090,11 +1184,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_dmx_video.so
 
 # decoder plugins
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dav1d.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dvaudio.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_gsm610.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libaom.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libpng.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_lpcm.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_mpeg2.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_rawvideo.so
@@ -1120,8 +1211,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_hw_frame_vaapi.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_nsf.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_sputext.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_gnutls.so
-%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_openssl.so
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_vdr.so
 
 %files devel
@@ -1140,6 +1229,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-a52
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_a52.so
+
+%files -n xine-decode-dav1d
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_dav1d.so
 
 %files -n xine-decode-dts
 %defattr(644,root,root,755)
@@ -1167,9 +1260,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_image.so
 
+%files -n xine-decode-libaom
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libaom.so
+
 %files -n xine-decode-libjpeg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libjpeg.so
+
+%files -n xine-decode-libpng
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libpng.so
 
 %files -n xine-decode-libvpx
 %defattr(644,root,root,755)
@@ -1211,6 +1312,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_bluray.so
 
+%files -n xine-input-crypto
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_crypto.so
+
 %if %{with dvd}
 %files -n xine-input-dvd
 %defattr(644,root,root,755)
@@ -1223,6 +1328,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_gnome_vfs.so
 %endif
+
+%files -n xine-input-nfs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_nfs.so
 
 %if %{with smb}
 %files -n xine-input-smb
@@ -1237,6 +1346,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_v4l.so
 %endif
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_v4l2.so
+
+%files -n xine-input-ssh
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_inp_ssh.so
+
+%files -n xine-input-tls-gnutls
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_gnutls.so
+
+%files -n xine-input-tls-openssl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_tls_openssl.so
 
 %files -n xine-input-vcd
 %defattr(644,root,root,755)
