@@ -1,4 +1,6 @@
-# TODO: openhevc?
+# TODO:
+# - openhevc?
+# - --with-freetype, --with-fontconfig
 #
 # Workaround for xine-lib.spec - libstk.spec updating:
 #	1. make-request -r --without stk xine-lib
@@ -7,24 +9,24 @@
 #	4. make-request -r xine-lib
 #
 # Conditional build:
-%bcond_without	aalib		# don't build aalib video output plugin
-%bcond_without	alsa		# don't build ALSA audio output plugin
-%bcond_with	caca		# don't build libcaca video output plugin
-%bcond_with	directfb	# don't build DirectFB video output plugin
-%bcond_without	dxr3		# don't build dxr3 video output and decode plugins
-%bcond_without	dvd		# don't build dvdnav stuff
-%bcond_with	esd		# build EsounD audio output plugin
-%bcond_with	fusionsound	# don't build FusionSound audio output plugin
-%bcond_without	gdkpixbuf	# don't build gdk-pixbuf decode plugin
-%bcond_without	gnome		# don't build gnome_vfs input plugin
-%bcond_without	opengl		# don't build OpenGL video output plugin
-%bcond_without	pulseaudio	# don't build pulseaudio output plugin
-%bcond_without	smb		# don't build SMB input plugin
-%bcond_without	sdl		# don't build SDL video output plugin
-%bcond_with	stk		# don't build stk video output plugin
-%bcond_without	wavpack		# don't build wavpack decode plugin
+%bcond_without	aalib		# aalib video output plugin
+%bcond_without	alsa		# ALSA audio output plugin
+%bcond_with	caca		# libcaca video output plugin
+%bcond_with	directfb	# DirectFB video output plugin
+%bcond_without	dxr3		# dxr3 video output and decode plugins
+%bcond_without	dvd		# dvdnav stuff
+%bcond_with	esd		# EsounD audio output plugin
+%bcond_with	fusionsound	# FusionSound audio output plugin
+%bcond_without	gdkpixbuf	# gdk-pixbuf decode plugin
+%bcond_without	gnome		# gnome_vfs input plugin
+%bcond_without	opengl		# OpenGL video output plugin
+%bcond_without	pulseaudio	# pulseaudio output plugin
+%bcond_without	smb		# SMB input plugin
+%bcond_without	sdl		# SDL video output plugin
+%bcond_with	stk		# stk video output plugin
+%bcond_without	wavpack		# wavpack decode plugin
 %bcond_with	v4l1		# Video4Linux 1 input plugin (obsolete in current Linux)
-%bcond_without	vis		# build without vis sparc extensions - with vis breaks compatibility
+%bcond_without	vis		# vis sparc extensions - with vis breaks compatibility
 				# with v7 processors and enables vis optimization for sparc64 arch.
 				# without vis is currently broken it fails on ffmpeg
 #
@@ -54,27 +56,34 @@ Patch3:		ffmpeg6.patch
 Patch4:		binutils-2.39.patch
 URL:		https://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
+# for OpenGL or wayland
+BuildRequires:	EGL-devel
 %{?with_fusionsound:BuildRequires:	FusionSound-devel >= 0.9.23}
+# or GraphicsMagick
 BuildRequires:	ImageMagick-devel >= 1:6.0.0
 %{?with_opengl:BuildRequires:	OpenGL-devel >= 2.0}
 %{?with_opengl:BuildRequires:	OpenGL-GLU-devel}
+%{?with_opengl:BuildRequires:	OpenGL-GLX-devel}
 %{?with_sdl:BuildRequires:	SDL-devel >= 1.2.11}
 BuildRequires:	a52dec-libs-devel
 %{?with_aalib:BuildRequires:	aalib-devel >= 1.4}
 %{?with_alsa:BuildRequires:	alsa-lib-devel >= 0.9.0}
+BuildRequires:	aom-devel >= 1.0
 BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.8.1
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	dav1d-devel >= 0.3.1
 %{?with_esd:BuildRequires:	esound-devel >= 0.2.8}
 BuildRequires:	faad2-devel
-# libavcodec >= 51.68.0, libavutil >= 49.6.0, libpostproc >= 51.2.0
+# libavcodec >= 51.68.0, libavformat >= 53.21.1, libavutil >= 49.6.0, libpostproc >= 51.2.0
 BuildRequires:	ffmpeg-devel >= 3.0
 BuildRequires:	flac-devel
-BuildRequires:	gettext-tools >= 0.17
-%{?with_gnome:BuildRequires:	gnome-vfs2-devel}
 %{?with_gdkpixbuf:BuildRequires:	gdk-pixbuf2-devel >= 2.0}
+BuildRequires:	gettext-tools >= 0.18.3
+%{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.0}
+BuildRequires:	gnutls-devel >= 2.8.6
 BuildRequires:	jack-audio-connection-kit-devel >= 0.100
 BuildRequires:	libbluray-devel >= 0.2.1
-%{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta14}
+%{?with_caca:BuildRequires:	libcaca-devel >= 0.99-0.beta19}
 BuildRequires:	libcdio-devel >= 0.72
 %{?with_dvd:BuildRequires:	libdvdnav-devel >= 0.1.9}
 %{?with_dvd:BuildRequires:	libdvdread-devel}
@@ -85,23 +94,28 @@ BuildRequires:	libmad-devel
 BuildRequires:	libmng-devel
 BuildRequires:	libmodplug-devel >= 0.7
 BuildRequires:	libmpcdec-devel
+BuildRequires:	libnfs-devel
 BuildRequires:	libpng-devel
-# for rsvg tool
+# for rsvg-convert or rsvg tool
 BuildRequires:	librsvg
 %{?with_smb:BuildRequires:	libsmbclient-devel}
+BuildRequires:	libssh2-devel
 %{?with_stk:BuildRequires:	libstk-devel >= 0.2.0}
 BuildRequires:	libtheora-devel
-BuildRequires:	libtool >= 0:1.4.2-9
+BuildRequires:	libtool >= 2:2
 BuildRequires:	libv4l-devel
 BuildRequires:	libva-devel
+BuildRequires:	libva-drm-devel
 BuildRequires:	libva-glx-devel
 BuildRequires:	libva-wayland-devel
 BuildRequires:	libva-x11-devel
 BuildRequires:	libvdpau-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libvpx-devel >= 1.3.0
-BuildRequires:	libxcb-devel >= 1.0
+# xcb >= 1.9, xcb-shape >= 1.0, xcb-shm, xcb-xv
+BuildRequires:	libxcb-devel >= 1.9
 BuildRequires:	libxdg-basedir-devel >= 1
+BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	optipng
 BuildRequires:	pkgconfig
 %{?with_pulseaudio:BuildRequires:	pulseaudio-devel >= 0.9.7}
@@ -109,8 +123,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	speex-devel >= 1:1.1.6
 BuildRequires:	vcdimager-devel >= 0.7.23
 %{?with_wavpack:BuildRequires:	wavpack-devel >= 4.40}
+BuildRequires:	wayland-egl-devel
 BuildRequires:	xmlto
-BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libX11-devel >= 1.5
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXv-devel
@@ -119,6 +134,10 @@ BuildRequires:	zlib-devel
 # libtool problem (up to 1.4e)
 BuildConflicts:	xine-lib-devel < 1.0
 Requires:	libxdg-basedir >= 1
+Requires:	xorg-lib-libX11 >= 1.5
+# XXX: subpackages
+Requires:	dav1d >= 0.3.1
+Requires:	gnutls >= 2.8.6
 Obsoletes:	xine < 1
 Obsoletes:	xine-libs
 Obsoletes:	xine-decode-xvid < 2:1.2.1
@@ -639,7 +658,7 @@ Summary:	XINE - Color AsCii Art support
 Summary(pl.UTF-8):	XINE - obsługa Color AsCii Art
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	libcaca >= 0.99-0.beta14
+Requires:	libcaca >= 0.99-0.beta19
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 
 %description -n xine-output-video-caca
@@ -890,7 +909,7 @@ Summary:	XINE - XCB support
 Summary(pl.UTF-8):	XINE - obsługa XCB
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	libxcb >= 1.0
+Requires:	libxcb >= 1.9
 Provides:	xine-plugin-video = %{epoch}:%{version}-%{release}
 Obsoletes:	xine-lib-xshm < 1.0b11
 
