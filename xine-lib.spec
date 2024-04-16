@@ -20,6 +20,7 @@
 %bcond_without	gdkpixbuf	# gdk-pixbuf decode plugin
 %bcond_without	gnome		# gnome_vfs input plugin
 %bcond_without	opengl		# OpenGL video output plugin
+%bcond_with	openhevc	# openHEVC decode plugin
 %bcond_without	pulseaudio	# pulseaudio output plugin
 %bcond_without	smb		# SMB input plugin
 %bcond_without	sdl		# SDL video output plugin
@@ -116,6 +117,7 @@ BuildRequires:	libvpx-devel >= 1.3.0
 # xcb >= 1.9, xcb-shape >= 1.0, xcb-shm, xcb-xv
 BuildRequires:	libxcb-devel >= 1.9
 BuildRequires:	libxdg-basedir-devel >= 1
+%{?with_openhevc:BuildRequires:	openHEVC-devel}
 BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	optipng
 BuildRequires:	pkgconfig
@@ -334,6 +336,19 @@ XINE - libjpeg based JPEG image decoder plugin.
 
 %description -n xine-decode-libjpeg -l pl.UTF-8
 XINE - wtyczka dekodera obrazów JPEG opartego na libjpeg.
+
+%package -n xine-decode-libopenhevc
+Summary:	XINE - HEVC video decoder plugin using openHEVC library
+Summary(pl.UTF-8):	XINE - wtyczka dekodera obrazu HEVC wykorzystująca bibliotekę openHEVC
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n xine-decode-libopenhevc
+XINE - HEVC video decoder plugin using openHEVC library.
+
+%description -n xine-decode-libopenhevc -l pl.UTF-8
+XINE - wtyczka dekodera obrazu HEVC wykorzystująca bibliotekę
+openHEVC.
 
 %package -n xine-decode-libpng
 Summary:	XINE - libpng based PNG image decoder plugin
@@ -1113,6 +1128,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 	%{?with_fusionsound:--with-fusionsound} \
 	--with-libflac \
 	%{?with_stk:--with-libstk} \
+	%{!?with_openhevc:--without-openhevc} \
 	%{!?with_pulseaudio:--without-pulseaudio} \
 	--with-real-codecs-path=%{_libdir}/codecs \
 	--with-speex \
@@ -1267,6 +1283,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xine-decode-libjpeg
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libjpeg.so
+
+%if %{with openhevc}
+%files -n xine-decode-libopenhevc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{xine_pluginsdir}/xineplug_decode_libopenhevc.so
+%endif
 
 %files -n xine-decode-libpng
 %defattr(644,root,root,755)
