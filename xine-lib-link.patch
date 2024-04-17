@@ -1,0 +1,11 @@
+--- xine-lib-1.2.13/m4/decoders.m4.orig	2024-04-17 21:38:29.675591105 +0200
++++ xine-lib-1.2.13/m4/decoders.m4	2024-04-17 21:38:32.962239966 +0200
+@@ -687,7 +687,7 @@ a52_init ();
+     AC_ARG_WITH([openhevc], [AS_HELP_STRING([--with-openhevc], [Enable libOpenHevc HEVC decoder support (default: enabled)])],
+         [], [with_openhevc="try"])
+     if test x"$with_openhevc" != x"no"; then
+-        AC_CHECK_LIB([LibOpenHevcWrapper], [libOpenHevcInit], [], [test x"$with_openhevc" = x"yes" && with_openhevc=fail])
++        AC_CHECK_LIB([LibOpenHevcWrapper], [libOpenHevcInit], [:], [test x"$with_openhevc" = x"yes" && with_openhevc=fail])
+         if test x"$with_openhevc" = x"fail" ; then
+             AC_MSG_ERROR([openhevc support requested, but LibOpenHevcWrapper not found])
+         else

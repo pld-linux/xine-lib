@@ -55,6 +55,7 @@ Patch1:		%{name}-win32-path.patch
 Patch2:		%{name}-sh.patch
 Patch3:		ffmpeg6.patch
 Patch4:		binutils-2.39.patch
+Patch5:		%{name}-link.patch
 URL:		https://xine.sourceforge.net/
 %{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.22}
 # for OpenGL or wayland
@@ -1096,6 +1097,7 @@ XINE - wtyczka postprocessingu oparta na libpostproc z pakietu FFmpeg.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__gettextize}
