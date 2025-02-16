@@ -1,0 +1,26 @@
+--- xine-lib-1.2.13/m4/video_out.m4.orig	2022-01-25 00:39:17.000000000 +0100
++++ xine-lib-1.2.13/m4/video_out.m4	2025-02-16 16:53:16.006846468 +0100
+@@ -496,9 +496,9 @@
+             AC_MSG_CHECKING([whether to enable the xxmc plugin with VLD extensions])
+             AC_MSG_RESULT([])
+             LIBS="$XXMC_LIBS $X_LIBS $XV_LIBS $LIBS"
+-            AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[XvMCPutSlice()]])], [have_xxmc=yes],
++            AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <X11/extensions/vldXvMC.h>]], [[XvMCPutSlice()]])], [have_xxmc=yes],
+                            [LIBS="$XXMC_LIBS -lXvMC $X_LIBS $XV_LIBS $LIBS $DYNAMIC_LD_LIBS"
+-                            AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[XvMCPutSlice()]])],
++                            AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <X11/extensions/vldXvMC.h>]], [[XvMCPutSlice()]])],
+                                            [have_xxmc=yes XXMC_LIBS="$XXMC_LIBS -lXvMC"])])
+             if test x"$have_xxmc" = x"yes"; then
+                 AC_CHECK_HEADERS([X11/extensions/vldXvMC.h],
+@@ -506,9 +506,9 @@
+                                   AC_DEFINE([HAVE_VLDXVMC], 1, [Define if you have vldXvMC.h])],
+                                   [have_vldexts=no])
+             else
+-                AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[XvMCCreateContext()]])], [have_xxmc=yes],
++                AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <X11/extensions/XvMClib.h>]], [[XvMCCreateContext()]])], [have_xxmc=yes],
+                                [LIBS="$XXMC_LIBS -lXvMC $X_LIBS $XV_LIBS $LIBS"
+-                                AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[XvMCCreateContext()]])],
++                                AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <X11/extensions/XvMClib.h>]], [[XvMCCreateContext()]])],
+                                                [have_xxmc=yes XXMC_LIBS="$XXMC_LIBS -lXvMC"])])
+             fi
+             if test x"$have_xxmc" = x"yes"; then
