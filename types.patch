@@ -1,0 +1,22 @@
+--- xine-lib-1.2.13/src/input/input_file.c.orig	2023-01-25 17:03:17.000000000 +0100
++++ xine-lib-1.2.13/src/input/input_file.c	2025-11-26 23:16:28.182506401 +0100
+@@ -735,7 +735,7 @@
+   int                   num_dir_files   = 0;
+   int                   num_norm_files  = 0;
+   int                   num_files       = -1;
+-  int                 (*func) ()        = file_input_sortfiles_default;
++  int                 (*func) (const void*, const void*)        = (int (*)(const void*, const void*))file_input_sortfiles_default;
+   int                   already_tried   = 0;
+   int                   show_hidden_files;
+ 
+--- xine-lib-1.2.13/src/input/input_smb.c.orig	2020-06-29 23:11:48.000000000 +0200
++++ xine-lib-1.2.13/src/input/input_smb.c	2025-11-26 23:18:26.306548981 +0100
+@@ -240,7 +240,7 @@
+           const char *filename, int *nFiles) {
+ 
+ 	smb_input_class_t   *this = (smb_input_class_t *) this_gen;
+-	int                 (*func) ()        = _sortfiles_default;
++	int                 (*func) (const void*,const void*)        = (int (*)(const void*, const void*))_sortfiles_default;
+ 	int        dir;
+ 	int i;
+ 	struct smbc_dirent  *pdirent;
