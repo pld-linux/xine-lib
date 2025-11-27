@@ -20,3 +20,36 @@
  	int        dir;
  	int i;
  	struct smbc_dirent  *pdirent;
+--- xine-lib-1.2.13/src/libw32dll/wine/afl.c.orig	2018-07-28 17:54:05.000000000 +0200
++++ xine-lib-1.2.13/src/libw32dll/wine/afl.c	2025-11-27 01:40:25.124913543 +0100
+@@ -233,7 +233,7 @@
+ 	return MMSYSERR_ERROR;
+     }
+     
+-    pad->pfnDriverProc = GetProcAddress(pad->hDrvr, "DriverProc");
++    pad->pfnDriverProc = (DRIVERPROC) GetProcAddress(pad->hDrvr, "DriverProc");
+ 
+     /* insert new pad at beg of list */
+     pad->pNextACMDriver = padid->pACMDriverList;
+--- xine-lib-1.2.13/src/libw32dll/wine/win32.c.orig	2019-12-23 16:59:49.000000000 +0100
++++ xine-lib-1.2.13/src/libw32dll/wine/win32.c	2025-11-27 01:49:04.101198249 +0100
+@@ -2516,8 +2516,8 @@
+     return 0;
+ }
+ 
+-static int WINAPI expEnumDisplayMonitors(void *dc, RECT *r, 
+-    int WINAPI (*callback_proc)(), void *callback_param)
++static int WINAPI expEnumDisplayMonitors(HDC dc, LPCRECT r, 
++    MONITORENUMPROC callback_proc, LPARAM callback_param)
+ {
+     dbgprintf("EnumDisplayMonitors(%p, %p, %p, %p) => ?\n",
+ 	dc, r, callback_proc, callback_param);
+@@ -2617,7 +2617,7 @@
+     return 0;
+ }
+ 
+-static int WINAPI expEnumWindows(int (*callback_func)(), void *callback_param)
++static int WINAPI expEnumWindows(WNDENUMPROC callback_func, LPARAM callback_param)
+ {
+     int i, i2;
+     dbgprintf("EnumWindows(%p, %p) => 1\n", callback_func, callback_param);
